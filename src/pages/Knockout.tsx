@@ -7,7 +7,6 @@ import type { KnockoutMatch, Player } from '../types';
 export default function Knockout() {
   const [knockoutMatches, setKnockoutMatches] = useState<KnockoutMatch[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
-  const [qualifiedPlayers, setQualifiedPlayers] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,15 +14,13 @@ export default function Knockout() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [knockoutData, tournamentData, qualifiedData] = await Promise.all([
+        const [knockoutData, tournamentData] = await Promise.all([
           tournamentApi.getKnockout(),
           tournamentApi.getTournament(),
-          tournamentApi.getQualifiedPlayers(),
         ]);
         
         setKnockoutMatches(knockoutData);
         setPlayers(tournamentData.players);
-        setQualifiedPlayers(qualifiedData);
       } catch (err) {
         setError('Failed to load knockout data');
         console.error('Error fetching knockout data:', err);
@@ -61,11 +58,6 @@ export default function Knockout() {
     if (!playerId) return 'TBD';
     const player = players.find(p => p.id === playerId);
     return player ? player.name : 'TBD';
-  };
-
-  // Helper function to get match by round and number
-  const getMatch = (round: string, matchNumber: number): KnockoutMatch | undefined => {
-    return knockoutMatches.find(m => m.round === round && m.matchNumber === matchNumber);
   };
 
   // Get current live match

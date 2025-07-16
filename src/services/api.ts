@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Tournament, Match, StandingsEntry, KnockoutMatch } from '../types';
+import type { Tournament, Match, StandingsEntry } from '../types';
 
 // Determine API base URL based on environment
 const API_BASE_URL = import.meta.env.PROD 
