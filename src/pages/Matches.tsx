@@ -1,0 +1,336 @@
+import { useState } from 'react';
+import { useMatchesWithPlayers } from '../hooks/useData';
+import { format } from 'date-fns';
+import { ClockIcon, FireIcon, CheckCircleIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { PlayIcon } from '@heroicons/react/24/solid';
+import clsx from 'clsx';
+
+type MatchFilter = 'all' | 'live' | 'upcoming' | 'completed';
+
+export default function Matches() {
+  const { matches, loading, error } = useMatchesWithPlayers();
+  const [filter, setFilter] = useState<MatchFilter>('all');
+
+  const filteredMatches = matches.filter(match => {
+    if (filter === 'all') return true;
+    return match.status === filter;
+  });
+
+  const statusCounts = {
+    all: matches.length,
+    live: matches.filter(m => m.status === 'live').length,
+    upcoming: matches.filter(m => m.status === 'upcoming').length,
+    completed: matches.filter(m => m.status === 'completed').length,
+  };
+
+  if (loading) {
+    return (
+      <div className="animate-fade-in">
+        <div className="text-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+          <p className="mt-4 text-dark-400">Loading matches...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-red-400">{error}</p>
+      </div>
+    );
+  }
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'live':
+        return <PlayIcon className="h-4 w-4" />;
+      case 'upcoming':
+        return <ClockIcon className="h-4 w-4" />;
+      case 'completed':
+        return <CheckCircleIcon className="h-4 w-4" />;
+      default:
+        return null;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'live':
+        return 'status-live';
+      case 'upcoming':
+        return 'status-upcoming';
+      case 'completed':
+        return 'status-completed';
+      default:
+        return 'bg-dark-600 text-dark-300';
+    }
+  };
+
+  return (
+    <div className="animate-fade-in">
+      {/* Header */}
+      <div className="mb-8 animate-slide-up">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center">
+            <ClockIcon className="h-8 w-8 text-table-green-500 mr-3 animate-float-gentle" />
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-table-green-200 to-white bg-clip-text text-transparent">
+              All Matches
+            </h1>
+          </div>
+          <div className="flex items-center space-x-2 bg-pro-dark-800/50 px-4 py-2 rounded-tournament">
+            <FunnelIcon className="h-5 w-5 text-table-green-400" />
+            <span className="text-table-green-400 text-sm font-medium">Filter:</span>
+          </div>
+        </div>
+        <p className="text-pro-dark-300 text-lg">
+          Track all tournament matches across all groups and rounds
+        </p>
+      </div>
+
+      {/* Filter Tabs */}
+      <div className="flex space-x-2 mb-8 bg-pro-dark-900 p-2 rounded-tournament shadow-tournament-lg">
+        {Object.entries(statusCounts).map(([status, count]) => (
+          <button
+            key={status}
+            onClick={() => setFilter(status as MatchFilter)}
+            className={clsx(
+              'flex-1 py-3 px-4 rounded-tournament text-sm font-semibold transition-all duration-300 relative overflow-hidden group',
+              filter === status
+                ? 'bg-gradient-to-r from-table-green-600 to-table-green-700 text-white shadow-glow-green transform scale-105'
+                : 'text-pro-dark-300 hover:text-white hover:bg-gradient-to-r hover:from-pro-dark-800 hover:to-table-green-900/50 hover:shadow-tournament border border-pro-dark-700 hover:border-table-green-600'
+            )}
+          >
+            <div className="flex items-center justify-center space-x-2">
+              <span className="capitalize font-bold">{status}</span>
+              <span className={clsx(
+                "text-xs px-2 py-1 rounded-full font-bold",
+                filter === status
+                  ? 'bg-white/20 text-white'
+                  : 'bg-pro-dark-700 text-pro-dark-300 group-hover:bg-table-green-800/50 group-hover:text-table-green-200'
+              )}>
+                {count}
+              </span>
+            </div>
+            {filter === status && (
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-champion-gold-400 to-champion-gold-500"></div>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Matches List */}
+      <div className="space-y-4">
+        {filteredMatches.length === 0 ? (
+          <div className="card p-8 text-center">
+            <ClockIcon className="h-12 w-12 mx-auto mb-4 text-dark-600" />
+            <p className="text-dark-400">No matches found for the selected filter</p>
+          </div>
+        ) : (
+          filteredMatches
+            .sort((a, b) => {
+              // Sort by status priority (live, upcoming, completed) then by time
+              const statusPriority = { live: 0, upcoming: 1, completed: 2 };
+              const aPriority = statusPriority[a.status as keyof typeof statusPriority];
+              const bPriority = statusPriority[b.status as keyof typeof statusPriority];
+              
+              if (aPriority !== bPriority) {
+                return aPriority - bPriority;
+              }
+              
+              return new Date(a.scheduledTime).getTime() - new Date(b.scheduledTime).getTime();
+            })
+            .map((match, index) => {
+              // Determine if this is a podium match (top 3 based on match importance/timing)
+              const isGoldMatch = index === 0 && match.status === 'live'; // Current live match gets gold
+              const isSilverMatch = index === 1 && (match.status === 'live' || match.status === 'upcoming');
+              const isBronzeMatch = index === 2 && (match.status === 'live' || match.status === 'upcoming');
+              
+              const getPodiumStyling = () => {
+                if (isGoldMatch) {
+                  return "border-l-4 border-champion-gold-500 bg-gradient-to-r from-champion-gold-900/20 via-pro-dark-900 to-pro-dark-900 shadow-glow-gold hover:shadow-glow-gold-intense";
+                } else if (isSilverMatch) {
+                  return "border-l-4 border-gray-400 bg-gradient-to-r from-gray-800/20 via-pro-dark-900 to-pro-dark-900 shadow-lg hover:shadow-xl";
+                } else if (isBronzeMatch) {
+                  return "border-l-4 border-amber-600 bg-gradient-to-r from-amber-900/20 via-pro-dark-900 to-pro-dark-900 shadow-lg hover:shadow-xl";
+                }
+                return "border-l-4 border-table-green-600/30 hover:border-table-green-500";
+              };
+
+              return (
+                <div 
+                  key={match.id} 
+                  className={`card-hover p-6 animate-slide-up transition-all duration-500 relative overflow-hidden ${getPodiumStyling()}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {/* Podium indicator */}
+                  {(isGoldMatch || isSilverMatch || isBronzeMatch) && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <div className={`
+                        w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold
+                        ${isGoldMatch ? 'bg-champion-gold-500 text-champion-gold-900 animate-pulse-glow' : ''}
+                        ${isSilverMatch ? 'bg-gray-400 text-gray-900' : ''}
+                        ${isBronzeMatch ? 'bg-amber-600 text-amber-900' : ''}
+                      `}>
+                        {isGoldMatch ? '1' : isSilverMatch ? '2' : '3'}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Special glow effect for gold match */}
+                  {isGoldMatch && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-champion-gold-500/5 via-transparent to-champion-gold-500/5 pointer-events-none animate-pulse-slow"></div>
+                  )}
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
+                  {/* Match Info */}
+                  <div className="lg:col-span-2">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex-1 group">
+                            <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+                              isGoldMatch ? 'text-champion-gold-200 group-hover:text-champion-gold-100' :
+                              isSilverMatch ? 'text-gray-200 group-hover:text-gray-100' :
+                              isBronzeMatch ? 'text-amber-200 group-hover:text-amber-100' :
+                              'text-white group-hover:text-table-green-300'
+                            }`}>
+                              {match.player1.name}
+                            </h3>
+                          </div>
+                          <div className="mx-8 text-center relative">
+                            {match.status === 'completed' || match.status === 'live' ? (
+                              <div className={`text-3xl font-bold score-display ${
+                                isGoldMatch ? 'drop-shadow-glow' : ''
+                              }`}>
+                                <span className={clsx(
+                                  "transition-all duration-300",
+                                  match.winnerId === match.player1Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
+                                )}>
+                                  {match.player1Score}
+                                </span>
+                                <span className="text-pro-dark-500 mx-2">-</span>
+                                <span className={clsx(
+                                  "transition-all duration-300",
+                                  match.winnerId === match.player2Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
+                                )}>
+                                  {match.player2Score}
+                                </span>
+                              </div>
+                            ) : (
+                              <div className={`text-xl font-medium animate-float-gentle ${
+                                isGoldMatch ? 'text-champion-gold-300' :
+                                isSilverMatch ? 'text-gray-300' :
+                                isBronzeMatch ? 'text-amber-300' :
+                                'text-pro-dark-500'
+                              }`}>
+                                vs
+                              </div>
+                            )}
+                            {match.status === 'live' && (
+                              <div className={`absolute -top-2 -right-2 w-3 h-3 rounded-full animate-pulse-glow ${
+                                isGoldMatch ? 'bg-champion-gold-400' : 'bg-red-500'
+                              }`}></div>
+                            )}
+                          </div>
+                          <div className="flex-1 text-right group">
+                            <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+                              isGoldMatch ? 'text-champion-gold-200 group-hover:text-champion-gold-100' :
+                              isSilverMatch ? 'text-gray-200 group-hover:text-gray-100' :
+                              isBronzeMatch ? 'text-amber-200 group-hover:text-amber-100' :
+                              'text-white group-hover:text-table-green-300'
+                            }`}>
+                              {match.player2.name}
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Match Details */}
+                  <div className="lg:col-span-1">
+                    <div className="text-center">
+                      <p className="text-sm text-pro-dark-400 mb-2">
+                        {format(new Date(match.scheduledTime), 'MMM dd, yyyy')}
+                      </p>
+                      <p className="text-lg font-semibold text-white">
+                        {format(new Date(match.scheduledTime), 'HH:mm')}
+                      </p>
+                      <p className="text-sm text-pro-dark-400 mt-1 bg-pro-dark-800 rounded-full px-3 py-1 inline-block">
+                        Round {match.round}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Status and Winner */}
+                  <div className="lg:col-span-1">
+                    <div className="text-center">
+                      <span className={clsx(getStatusColor(match.status), 'mb-3')}>
+                        {getStatusIcon(match.status)}
+                        {match.status.toUpperCase()}
+                      </span>
+                      
+                      {match.status === 'completed' && match.winnerId && (
+                        <div className="mt-3">
+                          <p className="text-sm text-dark-400 mb-1">Winner</p>
+                          <p className="font-semibold text-primary-400">
+                            {match.winnerId === match.player1.id ? match.player1.name : match.player2.name}
+                          </p>
+                        </div>
+                      )}
+
+                      {match.status === 'live' && (
+                        <div className="mt-3">
+                          <div className="flex justify-center">
+                            <span className="animate-pulse-slow h-2 w-2 bg-red-500 rounded-full"></span>
+                          </div>
+                          <p className="text-xs text-red-400 mt-1">
+                            Match in Progress
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>                </div>
+              );
+            })
+        )}
+      </div>
+
+      {/* Match Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+        <div className="card p-6 text-center">
+          <FireIcon className="h-8 w-8 text-red-500 mx-auto mb-3" />
+          <div className="text-2xl font-bold text-white mb-1">
+            {statusCounts.live}
+          </div>
+          <p className="text-dark-400">Live Matches</p>
+        </div>
+
+        <div className="card p-6 text-center">
+          <ClockIcon className="h-8 w-8 text-blue-500 mx-auto mb-3" />
+          <div className="text-2xl font-bold text-white mb-1">
+            {statusCounts.upcoming}
+          </div>
+          <p className="text-dark-400">Upcoming</p>
+        </div>
+
+        <div className="card p-6 text-center">
+          <CheckCircleIcon className="h-8 w-8 text-green-500 mx-auto mb-3" />
+          <div className="text-2xl font-bold text-white mb-1">
+            {statusCounts.completed}
+          </div>
+          <p className="text-dark-400">Completed</p>
+        </div>
+
+        <div className="card p-6 text-center">
+          <div className="text-2xl font-bold text-primary-500 mb-1">
+            {Math.round((statusCounts.completed / statusCounts.all) * 100)}%
+          </div>
+          <p className="text-dark-400">Progress</p>
+        </div>
+      </div>
+    </div>
+  );
+}
