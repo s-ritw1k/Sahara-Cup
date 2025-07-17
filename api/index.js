@@ -1,8 +1,22 @@
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-// Import tournament data
-const { tournament } = require('./data');
+// Import tournament data - use explicit path for Vercel
+let tournament;
+try {
+  tournament = require('./data').tournament;
+} catch (error) {
+  console.error('Error loading tournament data:', error);
+  // Fallback data
+  tournament = {
+    id: 'sahara-cup-2025',
+    name: 'Sahara Cup 2025',
+    players: [],
+    groups: [],
+    matches: [],
+    knockoutMatches: []
+  };
+}
 
 // Store tournament data in memory
 let tournamentData = { ...tournament };
@@ -34,13 +48,30 @@ const corsMiddleware = cors({
 
 // Main handler function for Vercel
 module.exports = async (req, res) => {
-  // Apply CORS
-  corsMiddleware(req, res, () => {});
+  // Set CORS headers manually
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Handle OPTIONS request for CORS
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
   
   const { method, url } = req;
   
-  // Parse URL path
-  const path = url.split('?')[0];
+  // Parse URL path - handle both full URLs and relative paths
+  let path = url;
+  if (url.includes('://')) {
+    path = new URL(url).pathname;
+  } else {
+    path = url.split('?')[0];
+  }
+  
+  // Ensure path starts with /api for our routing
+  if (!path.startsWith('/api')) {
+    path = '/api' + (path.startsWith('/') ? path : '/' + path);
+  }
   
   // Parse request body for POST requests
   if (method === 'POST' && req.body === undefined) {
@@ -61,6 +92,9 @@ module.exports = async (req, res) => {
   }
   
   try {
+    // Log for debugging
+    console.log(`API Request: ${method} ${path}`);
+    
     // Admin login
     if (method === 'POST' && path === '/api/auth/login') {
       const { username, password } = req.body || {};
