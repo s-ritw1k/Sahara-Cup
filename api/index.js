@@ -133,6 +133,10 @@ export default async (req, res) => {
       return res.json(tournamentData.matches || []);
     }
     
+    if (method === 'GET' && path === '/api/groups') {
+      return res.json(tournamentData.groups || []);
+    }
+    
     if (method === 'GET' && path === '/api/matches/upcoming') {
       const upcomingMatches = (tournamentData.matches || []).filter(m => m.status === 'scheduled');
       return res.json(upcomingMatches);
@@ -167,8 +171,40 @@ export default async (req, res) => {
       return res.json(standings);
     }
     
+    // Group-specific standings
+    if (method === 'GET' && path.startsWith('/api/standings/group/')) {
+      const groupId = path.split('/').pop();
+      const group = (tournamentData.groups || []).find(g => g.id === groupId);
+      const standings = [];
+      
+      if (group) {
+        group.playerIds.forEach(playerId => {
+          const player = (tournamentData.players || []).find(p => p.id === playerId);
+          if (player) {
+            standings.push({
+              playerId: player.id,
+              playerName: player.name,
+              wins: 0,
+              losses: 0,
+              setsWon: 0,
+              setsLost: 0,
+              pointsWon: 0,
+              pointsLost: 0,
+              group: group.name
+            });
+          }
+        });
+      }
+      return res.json(standings);
+    }
+    
     if (method === 'GET' && path === '/api/knockout') {
       return res.json(tournamentData.knockoutMatches || []);
+    }
+    
+    if (method === 'GET' && path === '/api/knockout/qualified-players') {
+      // For now, return empty array - this would be calculated from group results
+      return res.json([]);
     }
     
     // Health check
