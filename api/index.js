@@ -182,7 +182,6 @@ export default async (req, res) => {
             
             const matchesPlayed = wins + losses;
             const points = wins * 3; // 3 points per win
-            const setRatio = setsLost > 0 ? setsWon / setsLost : setsWon;
             
             standings.push({
               playerId: player.id,
@@ -192,17 +191,18 @@ export default async (req, res) => {
               losses,
               points,
               setsWon,
-              setsLost,
-              setRatio
+              setsLost
             });
           }
         });
       });
       
-      // Sort by points, then by set ratio
+      // Sort by points first, then by wins, then by sets won/lost ratio
       standings.sort((a, b) => {
         if (b.points !== a.points) return b.points - a.points;
-        return b.setRatio - a.setRatio;
+        if (b.wins !== a.wins) return b.wins - a.wins;
+        if (b.setsWon !== a.setsWon) return b.setsWon - a.setsWon;
+        return a.setsLost - b.setsLost;
       });
       
       return res.json(standings);
@@ -246,7 +246,6 @@ export default async (req, res) => {
             
             const matchesPlayed = wins + losses;
             const points = wins * 3; // 3 points per win
-            const setRatio = setsLost > 0 ? setsWon / setsLost : setsWon;
             
             standings.push({
               playerId: player.id,
@@ -256,16 +255,17 @@ export default async (req, res) => {
               losses,
               points,
               setsWon,
-              setsLost,
-              setRatio
+              setsLost
             });
           }
         });
         
-        // Sort by points, then by set ratio
+        // Sort by points first, then by wins, then by sets won/lost ratio
         standings.sort((a, b) => {
           if (b.points !== a.points) return b.points - a.points;
-          return b.setRatio - a.setRatio;
+          if (b.wins !== a.wins) return b.wins - a.wins;
+          if (b.setsWon !== a.setsWon) return b.setsWon - a.setsWon;
+          return a.setsLost - b.setsLost;
         });
       }
       return res.json(standings);

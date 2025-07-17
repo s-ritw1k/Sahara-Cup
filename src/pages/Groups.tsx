@@ -353,9 +353,6 @@ export default function Groups() {
                                 <span className="text-table-green-400 font-semibold">{player.setsWon}</span>
                                 <span className="text-pro-dark-500">/</span>
                                 <span className="text-red-400 font-semibold">{player.setsLost}</span>
-                                <span className="text-xs text-pro-dark-400 ml-2">
-                                  ({player.setRatio.toFixed(2)})
-                                </span>
                               </div>
                             </td>
                           </tr>
@@ -406,14 +403,32 @@ export default function Groups() {
                                 </div>
                                 <div className="flex-shrink-0 mx-4 text-center min-w-[80px]">
                                   {match.status === 'completed' || match.status === 'live' ? (
-                                    <div className="text-2xl font-bold flex items-center justify-center">
-                                      <span className={`${match.winnerId === match.player1Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}`}>
-                                        {match.player1Score}
-                                      </span>
-                                      <span className="text-pro-dark-500 mx-3">-</span>
-                                      <span className={`${match.winnerId === match.player2Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}`}>
-                                        {match.player2Score}
-                                      </span>
+                                    <div className="space-y-1">
+                                      <div className="text-2xl font-bold flex items-center justify-center">
+                                        <span className={`${match.winnerId === match.player1Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}`}>
+                                          {match.player1Score}
+                                        </span>
+                                        <span className="text-pro-dark-500 mx-3">-</span>
+                                        <span className={`${match.winnerId === match.player2Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}`}>
+                                          {match.player2Score}
+                                        </span>
+                                      </div>
+                                      {/* Individual Set Scores */}
+                                      {match.player1SetScores && match.player2SetScores && (
+                                        <div className="text-xs text-pro-dark-400 space-y-0.5">
+                                          {match.player1SetScores.map((p1Score, setIndex) => (
+                                            <div key={setIndex} className="flex items-center justify-center">
+                                              <span className={`${p1Score > match.player2SetScores![setIndex] ? 'text-table-green-400' : 'text-pro-dark-500'}`}>
+                                                {p1Score}
+                                              </span>
+                                              <span className="text-pro-dark-600 mx-1">-</span>
+                                              <span className={`${match.player2SetScores![setIndex] > p1Score ? 'text-table-green-400' : 'text-pro-dark-500'}`}>
+                                                {match.player2SetScores![setIndex]}
+                                              </span>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      )}
                                     </div>
                                   ) : (
                                     <div className="text-pro-dark-500 text-lg">vs</div>

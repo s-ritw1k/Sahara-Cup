@@ -194,22 +194,40 @@ export default function Matches() {
                           </div>
                           <div className="mx-8 text-center relative">
                             {match.status === 'completed' || match.status === 'live' ? (
-                              <div className={`text-3xl font-bold score-display ${
-                                isGoldMatch ? 'drop-shadow-glow' : ''
-                              }`}>
-                                <span className={clsx(
-                                  "transition-all duration-300",
-                                  match.winnerId === match.player1Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
-                                )}>
-                                  {match.player1Score}
-                                </span>
-                                <span className="text-pro-dark-500 mx-2">-</span>
-                                <span className={clsx(
-                                  "transition-all duration-300",
-                                  match.winnerId === match.player2Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
-                                )}>
-                                  {match.player2Score}
-                                </span>
+                              <div className="space-y-2">
+                                <div className={`text-3xl font-bold score-display ${
+                                  isGoldMatch ? 'drop-shadow-glow' : ''
+                                }`}>
+                                  <span className={clsx(
+                                    "transition-all duration-300",
+                                    match.winnerId === match.player1Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
+                                  )}>
+                                    {match.player1Score}
+                                  </span>
+                                  <span className="text-pro-dark-500 mx-2">-</span>
+                                  <span className={clsx(
+                                    "transition-all duration-300",
+                                    match.winnerId === match.player2Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
+                                  )}>
+                                    {match.player2Score}
+                                  </span>
+                                </div>
+                                {/* Individual Set Scores */}
+                                {match.player1SetScores && match.player2SetScores && (
+                                  <div className="text-sm text-pro-dark-400 space-y-1">
+                                    {match.player1SetScores.map((p1Score, setIndex) => (
+                                      <div key={setIndex} className="flex items-center justify-center">
+                                        <span className={`${p1Score > match.player2SetScores![setIndex] ? 'text-table-green-400 font-semibold' : 'text-pro-dark-500'}`}>
+                                          {p1Score}
+                                        </span>
+                                        <span className="text-pro-dark-600 mx-2">-</span>
+                                        <span className={`${match.player2SetScores![setIndex] > p1Score ? 'text-table-green-400 font-semibold' : 'text-pro-dark-500'}`}>
+                                          {match.player2SetScores![setIndex]}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
                               </div>
                             ) : (
                               <div className={`text-xl font-medium animate-float-gentle ${

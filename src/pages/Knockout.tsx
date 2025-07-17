@@ -135,7 +135,25 @@ export default function Knockout() {
                       }
                     </div>
                     {match.status !== 'upcoming' && (
-                      <div className="text-lg font-bold">{match.player1Score}</div>
+                      <div className="space-y-1">
+                        <div className="text-lg font-bold">{match.player1Score}</div>
+                        {/* Individual Set Scores */}
+                        {match.player1SetScores && match.player2SetScores && (
+                          <div className="text-xs text-slate-400 space-y-0.5">
+                            {match.player1SetScores.map((p1Score, setIndex) => (
+                              <div key={setIndex} className="flex items-center justify-center">
+                                <span className={`${p1Score > match.player2SetScores![setIndex] ? 'text-green-400 font-semibold' : 'text-slate-500'}`}>
+                                  {p1Score}
+                                </span>
+                                <span className="text-slate-600 mx-1">-</span>
+                                <span className={`${match.player2SetScores![setIndex] > p1Score ? 'text-green-400 font-semibold' : 'text-slate-500'}`}>
+                                  {match.player2SetScores![setIndex]}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
                   <div className="text-center text-xs text-slate-500">VS</div>
@@ -151,7 +169,10 @@ export default function Knockout() {
                       }
                     </div>
                     {match.status !== 'upcoming' && (
-                      <div className="text-lg font-bold">{match.player2Score}</div>
+                      <div className="space-y-1">
+                        <div className="text-lg font-bold">{match.player2Score}</div>
+                        {/* Player 2 set scores are shown above in player 1 section for consistency */}
+                      </div>
                     )}
                   </div>
                 </div>

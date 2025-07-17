@@ -50,6 +50,8 @@ const tournament = {
       player2Id: 'p8',  // Krishna Ramya
       player1Score: 2,
       player2Score: 0,
+      player1SetScores: [11, 11],
+      player2SetScores: [4, 6],
       scheduledTime: '2025-07-17T10:00:00Z',
       status: 'completed',
       groupId: 'g1',
@@ -62,6 +64,8 @@ const tournament = {
       player2Id: 'p8',  // Krishna Ramya
       player1Score: 2,
       player2Score: 1,
+      player1SetScores: [11, 8, 11],
+      player2SetScores: [7, 11, 4],
       scheduledTime: '2025-07-17T11:00:00Z',
       status: 'completed',
       groupId: 'g1',
@@ -74,6 +78,8 @@ const tournament = {
       player2Id: 'p21', // Treesa James
       player1Score: 0,
       player2Score: 2,
+      player1SetScores: [8, 5],
+      player2SetScores: [11, 11],
       scheduledTime: '2025-07-17T12:00:00Z',
       status: 'completed',
       groupId: 'g1',
@@ -87,6 +93,8 @@ const tournament = {
       player2Id: 'p15', // Shreeya Dheera Parvatham
       player1Score: 2,
       player2Score: 1,
+      player1SetScores: [11, 9, 11],
+      player2SetScores: [8, 11, 3],
       scheduledTime: '2025-07-17T10:30:00Z',
       status: 'completed',
       groupId: 'g2',
@@ -99,6 +107,8 @@ const tournament = {
       player2Id: 'p1',  // Anjuman Hasan
       player1Score: 2,
       player2Score: 1,
+      player1SetScores: [11, 5, 11],
+      player2SetScores: [6, 11, 9],
       scheduledTime: '2025-07-17T11:30:00Z',
       status: 'completed',
       groupId: 'g2',
@@ -111,6 +121,8 @@ const tournament = {
       player2Id: 'p15', // Shreeya Dheera Parvatham
       player1Score: 2,
       player2Score: 0,
+      player1SetScores: [11, 11],
+      player2SetScores: [7, 4],
       scheduledTime: '2025-07-17T12:30:00Z',
       status: 'completed',
       groupId: 'g2',
@@ -124,6 +136,8 @@ const tournament = {
       player2Id: 'p19', // Srija Panyala
       player1Score: 1,
       player2Score: 2,
+      player1SetScores: [11, 8, 9],
+      player2SetScores: [7, 11, 11],
       scheduledTime: '2025-07-17T13:00:00Z',
       status: 'completed',
       groupId: 'g3',
@@ -136,6 +150,8 @@ const tournament = {
       player2Id: 'p4',  // Bhavani Parupureddy
       player1Score: 2,
       player2Score: 0,
+      player1SetScores: [11, 11],
+      player2SetScores: [3, 8],
       scheduledTime: '2025-07-17T13:30:00Z',
       status: 'completed',
       groupId: 'g3',
@@ -148,6 +164,8 @@ const tournament = {
       player2Id: 'p19', // Srija Panyala
       player1Score: 0,
       player2Score: 2,
+      player1SetScores: [6, 4],
+      player2SetScores: [11, 11],
       scheduledTime: '2025-07-17T14:00:00Z',
       status: 'completed',
       groupId: 'g3',
@@ -161,6 +179,8 @@ const tournament = {
       player2Id: 'p12', // Sai Keerthi Tulluru
       player1Score: 2,
       player2Score: 0,
+      player1SetScores: [11, 11],
+      player2SetScores: [9, 7],
       scheduledTime: '2025-07-17T14:30:00Z',
       status: 'completed',
       groupId: 'g4',
@@ -173,6 +193,8 @@ const tournament = {
       player2Id: 'p10', // Prathyusha Dodda
       player1Score: 2,
       player2Score: 0,
+      player1SetScores: [11, 11],
+      player2SetScores: [5, 8],
       scheduledTime: '2025-07-17T15:00:00Z',
       status: 'completed',
       groupId: 'g4',
@@ -185,6 +207,8 @@ const tournament = {
       player2Id: 'p10', // Prathyusha Dodda
       player1Score: 2,
       player2Score: 0,
+      player1SetScores: [11, 11],
+      player2SetScores: [2, 6],
       scheduledTime: '2025-07-17T15:30:00Z',
       status: 'completed',
       groupId: 'g4',
