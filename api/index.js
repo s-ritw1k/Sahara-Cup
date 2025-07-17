@@ -4,15 +4,23 @@ const jwt = require('jsonwebtoken');
 // Import tournament data - use explicit path for Vercel
 let tournament;
 try {
-  tournament = require('./data').tournament;
+  const dataModule = require('./data');
+  tournament = dataModule.tournament;
+  console.log('Tournament data loaded successfully:', tournament?.id);
 } catch (error) {
   console.error('Error loading tournament data:', error);
   // Fallback data
   tournament = {
     id: 'sahara-cup-2025',
     name: 'Sahara Cup 2025',
-    players: [],
-    groups: [],
+    description: 'Annual Table Tennis Tournament',
+    players: [
+      { id: 'p1', name: 'Test Player 1', email: 'test1@example.com' },
+      { id: 'p2', name: 'Test Player 2', email: 'test2@example.com' }
+    ],
+    groups: [
+      { id: 'g1', name: 'Group A', playerIds: ['p1', 'p2'] }
+    ],
     matches: [],
     knockoutMatches: []
   };
@@ -120,6 +128,49 @@ module.exports = async (req, res) => {
       return res.json(tournamentData.knockoutMatches || []);
     }
     
+    // Additional API endpoints that the frontend expects
+    if (method === 'GET' && path === '/api/matches') {
+      return res.json(tournamentData.matches || []);
+    }
+    
+    if (method === 'GET' && path === '/api/matches/upcoming') {
+      const upcomingMatches = (tournamentData.matches || []).filter(m => m.status === 'scheduled');
+      return res.json(upcomingMatches);
+    }
+    
+    if (method === 'GET' && path === '/api/matches/live') {
+      const liveMatches = (tournamentData.matches || []).filter(m => m.status === 'live');
+      return res.json(liveMatches);
+    }
+    
+    if (method === 'GET' && path === '/api/standings') {
+      // Generate basic standings from groups and matches
+      const standings = [];
+      (tournamentData.groups || []).forEach(group => {
+        group.playerIds.forEach(playerId => {
+          const player = (tournamentData.players || []).find(p => p.id === playerId);
+          if (player) {
+            standings.push({
+              playerId: player.id,
+              playerName: player.name,
+              wins: 0,
+              losses: 0,
+              setsWon: 0,
+              setsLost: 0,
+              pointsWon: 0,
+              pointsLost: 0,
+              group: group.name
+            });
+          }
+        });
+      });
+      return res.json(standings);
+    }
+    
+    if (method === 'GET' && path === '/api/knockout') {
+      return res.json(tournamentData.knockoutMatches || []);
+    }
+    
     // Health check
     if (method === 'GET' && path === '/api/health') {
       return res.json({ status: 'OK', timestamp: new Date().toISOString() });
@@ -135,6 +186,17 @@ module.exports = async (req, res) => {
     
   } catch (error) {
     console.error('API Error:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error details:', {
+      method,
+      path,
+      url,
+      errorMessage: error.message,
+      stack: error.stack
+    });
+    return res.status(500).json({ 
+      error: 'Internal Server Error',
+      message: error.message,
+      path: path
+    });
   }
 };
