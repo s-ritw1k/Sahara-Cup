@@ -46,10 +46,10 @@ const tournament = {
     // Group A matches
     {
       id: 'm1',
-      player1Id: 'p21',
-      player2Id: 'p5',
+      player1Id: 'p21', // Treesa James
+      player2Id: 'p8',  // Krishna Ramya
       player1Score: 2,
-      player2Score: 1,
+      player2Score: 0,
       scheduledTime: '2025-07-17T10:00:00Z',
       status: 'completed',
       groupId: 'g1',
@@ -58,48 +58,281 @@ const tournament = {
     },
     {
       id: 'm2',
-      player1Id: 'p8',
-      player2Id: 'p21',
-      player1Score: 0,
-      player2Score: 0,
-      scheduledTime: '2025-07-17T14:00:00Z',
-      status: 'upcoming',
+      player1Id: 'p5',  // Durga Tammireddy
+      player2Id: 'p8',  // Krishna Ramya
+      player1Score: 2,
+      player2Score: 1,
+      scheduledTime: '2025-07-17T11:00:00Z',
+      status: 'completed',
       groupId: 'g1',
+      winnerId: 'p5',
       round: 1
     },
     {
       id: 'm3',
-      player1Id: 'p5',
-      player2Id: 'p8',
+      player1Id: 'p5',  // Durga Tammireddy
+      player2Id: 'p21', // Treesa James
       player1Score: 0,
-      player2Score: 0,
-      scheduledTime: '2025-07-17T16:00:00Z',
-      status: 'upcoming',
+      player2Score: 2,
+      scheduledTime: '2025-07-17T12:00:00Z',
+      status: 'completed',
       groupId: 'g1',
+      winnerId: 'p21',
       round: 1
     },
     // Group B matches
     {
       id: 'm4',
-      player1Id: 'p13',
-      player2Id: 'p1',
-      player1Score: 1,
-      player2Score: 2,
-      scheduledTime: '2025-07-17T11:00:00Z',
+      player1Id: 'p13', // Sanchita Chakrabarty
+      player2Id: 'p15', // Shreeya Dheera Parvatham
+      player1Score: 2,
+      player2Score: 1,
+      scheduledTime: '2025-07-17T10:30:00Z',
+      status: 'completed',
+      groupId: 'g2',
+      winnerId: 'p13',
+      round: 1
+    },
+    {
+      id: 'm5',
+      player1Id: 'p13', // Sanchita Chakrabarty
+      player2Id: 'p1',  // Anjuman Hasan
+      player1Score: 2,
+      player2Score: 1,
+      scheduledTime: '2025-07-17T11:30:00Z',
+      status: 'completed',
+      groupId: 'g2',
+      winnerId: 'p13',
+      round: 1
+    },
+    {
+      id: 'm6',
+      player1Id: 'p1',  // Anjuman Hasan
+      player2Id: 'p15', // Shreeya Dheera Parvatham
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T12:30:00Z',
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p1',
       round: 1
     },
+    // Group C matches
     {
-      id: 'm5',
-      player1Id: 'p15',
-      player2Id: 'p13',
+      id: 'm7',
+      player1Id: 'p3',  // Arishti Salaria
+      player2Id: 'p19', // Srija Panyala
+      player1Score: 1,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T13:00:00Z',
+      status: 'completed',
+      groupId: 'g3',
+      winnerId: 'p19',
+      round: 1
+    },
+    {
+      id: 'm8',
+      player1Id: 'p3',  // Arishti Salaria
+      player2Id: 'p4',  // Bhavani Parupureddy
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T13:30:00Z',
+      status: 'completed',
+      groupId: 'g3',
+      winnerId: 'p3',
+      round: 1
+    },
+    {
+      id: 'm9',
+      player1Id: 'p4',  // Bhavani Parupureddy
+      player2Id: 'p19', // Srija Panyala
       player1Score: 0,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T14:00:00Z',
+      status: 'completed',
+      groupId: 'g3',
+      winnerId: 'p19',
+      round: 1
+    },
+    // Group D matches
+    {
+      id: 'm10',
+      player1Id: 'p6',  // Induja Kala
+      player2Id: 'p12', // Sai Keerthi Tulluru
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T14:30:00Z',
+      status: 'completed',
+      groupId: 'g4',
+      winnerId: 'p6',
+      round: 1
+    },
+    {
+      id: 'm11',
+      player1Id: 'p12', // Sai Keerthi Tulluru
+      player2Id: 'p10', // Prathyusha Dodda
+      player1Score: 2,
       player2Score: 0,
       scheduledTime: '2025-07-17T15:00:00Z',
+      status: 'completed',
+      groupId: 'g4',
+      winnerId: 'p12',
+      round: 1
+    },
+    {
+      id: 'm12',
+      player1Id: 'p6',  // Induja Kala
+      player2Id: 'p10', // Prathyusha Dodda
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T15:30:00Z',
+      status: 'completed',
+      groupId: 'g4',
+      winnerId: 'p6',
+      round: 1
+    },
+    // Group E matches
+    {
+      id: 'm13',
+      player1Id: 'p22', // Tulsi Pratyusha Dintyala
+      player2Id: 'p24', // Yadavalli Dedeepya Sneha
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T16:00:00Z',
+      status: 'completed',
+      groupId: 'g5',
+      winnerId: 'p22',
+      round: 1
+    },
+    {
+      id: 'm14',
+      player1Id: 'p20', // Tamanna Koundal
+      player2Id: 'p22', // Tulsi Pratyusha Dintyala
+      player1Score: 0,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T16:30:00Z',
+      status: 'completed',
+      groupId: 'g5',
+      winnerId: 'p22',
+      round: 1
+    },
+    {
+      id: 'm15',
+      player1Id: 'p20', // Tamanna Koundal
+      player2Id: 'p24', // Yadavalli Dedeepya Sneha
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T17:00:00Z',
+      status: 'completed',
+      groupId: 'g5',
+      winnerId: 'p20',
+      round: 1
+    },
+    // Group F matches
+    {
+      id: 'm16',
+      player1Id: 'p2',  // Anusha Reddy Bakaram
+      player2Id: 'p9',  // Manaswini Pidugu
+      player1Score: 0,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T17:30:00Z',
+      status: 'completed',
+      groupId: 'g6',
+      winnerId: 'p9',
+      round: 1
+    },
+    {
+      id: 'm17',
+      player1Id: 'p2',  // Anusha Reddy Bakaram
+      player2Id: 'p17', // Sneha Sai Pola
+      player1Score: 2,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T18:00:00Z',
+      status: 'completed',
+      groupId: 'g6',
+      winnerId: 'p2',
+      round: 1
+    },
+    {
+      id: 'm18',
+      player1Id: 'p17', // Sneha Sai Pola
+      player2Id: 'p9',  // Manaswini Pidugu
+      player1Score: 0,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T18:30:00Z',
+      status: 'completed',
+      groupId: 'g6',
+      winnerId: 'p9',
+      round: 1
+    },
+    // Group G matches
+    {
+      id: 'm19',
+      player1Id: 'p18', // Sri Indu Dekkapati
+      player2Id: 'p23', // Vaishnavi Sindham
+      player1Score: 0,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T19:00:00Z',
+      status: 'completed',
+      groupId: 'g7',
+      winnerId: 'p23',
+      round: 1
+    },
+    // Group G - Remaining matches TBD (Vaishnavi vs Rubeena, Rubeena vs Sri Indu)
+    {
+      id: 'm20',
+      player1Id: 'p23', // Vaishnavi Sindham
+      player2Id: 'p11', // Rubeena Khatun
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-18T10:00:00Z',
       status: 'upcoming',
-      groupId: 'g2',
+      groupId: 'g7',
+      round: 1
+    },
+    {
+      id: 'm21',
+      player1Id: 'p11', // Rubeena Khatun
+      player2Id: 'p18', // Sri Indu Dekkapati
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-18T10:30:00Z',
+      status: 'upcoming',
+      groupId: 'g7',
+      round: 1
+    },
+    // Group H matches - upcoming
+    {
+      id: 'm22',
+      player1Id: 'p7',  // Jyothi M
+      player2Id: 'p14', // Sanu Gupta
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-18T11:00:00Z',
+      status: 'upcoming',
+      groupId: 'g8',
+      round: 1
+    },
+    {
+      id: 'm23',
+      player1Id: 'p7',  // Jyothi M
+      player2Id: 'p16', // Siddhi Goyal
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-18T11:30:00Z',
+      status: 'upcoming',
+      groupId: 'g8',
+      round: 1
+    },
+    {
+      id: 'm24',
+      player1Id: 'p14', // Sanu Gupta
+      player2Id: 'p16', // Siddhi Goyal
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-18T12:00:00Z',
+      status: 'upcoming',
+      groupId: 'g8',
       round: 1
     }
   ],
