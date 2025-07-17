@@ -46,9 +46,9 @@ const corsMiddleware = cors({
   credentials: true
 });
 
-// Main handler function for Vercel
+// Main handler function for Vercel serverless
 module.exports = async (req, res) => {
-  // Set CORS headers manually
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -60,18 +60,10 @@ module.exports = async (req, res) => {
   
   const { method, url } = req;
   
-  // Parse URL path - handle both full URLs and relative paths
-  let path = url;
-  if (url.includes('://')) {
-    path = new URL(url).pathname;
-  } else {
-    path = url.split('?')[0];
-  }
+  // Simple path parsing
+  const path = url.split('?')[0];
   
-  // Ensure path starts with /api for our routing
-  if (!path.startsWith('/api')) {
-    path = '/api' + (path.startsWith('/') ? path : '/' + path);
-  }
+  console.log(`API Request: ${method} ${path}`);
   
   // Parse request body for POST requests
   if (method === 'POST' && req.body === undefined) {
