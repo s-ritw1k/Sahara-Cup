@@ -1,10 +1,10 @@
-const cors = require('cors');
-const jwt = require('jsonwebtoken');
+import cors from 'cors';
+import jwt from 'jsonwebtoken';
 
 // Import tournament data - use explicit path for Vercel
 let tournament;
 try {
-  const dataModule = require('./data');
+  const dataModule = await import('./data.js');
   tournament = dataModule.tournament;
   console.log('Tournament data loaded successfully:', tournament?.id);
 } catch (error) {
@@ -55,7 +55,7 @@ const corsMiddleware = cors({
 });
 
 // Main handler function for Vercel serverless
-module.exports = async (req, res) => {
+export default async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');

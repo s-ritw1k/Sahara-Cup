@@ -46,4 +46,4 @@ const tournament = {
   knockoutMatches: []
 };
 
-module.exports = { tournament };
+export { tournament };
