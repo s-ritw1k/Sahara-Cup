@@ -42,7 +42,67 @@ const tournament = {
     { id: 'g7', name: 'Group G', playerIds: ['p11', 'p18', 'p23'] },
     { id: 'g8', name: 'Group H', playerIds: ['p7', 'p14', 'p16'] },
   ],
-  matches: [],
+  matches: [
+    // Group A matches
+    {
+      id: 'm1',
+      player1Id: 'p21',
+      player2Id: 'p5',
+      player1Score: 2,
+      player2Score: 1,
+      scheduledTime: '2025-07-17T10:00:00Z',
+      status: 'completed',
+      groupId: 'g1',
+      winnerId: 'p21',
+      round: 1
+    },
+    {
+      id: 'm2',
+      player1Id: 'p8',
+      player2Id: 'p21',
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T14:00:00Z',
+      status: 'upcoming',
+      groupId: 'g1',
+      round: 1
+    },
+    {
+      id: 'm3',
+      player1Id: 'p5',
+      player2Id: 'p8',
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T16:00:00Z',
+      status: 'upcoming',
+      groupId: 'g1',
+      round: 1
+    },
+    // Group B matches
+    {
+      id: 'm4',
+      player1Id: 'p13',
+      player2Id: 'p1',
+      player1Score: 1,
+      player2Score: 2,
+      scheduledTime: '2025-07-17T11:00:00Z',
+      status: 'completed',
+      groupId: 'g2',
+      winnerId: 'p1',
+      round: 1
+    },
+    {
+      id: 'm5',
+      player1Id: 'p15',
+      player2Id: 'p13',
+      player1Score: 0,
+      player2Score: 0,
+      scheduledTime: '2025-07-17T15:00:00Z',
+      status: 'upcoming',
+      groupId: 'g2',
+      round: 1
+    }
+  ],
   knockoutMatches: []
 };
 

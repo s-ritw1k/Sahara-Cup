@@ -138,7 +138,7 @@ export default async (req, res) => {
     }
     
     if (method === 'GET' && path === '/api/matches/upcoming') {
-      const upcomingMatches = (tournamentData.matches || []).filter(m => m.status === 'scheduled');
+      const upcomingMatches = (tournamentData.matches || []).filter(m => m.status === 'upcoming');
       return res.json(upcomingMatches);
     }
     
@@ -154,20 +154,57 @@ export default async (req, res) => {
         group.playerIds.forEach(playerId => {
           const player = (tournamentData.players || []).find(p => p.id === playerId);
           if (player) {
+            // Calculate stats from matches
+            const playerMatches = (tournamentData.matches || []).filter(m => 
+              m.player1Id === playerId || m.player2Id === playerId
+            );
+            
+            let wins = 0;
+            let losses = 0;
+            let setsWon = 0;
+            let setsLost = 0;
+            
+            playerMatches.forEach(match => {
+              if (match.status === 'completed') {
+                if (match.player1Id === playerId) {
+                  setsWon += match.player1Score;
+                  setsLost += match.player2Score;
+                  if (match.winnerId === playerId) wins++;
+                  else losses++;
+                } else {
+                  setsWon += match.player2Score;
+                  setsLost += match.player1Score;
+                  if (match.winnerId === playerId) wins++;
+                  else losses++;
+                }
+              }
+            });
+            
+            const matchesPlayed = wins + losses;
+            const points = wins * 3; // 3 points per win
+            const setRatio = setsLost > 0 ? setsWon / setsLost : setsWon;
+            
             standings.push({
               playerId: player.id,
               playerName: player.name,
-              wins: 0,
-              losses: 0,
-              setsWon: 0,
-              setsLost: 0,
-              pointsWon: 0,
-              pointsLost: 0,
-              group: group.name
+              matchesPlayed,
+              wins,
+              losses,
+              points,
+              setsWon,
+              setsLost,
+              setRatio
             });
           }
         });
       });
+      
+      // Sort by points, then by set ratio
+      standings.sort((a, b) => {
+        if (b.points !== a.points) return b.points - a.points;
+        return b.setRatio - a.setRatio;
+      });
+      
       return res.json(standings);
     }
     
@@ -181,18 +218,54 @@ export default async (req, res) => {
         group.playerIds.forEach(playerId => {
           const player = (tournamentData.players || []).find(p => p.id === playerId);
           if (player) {
+            // Calculate stats from matches in this group
+            const playerMatches = (tournamentData.matches || []).filter(m => 
+              m.groupId === groupId && (m.player1Id === playerId || m.player2Id === playerId)
+            );
+            
+            let wins = 0;
+            let losses = 0;
+            let setsWon = 0;
+            let setsLost = 0;
+            
+            playerMatches.forEach(match => {
+              if (match.status === 'completed') {
+                if (match.player1Id === playerId) {
+                  setsWon += match.player1Score;
+                  setsLost += match.player2Score;
+                  if (match.winnerId === playerId) wins++;
+                  else losses++;
+                } else {
+                  setsWon += match.player2Score;
+                  setsLost += match.player1Score;
+                  if (match.winnerId === playerId) wins++;
+                  else losses++;
+                }
+              }
+            });
+            
+            const matchesPlayed = wins + losses;
+            const points = wins * 3; // 3 points per win
+            const setRatio = setsLost > 0 ? setsWon / setsLost : setsWon;
+            
             standings.push({
               playerId: player.id,
               playerName: player.name,
-              wins: 0,
-              losses: 0,
-              setsWon: 0,
-              setsLost: 0,
-              pointsWon: 0,
-              pointsLost: 0,
-              group: group.name
+              matchesPlayed,
+              wins,
+              losses,
+              points,
+              setsWon,
+              setsLost,
+              setRatio
             });
           }
+        });
+        
+        // Sort by points, then by set ratio
+        standings.sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          return b.setRatio - a.setRatio;
         });
       }
       return res.json(standings);
