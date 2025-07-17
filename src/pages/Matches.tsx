@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMatchesWithPlayers } from '../hooks/useData';
 import { format } from 'date-fns';
-import { ClockIcon, FireIcon, CheckCircleIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { ClockIcon, FireIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 
@@ -72,17 +72,11 @@ export default function Matches() {
     <div className="animate-fade-in">
       {/* Header */}
       <div className="mb-8 animate-slide-up">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center">
-            <ClockIcon className="h-8 w-8 text-table-green-500 mr-3 animate-float-gentle" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-table-green-200 to-white bg-clip-text text-transparent">
-              All Matches
-            </h1>
-          </div>
-          <div className="flex items-center space-x-2 bg-pro-dark-800/50 px-4 py-2 rounded-tournament">
-            <FunnelIcon className="h-5 w-5 text-table-green-400" />
-            <span className="text-table-green-400 text-sm font-medium">Filter:</span>
-          </div>
+        <div className="flex items-center mb-4">
+          <ClockIcon className="h-8 w-8 text-table-green-500 mr-3 animate-float-gentle" />
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-table-green-200 to-white bg-clip-text text-transparent">
+            All Matches
+          </h1>
         </div>
         <p className="text-pro-dark-300 text-lg">
           Track all tournament matches across all groups and rounds
@@ -90,31 +84,31 @@ export default function Matches() {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex space-x-2 mb-8 bg-pro-dark-900 p-2 rounded-tournament shadow-tournament-lg">
+      <div className="flex space-x-1 mb-8 bg-dark-800/50 p-1 rounded-xl shadow-lg backdrop-blur-sm border border-dark-700">
         {Object.entries(statusCounts).map(([status, count]) => (
           <button
             key={status}
             onClick={() => setFilter(status as MatchFilter)}
             className={clsx(
-              'flex-1 py-3 px-4 rounded-tournament text-sm font-semibold transition-all duration-300 relative overflow-hidden group',
+              'flex-1 py-4 px-6 rounded-lg text-sm font-bold transition-all duration-300 relative overflow-hidden group transform hover:scale-105',
               filter === status
-                ? 'bg-gradient-to-r from-table-green-600 to-table-green-700 text-white shadow-glow-green transform scale-105'
-                : 'text-pro-dark-300 hover:text-white hover:bg-gradient-to-r hover:from-pro-dark-800 hover:to-table-green-900/50 hover:shadow-tournament border border-pro-dark-700 hover:border-table-green-600'
+                ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-xl shadow-primary-500/20'
+                : 'text-dark-300 hover:text-white hover:bg-gradient-to-r hover:from-dark-700 hover:to-primary-900/30 hover:shadow-lg'
             )}
           >
-            <div className="flex items-center justify-center space-x-2">
-              <span className="capitalize font-bold">{status}</span>
+            <div className="flex items-center justify-center space-x-3">
+              <span className="capitalize text-lg">{status}</span>
               <span className={clsx(
-                "text-xs px-2 py-1 rounded-full font-bold",
+                "text-sm px-3 py-1 rounded-full font-bold min-w-[2rem] text-center",
                 filter === status
                   ? 'bg-white/20 text-white'
-                  : 'bg-pro-dark-700 text-pro-dark-300 group-hover:bg-table-green-800/50 group-hover:text-table-green-200'
+                  : 'bg-dark-600 text-dark-300 group-hover:bg-primary-800/50 group-hover:text-primary-200'
               )}>
                 {count}
               </span>
             </div>
             {filter === status && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-champion-gold-400 to-champion-gold-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-primary-600/10 animate-pulse"></div>
             )}
           </button>
         ))}

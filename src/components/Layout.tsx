@@ -81,14 +81,19 @@ export default function Layout() {
               </div>
             </div>
             <div className="text-pro-dark-400 text-sm">
-              <span className="font-medium">Powered by</span> 
-              <span className="ml-1 bg-gradient-to-r from-table-green-400 to-champion-gold-400 bg-clip-text text-transparent font-bold">React & Node.js</span>
+              <span className="font-medium">Developed by</span> 
+              <span className="ml-1 bg-gradient-to-r from-table-green-400 to-champion-gold-400 bg-clip-text text-transparent font-bold">Ritwik™</span>
             </div>
           </div>
           <div className="mt-4 pt-4 border-t border-table-green-800/50">
-            <p className="text-center text-pro-dark-400 text-xs">
-              © 2025 Sahara Cup Tournament. Professional Table Tennis Championship System.
-            </p>
+            <div className="text-center">
+              <p className="text-pro-dark-400 text-xs">
+                © 2025 Sahara Cup Tournament. Professional Table Tennis Championship System.
+              </p>
+              <p className="text-pro-dark-500 text-xs mt-1">
+                <span className="font-medium text-table-green-400">Ritwik</span> - Sole Developer & Designer ™
+              </p>
+            </div>
           </div>
         </div>
       </footer>

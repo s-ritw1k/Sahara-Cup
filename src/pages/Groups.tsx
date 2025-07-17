@@ -304,17 +304,16 @@ export default function Groups() {
                         {groupStandings.map((player, index) => (
                           <tr key={player.playerId} className="table-row group hover:bg-pro-dark-800/50 transition-colors duration-300">
                             <td className="py-4 px-4">
-                              <div className="flex items-center">
+                              <div className="flex items-center justify-center">
                                 <div className={`
-                                  w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3 transition-all duration-300
-                                  ${index === 0 ? 'bg-champion-gold-500 text-champion-gold-900 shadow-glow-gold' :
-                                    index === 1 ? 'bg-gray-400 text-gray-900 shadow-lg' :
-                                    index === 2 ? 'bg-amber-600 text-amber-900 shadow-lg' :
-                                    'bg-pro-dark-600 text-white'}
+                                  w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300
+                                  ${index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-yellow-900 shadow-lg border-2 border-yellow-300' :
+                                    index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-500 text-gray-900 shadow-lg border-2 border-gray-200' :
+                                    index === 2 ? 'bg-gradient-to-br from-amber-600 to-amber-800 text-amber-100 shadow-lg border-2 border-amber-400' :
+                                    'bg-dark-600 text-white border-2 border-dark-500'}
                                 `}>
                                   {index + 1}
                                 </div>
-                                {index === 0 && <TrophyIcon className="h-5 w-5 text-champion-gold-400 animate-float-gentle" />}
                               </div>
                             </td>
                             <td className="py-4 px-4">
@@ -398,19 +397,21 @@ export default function Groups() {
                           <div className="flex items-center justify-between">
                             <div className="flex-1">
                               <div className="flex items-center justify-between mb-2">
-                                <span className={`font-semibold transition-colors duration-300 ${
-                                  match.winnerId === match.player1Id ? 'text-champion-gold-300' : 'text-white'
-                                }`}>
-                                  {player1?.name}
-                                </span>
-                                <div className="mx-4">
+                                <div className="flex-1 text-left">
+                                  <span className={`font-semibold transition-colors duration-300 ${
+                                    match.winnerId === match.player1Id ? 'text-champion-gold-300' : 'text-white'
+                                  }`}>
+                                    {player1?.name}
+                                  </span>
+                                </div>
+                                <div className="flex-shrink-0 mx-4 text-center min-w-[80px]">
                                   {match.status === 'completed' || match.status === 'live' ? (
-                                    <div className="text-2xl font-bold">
-                                      <span className={match.winnerId === match.player1Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}>
+                                    <div className="text-2xl font-bold flex items-center justify-center">
+                                      <span className={`${match.winnerId === match.player1Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}`}>
                                         {match.player1Score}
                                       </span>
-                                      <span className="text-pro-dark-500 mx-2">-</span>
-                                      <span className={match.winnerId === match.player2Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}>
+                                      <span className="text-pro-dark-500 mx-3">-</span>
+                                      <span className={`${match.winnerId === match.player2Id ? 'text-champion-gold-400' : 'text-pro-dark-300'}`}>
                                         {match.player2Score}
                                       </span>
                                     </div>
@@ -418,11 +419,13 @@ export default function Groups() {
                                     <div className="text-pro-dark-500 text-lg">vs</div>
                                   )}
                                 </div>
-                                <span className={`font-semibold transition-colors duration-300 ${
-                                  match.winnerId === match.player2Id ? 'text-champion-gold-300' : 'text-white'
-                                }`}>
-                                  {player2?.name}
-                                </span>
+                                <div className="flex-1 text-right">
+                                  <span className={`font-semibold transition-colors duration-300 ${
+                                    match.winnerId === match.player2Id ? 'text-champion-gold-300' : 'text-white'
+                                  }`}>
+                                    {player2?.name}
+                                  </span>
+                                </div>
                               </div>
                               
                               <div className="flex items-center justify-between text-sm">

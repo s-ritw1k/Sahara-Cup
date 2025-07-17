@@ -117,7 +117,7 @@ export default function Home() {
                       </div>
                       <div className="text-center">
                         <span className="text-sm text-table-green-400 font-medium bg-table-green-900/30 px-3 py-1 rounded-full">
-                          Group {match.groupId.replace('g', '').toUpperCase()}
+                          Group {String.fromCharCode(65 + parseInt(match.groupId.replace('g', '')) - 1)}
                         </span>
                       </div>
                     </div>

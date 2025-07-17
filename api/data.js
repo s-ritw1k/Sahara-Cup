@@ -19,7 +19,7 @@ const tournament = {
     { id: 'p10', name: 'Prathyusha Dodda', email: 'prathyusha@company.com' },
     { id: 'p11', name: 'Rubeena Khatun', email: 'rubeena@company.com' },
     { id: 'p12', name: 'Sai Keerthi Tulluru', email: 'saikeerthi@company.com' },
-    { id: 'p13', name: 'Sanchita Chakrabarty Ma\'am', email: 'sanchita@company.com' },
+    { id: 'p13', name: 'Sanchita Chakrabarty', email: 'sanchita@company.com' },
     { id: 'p14', name: 'Sanu Gupta', email: 'sanu@company.com' },
     { id: 'p15', name: 'Shreeya Dheera Parvatham', email: 'shreeya@company.com' },
     { id: 'p16', name: 'Siddhi Goyal', email: 'siddhi@company.com' },
@@ -336,7 +336,207 @@ const tournament = {
       round: 1
     }
   ],
-  knockoutMatches: []
+  knockoutMatches: [
+    // Round of 16 matches
+    {
+      id: 'k1',
+      round: 'round16',
+      matchNumber: 1,
+      player1Id: 'p21', // #1 of Group A (Treesa James)
+      player2Id: 'p1',  // #2 of Group B (Anjuman Hasan)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T14:00:00Z',
+      player1Source: { type: 'group', value: 'g1' },
+      player2Source: { type: 'group', value: 'g2' }
+    },
+    {
+      id: 'k2',
+      round: 'round16',
+      matchNumber: 2,
+      player1Id: 'p19', // #1 of Group C (Srija Panyala)
+      player2Id: 'p12', // #2 of Group D (Sai Keerthi Tulluru)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T14:30:00Z',
+      player1Source: { type: 'group', value: 'g3' },
+      player2Source: { type: 'group', value: 'g4' }
+    },
+    {
+      id: 'k3',
+      round: 'round16',
+      matchNumber: 3,
+      player1Id: 'p22', // #1 of Group E (Tulsi Pratyusha Dintyala)
+      player2Id: 'p2',  // #2 of Group F (Anusha Reddy Bakaram)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T15:00:00Z',
+      player1Source: { type: 'group', value: 'g5' },
+      player2Source: { type: 'group', value: 'g6' }
+    },
+    {
+      id: 'k4',
+      round: 'round16',
+      matchNumber: 4,
+      player1Id: 'p23', // #1 of Group G (Vaishnavi Sindham) - TBD but currently leading
+      player2Id: null,  // #2 of Group H - TBD
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T15:30:00Z',
+      player1Source: { type: 'group', value: 'g7' },
+      player2Source: { type: 'group', value: 'g8' }
+    },
+    {
+      id: 'k5',
+      round: 'round16',
+      matchNumber: 5,
+      player1Id: 'p5',  // #2 of Group A (Durga Tammireddy)
+      player2Id: 'p13', // #1 of Group B (Sanchita Chakrabarty)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T16:00:00Z',
+      player1Source: { type: 'group', value: 'g1' },
+      player2Source: { type: 'group', value: 'g2' }
+    },
+    {
+      id: 'k6',
+      round: 'round16',
+      matchNumber: 6,
+      player1Id: 'p3',  // #2 of Group C (Arishti Salaria)
+      player2Id: 'p6',  // #1 of Group D (Induja Kala)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T16:30:00Z',
+      player1Source: { type: 'group', value: 'g3' },
+      player2Source: { type: 'group', value: 'g4' }
+    },
+    {
+      id: 'k7',
+      round: 'round16',
+      matchNumber: 7,
+      player1Id: 'p20', // #2 of Group E (Tamanna Koundal)
+      player2Id: 'p9',  // #1 of Group F (Manaswini Pidugu)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T17:00:00Z',
+      player1Source: { type: 'group', value: 'g5' },
+      player2Source: { type: 'group', value: 'g6' }
+    },
+    {
+      id: 'k8',
+      round: 'round16',
+      matchNumber: 8,
+      player1Id: null,  // #2 of Group G - TBD
+      player2Id: null,  // #1 of Group H - TBD
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-18T17:30:00Z',
+      player1Source: { type: 'group', value: 'g7' },
+      player2Source: { type: 'group', value: 'g8' }
+    },
+    // Quarter Finals - TBD based on Round of 16 results
+    {
+      id: 'k9',
+      round: 'quarterfinal',
+      matchNumber: 1,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T14:00:00Z',
+      player1Source: { type: 'match', value: 'k1' },
+      player2Source: { type: 'match', value: 'k2' }
+    },
+    {
+      id: 'k10',
+      round: 'quarterfinal',
+      matchNumber: 2,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T14:30:00Z',
+      player1Source: { type: 'match', value: 'k3' },
+      player2Source: { type: 'match', value: 'k4' }
+    },
+    {
+      id: 'k11',
+      round: 'quarterfinal',
+      matchNumber: 3,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T15:00:00Z',
+      player1Source: { type: 'match', value: 'k5' },
+      player2Source: { type: 'match', value: 'k6' }
+    },
+    {
+      id: 'k12',
+      round: 'quarterfinal',
+      matchNumber: 4,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T15:30:00Z',
+      player1Source: { type: 'match', value: 'k7' },
+      player2Source: { type: 'match', value: 'k8' }
+    },
+    // Semi Finals
+    {
+      id: 'k13',
+      round: 'semifinal',
+      matchNumber: 1,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T16:00:00Z',
+      player1Source: { type: 'match', value: 'k9' },
+      player2Source: { type: 'match', value: 'k10' }
+    },
+    {
+      id: 'k14',
+      round: 'semifinal',
+      matchNumber: 2,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T16:30:00Z',
+      player1Source: { type: 'match', value: 'k11' },
+      player2Source: { type: 'match', value: 'k12' }
+    },
+    // Final
+    {
+      id: 'k15',
+      round: 'final',
+      matchNumber: 1,
+      player1Id: null,
+      player2Id: null,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming',
+      scheduledTime: '2025-07-19T17:00:00Z',
+      player1Source: { type: 'match', value: 'k13' },
+      player2Source: { type: 'match', value: 'k14' }
+    }
+  ]
 };
 
 export { tournament };
