@@ -158,19 +158,7 @@ export default function Matches() {
                   className={`card-hover p-6 animate-slide-up transition-all duration-500 relative overflow-hidden ${getPodiumStyling()}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {/* Podium indicator */}
-                  {(isGoldMatch || isSilverMatch || isBronzeMatch) && (
-                    <div className="absolute top-4 right-4 z-10">
-                      <div className={`
-                        w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold
-                        ${isGoldMatch ? 'bg-champion-gold-500 text-champion-gold-900 animate-pulse-glow' : ''}
-                        ${isSilverMatch ? 'bg-gray-400 text-gray-900' : ''}
-                        ${isBronzeMatch ? 'bg-amber-600 text-amber-900' : ''}
-                      `}>
-                        {isGoldMatch ? '1' : isSilverMatch ? '2' : '3'}
-                      </div>
-                    </div>
-                  )}
+
                   
                   {/* Special glow effect for gold match */}
                   {isGoldMatch && (

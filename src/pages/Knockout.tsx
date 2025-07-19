@@ -360,7 +360,7 @@ export default function Knockout() {
                       )}
                     </div>
                   </div>
-                  <div className="text-center text-yellow-400 font-bold text-lg">VS</div>
+                  <div className="text-center text-slate-400 font-bold text-lg">VS</div>
                   <div className={`p-4 rounded-lg text-sm ${
                     finalMatch.status === 'completed' && finalMatch.winnerId === finalMatch.player2Id ? 
                     'bg-yellow-700 text-white border-2 border-yellow-400' : 'bg-slate-700 text-white'
