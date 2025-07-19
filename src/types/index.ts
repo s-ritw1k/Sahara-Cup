@@ -34,8 +34,8 @@ export interface KnockoutMatch {
   winnerId?: string;
   scheduledTime?: string;
   // References to previous matches that feed into this match
-  player1Source?: { type: 'group' | 'match', value: string }; // e.g., { type: 'group', value: 'g1' } or { type: 'match', value: 'm1' }
-  player2Source?: { type: 'group' | 'match', value: string };
+  player1Source?: { type: 'group' | 'match', value: string, position?: number }; // e.g., { type: 'group', value: 'Group A', position: 1 }
+  player2Source?: { type: 'group' | 'match', value: string, position?: number };
 }
 
 export interface Group {

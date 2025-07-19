@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { TrophyIcon, ChartBarIcon, ClockIcon, UserGroupIcon, BoltIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
+import { AnimatedPingPongBall, AnimatedPaddle, AnimatedTable, BouncingBall } from './AnimatedSVGs';
 
 const navigation = [
   { name: 'Home', href: '/', icon: TrophyIcon },
@@ -21,15 +22,23 @@ export default function Layout() {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className="flex items-center">
-              <div className="relative">
+              <div className="relative flex items-center space-x-2">
+                <AnimatedPaddle className="h-8 w-8" />
                 <TrophyIcon className="h-10 w-10 text-champion-gold-400 drop-shadow-lg" />
+                <AnimatedPingPongBall className="h-6 w-6" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-table-green-500 rounded-full animate-pulse-glow shadow-glow-green"></div>
               </div>
-              <div className="ml-3">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-champion-gold-400 via-champion-gold-300 to-champion-gold-500 bg-clip-text text-transparent drop-shadow-sm">
-                  Sahara Cup
-                </h1>
-                <p className="text-sm text-table-green-300 font-medium tracking-wide">2025 Championship</p>
+              <div className="ml-4">
+                <div className="flex items-center space-x-2">
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-champion-gold-400 via-champion-gold-300 to-champion-gold-500 bg-clip-text text-transparent drop-shadow-sm">
+                    Sahara Cup
+                  </h1>
+                  <BouncingBall className="h-4 w-4" />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <p className="text-sm text-table-green-300 font-medium tracking-wide">2025 Championship</p>
+                  <AnimatedTable className="h-4 w-8" />
+                </div>
               </div>
             </div>
 
@@ -78,6 +87,7 @@ export default function Layout() {
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-table-green-500 rounded-full animate-pulse"></div>
                 <span className="text-pro-dark-300 text-sm font-medium">Live Tournament System</span>
+                <BouncingBall className="h-3 w-3" />
               </div>
             </div>
             <div className="text-pro-dark-400 text-sm">

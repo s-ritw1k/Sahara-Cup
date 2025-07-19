@@ -2,6 +2,7 @@ import { useStandings } from '../hooks/useData';
 import { TrophyIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import type { StandingsEntry } from '../types';
+import { AnimatedTrophy, BouncingBall, PingPongSpinner, AnimatedPaddle } from '../components/AnimatedSVGs';
 
 export default function Leaderboard() {
   const { standings, loading, error } = useStandings();
@@ -10,8 +11,14 @@ export default function Leaderboard() {
     return (
       <div className="animate-fade-in">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-dark-400">Loading leaderboard...</p>
+          <div className="flex justify-center items-center space-x-4 mb-4">
+            <PingPongSpinner className="h-12 w-12" />
+            <AnimatedPaddle className="h-10 w-10" />
+          </div>
+          <p className="mt-4 text-dark-400 flex items-center justify-center space-x-2">
+            <span>Loading leaderboard</span>
+            <BouncingBall className="h-4 w-4" />
+          </p>
         </div>
       </div>
     );
@@ -30,11 +37,15 @@ export default function Leaderboard() {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center mb-4">
-          <ChartBarIcon className="h-8 w-8 text-primary-500 mr-3" />
+          <div className="flex items-center space-x-2 mr-3">
+            <ChartBarIcon className="h-8 w-8 text-primary-500" />
+            <AnimatedTrophy className="h-6 w-6" />
+          </div>
           <h1 className="text-4xl font-bold text-white">Tournament Leaderboard</h1>
         </div>
-        <p className="text-dark-300 text-lg">
-          Current standings based on match results and performance
+        <p className="text-dark-300 text-lg flex items-center space-x-2">
+          <span>Current standings based on match results and performance</span>
+          <BouncingBall className="h-4 w-4" />
         </p>
       </div>
 

@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { TrophyIcon, FireIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
+import { AnimatedPingPongBall, AnimatedPaddle, AnimatedTable, BouncingBall, AnimatedTrophy, PingPongSpinner } from '../components/AnimatedSVGs';
 
 export default function Home() {
   const { standings, loading: standingsLoading } = useStandings();
@@ -20,8 +21,15 @@ export default function Home() {
     return (
       <div className="animate-fade-in">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-dark-400">Loading tournament data...</p>
+          <div className="flex justify-center items-center space-x-4 mb-4">
+            <PingPongSpinner className="h-12 w-12" />
+            <AnimatedTable className="h-8 w-12" />
+            <AnimatedPaddle className="h-12 w-12" />
+          </div>
+          <p className="mt-4 text-dark-400 flex items-center justify-center space-x-2">
+            <span>Loading tournament data</span>
+            <BouncingBall className="h-4 w-4" />
+          </p>
         </div>
       </div>
     );
@@ -34,8 +42,11 @@ export default function Home() {
         <div className="lg:col-span-2">
           <div className="card p-6">
             <div className="flex items-center mb-6">
-              <FireIcon className="h-6 w-6 text-red-500 mr-2" />
-              <h2 className="text-2xl font-bold text-white">Live Matches</h2>
+              <div className="flex items-center space-x-2">
+                <FireIcon className="h-6 w-6 text-red-500" />
+                <AnimatedPingPongBall className="h-5 w-5" />
+              </div>
+              <h2 className="text-2xl font-bold text-white ml-2">Live Matches</h2>
               {liveMatches.length > 0 && (
                 <span className="ml-2 inline-flex items-center">
                   <span className="animate-pulse-slow h-2 w-2 bg-red-500 rounded-full"></span>
@@ -46,8 +57,14 @@ export default function Home() {
 
             {liveMatches.length === 0 ? (
               <div className="text-center py-8 text-dark-400">
-                <ClockIcon className="h-12 w-12 mx-auto mb-4 text-dark-600" />
-                <p>No live matches at the moment</p>
+                <div className="flex justify-center items-center space-x-2 mb-4">
+                  <ClockIcon className="h-12 w-12 text-dark-600" />
+                  <AnimatedTable className="h-8 w-12" />
+                </div>
+                <p className="flex items-center justify-center space-x-2">
+                  <span>No live matches at the moment</span>
+                  <BouncingBall className="h-4 w-4" />
+                </p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -153,8 +170,11 @@ export default function Home() {
         <div className="lg:col-span-1">
           <div className="card p-6">
             <div className="flex items-center mb-6">
-              <TrophyIcon className="h-6 w-6 text-yellow-500 mr-2" />
-              <h2 className="text-2xl font-bold text-white">Top Players</h2>
+              <div className="flex items-center space-x-2">
+                <TrophyIcon className="h-6 w-6 text-yellow-500" />
+                <AnimatedTrophy className="h-5 w-5" />
+              </div>
+              <h2 className="text-2xl font-bold text-white ml-2">Top Players</h2>
             </div>
 
             <div className="space-y-4">

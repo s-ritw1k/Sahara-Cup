@@ -361,7 +361,7 @@ const tournament = {
     }
   ],
   knockoutMatches: [
-    // Round of 16 matches
+    // Round of 16 matches - Fixed structure with proper bracket arrangement
     {
       id: 'k1',
       round: 'round16',
@@ -372,8 +372,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T14:00:00Z',
-      player1Source: { type: 'group', value: 'g1' },
-      player2Source: { type: 'group', value: 'g2' }
+      player1Source: { type: 'group', value: 'Group A', position: 1 },
+      player2Source: { type: 'group', value: 'Group B', position: 2 }
     },
     {
       id: 'k2',
@@ -385,8 +385,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T14:30:00Z',
-      player1Source: { type: 'group', value: 'g3' },
-      player2Source: { type: 'group', value: 'g4' }
+      player1Source: { type: 'group', value: 'Group C', position: 1 },
+      player2Source: { type: 'group', value: 'Group D', position: 2 }
     },
     {
       id: 'k3',
@@ -398,8 +398,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T15:00:00Z',
-      player1Source: { type: 'group', value: 'g5' },
-      player2Source: { type: 'group', value: 'g6' }
+      player1Source: { type: 'group', value: 'Group E', position: 1 },
+      player2Source: { type: 'group', value: 'Group F', position: 2 }
     },
     {
       id: 'k4',
@@ -411,8 +411,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T15:30:00Z',
-      player1Source: { type: 'group', value: 'g7' },
-      player2Source: { type: 'group', value: 'g8' }
+      player1Source: { type: 'group', value: 'Group G', position: 1 },
+      player2Source: { type: 'group', value: 'Group H', position: 2 }
     },
     {
       id: 'k5',
@@ -424,8 +424,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T16:00:00Z',
-      player1Source: { type: 'group', value: 'g1' },
-      player2Source: { type: 'group', value: 'g2' }
+      player1Source: { type: 'group', value: 'Group A', position: 2 },
+      player2Source: { type: 'group', value: 'Group B', position: 1 }
     },
     {
       id: 'k6',
@@ -437,8 +437,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T16:30:00Z',
-      player1Source: { type: 'group', value: 'g3' },
-      player2Source: { type: 'group', value: 'g4' }
+      player1Source: { type: 'group', value: 'Group C', position: 2 },
+      player2Source: { type: 'group', value: 'Group D', position: 1 }
     },
     {
       id: 'k7',
@@ -450,8 +450,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T17:00:00Z',
-      player1Source: { type: 'group', value: 'g5' },
-      player2Source: { type: 'group', value: 'g6' }
+      player1Source: { type: 'group', value: 'Group E', position: 2 },
+      player2Source: { type: 'group', value: 'Group F', position: 1 }
     },
     {
       id: 'k8',
@@ -463,8 +463,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-18T17:30:00Z',
-      player1Source: { type: 'group', value: 'g7' },
-      player2Source: { type: 'group', value: 'g8' }
+      player1Source: { type: 'group', value: 'Group G', position: 2 },
+      player2Source: { type: 'group', value: 'Group H', position: 1 }
     },
     // Quarter Finals - TBD based on Round of 16 results
     {
@@ -477,8 +477,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T14:00:00Z',
-      player1Source: { type: 'match', value: 'k1' },
-      player2Source: { type: 'match', value: 'k2' }
+      player1Source: { type: 'match', value: 'Winner of Match 1' },
+      player2Source: { type: 'match', value: 'Winner of Match 2' }
     },
     {
       id: 'k10',
@@ -490,8 +490,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T14:30:00Z',
-      player1Source: { type: 'match', value: 'k3' },
-      player2Source: { type: 'match', value: 'k4' }
+      player1Source: { type: 'match', value: 'Winner of Match 3' },
+      player2Source: { type: 'match', value: 'Winner of Match 4' }
     },
     {
       id: 'k11',
@@ -503,8 +503,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T15:00:00Z',
-      player1Source: { type: 'match', value: 'k5' },
-      player2Source: { type: 'match', value: 'k6' }
+      player1Source: { type: 'match', value: 'Winner of Match 5' },
+      player2Source: { type: 'match', value: 'Winner of Match 6' }
     },
     {
       id: 'k12',
@@ -516,8 +516,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T15:30:00Z',
-      player1Source: { type: 'match', value: 'k7' },
-      player2Source: { type: 'match', value: 'k8' }
+      player1Source: { type: 'match', value: 'Winner of Match 7' },
+      player2Source: { type: 'match', value: 'Winner of Match 8' }
     },
     // Semi Finals
     {
@@ -530,8 +530,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T16:00:00Z',
-      player1Source: { type: 'match', value: 'k9' },
-      player2Source: { type: 'match', value: 'k10' }
+      player1Source: { type: 'match', value: 'Winner of QF1' },
+      player2Source: { type: 'match', value: 'Winner of QF2' }
     },
     {
       id: 'k14',
@@ -543,8 +543,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T16:30:00Z',
-      player1Source: { type: 'match', value: 'k11' },
-      player2Source: { type: 'match', value: 'k12' }
+      player1Source: { type: 'match', value: 'Winner of QF3' },
+      player2Source: { type: 'match', value: 'Winner of QF4' }
     },
     // Final
     {
@@ -557,8 +557,8 @@ const tournament = {
       player2Score: 0,
       status: 'upcoming',
       scheduledTime: '2025-07-19T17:00:00Z',
-      player1Source: { type: 'match', value: 'k13' },
-      player2Source: { type: 'match', value: 'k14' }
+      player1Source: { type: 'match', value: 'Winner of SF1' },
+      player2Source: { type: 'match', value: 'Winner of SF2' }
     }
   ]
 };
