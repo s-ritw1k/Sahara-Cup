@@ -4,7 +4,7 @@ const tournament = {
   name: 'Sahara Cup 2025',
   description: 'Annual Table Tennis Tournament',
   startDate: '2025-07-15T09:00:00Z',
-  endDate: '2025-07-18T18:00:00Z',
+  endDate: '2025-07-28T18:00:00Z',
   status: 'active',
   players: [
     { id: 'p1', name: 'Anjuman Hasan', email: 'anjuman@company.com' },
@@ -43,7 +43,7 @@ const tournament = {
     { id: 'g8', name: 'Group H', playerIds: ['p7', 'p14', 'p16'] },
   ],
   matches: [
-    // Group A matches
+    // Group A matches (4-5 PM on 15/07/25)
     {
       id: 'm1',
       player1Id: 'p21', // Treesa James
@@ -52,7 +52,7 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [5, 1],
-      scheduledTime: '2025-07-17T10:00:00Z',
+      scheduledTime: '2025-07-15T16:00:00Z', // 4 PM
       status: 'completed',
       groupId: 'g1',
       winnerId: 'p21',
@@ -66,7 +66,7 @@ const tournament = {
       player2Score: 1,
       player1SetScores: [11, 7, 11],
       player2SetScores: [8, 11, 5],
-      scheduledTime: '2025-07-17T11:00:00Z',
+      scheduledTime: '2025-07-15T16:20:00Z', // 4:20 PM
       status: 'completed',
       groupId: 'g1',
       winnerId: 'p5',
@@ -80,13 +80,13 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [7, 8],
       player2SetScores: [11, 11],
-      scheduledTime: '2025-07-17T12:00:00Z',
+      scheduledTime: '2025-07-15T16:40:00Z', // 4:40 PM
       status: 'completed',
       groupId: 'g1',
       winnerId: 'p21',
       round: 1
     },
-    // Group B matches
+    // Group B matches (2-3 PM on 15/07/25)
     {
       id: 'm4',
       player1Id: 'p13', // Sanchita Chakrabarty
@@ -95,7 +95,7 @@ const tournament = {
       player2Score: 1,
       player1SetScores: [15, 11, 19],
       player2SetScores: [17, 8, 17],
-      scheduledTime: '2025-07-17T10:30:00Z',
+      scheduledTime: '2025-07-15T14:00:00Z', // 2 PM
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p13',
@@ -109,7 +109,7 @@ const tournament = {
       player2Score: 1,
       player1SetScores: [3, 11, 11],
       player2SetScores: [11, 5, 4],
-      scheduledTime: '2025-07-17T11:30:00Z',
+      scheduledTime: '2025-07-15T14:20:00Z', // 2:20 PM
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p13',
@@ -123,13 +123,13 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [7, 8],
-      scheduledTime: '2025-07-17T12:30:00Z',
+      scheduledTime: '2025-07-15T14:40:00Z', // 2:40 PM
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p1',
       round: 1
     },
-    // Group C matches
+    // Group C matches (3-4 PM on 15/07/25)
     {
       id: 'm7',
       player1Id: 'p3',  // Arishti Salaria
@@ -138,7 +138,7 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [13, 11, 6],
       player2SetScores: [11, 13, 11],
-      scheduledTime: '2025-07-17T13:00:00Z',
+      scheduledTime: '2025-07-15T15:00:00Z', // 3 PM
       status: 'completed',
       groupId: 'g3',
       winnerId: 'p19',
@@ -152,7 +152,7 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 14],
       player2SetScores: [4, 12],
-      scheduledTime: '2025-07-17T13:30:00Z',
+      scheduledTime: '2025-07-15T15:20:00Z', // 3:20 PM
       status: 'completed',
       groupId: 'g3',
       winnerId: 'p3',
@@ -166,13 +166,13 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [4, 8],
       player2SetScores: [11, 11],
-      scheduledTime: '2025-07-17T14:00:00Z',
+      scheduledTime: '2025-07-15T15:40:00Z', // 3:40 PM
       status: 'completed',
       groupId: 'g3',
       winnerId: 'p19',
       round: 1
     },
-    // Group D matches
+    // Group D matches (12-1 PM on 15/07/25)
     {
       id: 'm10',
       player1Id: 'p6',  // Induja Kala
@@ -181,7 +181,7 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [1, 6],
-      scheduledTime: '2025-07-17T14:30:00Z',
+      scheduledTime: '2025-07-15T12:00:00Z', // 12 PM
       status: 'completed',
       groupId: 'g4',
       winnerId: 'p6',
@@ -195,7 +195,7 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [5, 7],
-      scheduledTime: '2025-07-17T15:00:00Z',
+      scheduledTime: '2025-07-15T12:20:00Z', // 12:20 PM
       status: 'completed',
       groupId: 'g4',
       winnerId: 'p12',
@@ -209,13 +209,13 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [5, 4],
-      scheduledTime: '2025-07-17T15:30:00Z',
+      scheduledTime: '2025-07-15T12:40:00Z', // 12:40 PM
       status: 'completed',
       groupId: 'g4',
       winnerId: 'p6',
       round: 1
     },
-    // Group E matches
+    // Group E matches (12:30-1:30 PM on 16/07/25)
     {
       id: 'm13',
       player1Id: 'p22', // Tulsi Pratyusha Dintyala
@@ -224,7 +224,7 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [6, 8],
-      scheduledTime: '2025-07-17T16:00:00Z',
+      scheduledTime: '2025-07-16T12:30:00Z', // 12:30 PM
       status: 'completed',
       groupId: 'g5',
       winnerId: 'p22',
@@ -238,7 +238,7 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [5, 8],
       player2SetScores: [11, 11],
-      scheduledTime: '2025-07-17T16:30:00Z',
+      scheduledTime: '2025-07-16T12:50:00Z', // 12:50 PM
       status: 'completed',
       groupId: 'g5',
       winnerId: 'p22',
@@ -252,13 +252,13 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [0, 9],
-      scheduledTime: '2025-07-17T17:00:00Z',
+      scheduledTime: '2025-07-16T13:10:00Z', // 1:10 PM
       status: 'completed',
       groupId: 'g5',
       winnerId: 'p20',
       round: 1
     },
-    // Group F matches
+    // Group F matches (3-4 PM on 16/07/25)
     {
       id: 'm16',
       player1Id: 'p2',  // Anusha Reddy Bakaram
@@ -267,7 +267,7 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [3, 1],
       player2SetScores: [11, 11],
-      scheduledTime: '2025-07-17T17:30:00Z',
+      scheduledTime: '2025-07-16T15:00:00Z', // 3 PM
       status: 'completed',
       groupId: 'g6',
       winnerId: 'p9',
@@ -281,7 +281,7 @@ const tournament = {
       player2Score: 0,
       player1SetScores: [11, 11],
       player2SetScores: [1, 5],
-      scheduledTime: '2025-07-17T18:00:00Z',
+      scheduledTime: '2025-07-16T15:20:00Z', // 3:20 PM
       status: 'completed',
       groupId: 'g6',
       winnerId: 'p2',
@@ -295,7 +295,7 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [4, 4],
       player2SetScores: [11, 11],
-      scheduledTime: '2025-07-17T18:30:00Z',
+      scheduledTime: '2025-07-16T15:40:00Z', // 3:40 PM
       status: 'completed',
       groupId: 'g6',
       winnerId: 'p9',
@@ -339,14 +339,14 @@ const tournament = {
       groupId: 'g7',
       round: 1
     },
-    // Group H matches - upcoming
+    // Group H matches (2-3 PM on 28/07/25)
     {
       id: 'm22',
       player1Id: 'p7',  // Jyothi M
       player2Id: 'p14', // Sanu Gupta
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-18T11:00:00Z',
+      scheduledTime: '2025-07-28T14:00:00Z', // 2 PM
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -357,7 +357,7 @@ const tournament = {
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-18T11:30:00Z',
+      scheduledTime: '2025-07-28T14:20:00Z', // 2:20 PM
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -368,7 +368,7 @@ const tournament = {
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-18T12:00:00Z',
+      scheduledTime: '2025-07-28T14:40:00Z', // 2:40 PM
       status: 'upcoming',
       groupId: 'g8',
       round: 1

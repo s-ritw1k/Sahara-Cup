@@ -76,64 +76,14 @@ export default function Layout() {
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-pro-dark-900 via-table-green-950 to-pro-dark-900 border-t border-table-green-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Tournament Info */}
-            <div className="text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start mb-3">
-                <TrophyIcon className="h-6 w-6 text-champion-gold-400 mr-2" />
-                <h3 className="text-lg font-bold text-white">Sahara Cup 2025</h3>
-              </div>
-              <p className="text-pro-dark-300 text-sm leading-relaxed">
-                Professional Table Tennis Championship featuring elite players competing 
-                for the prestigious Sahara Cup title.
-              </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+            <div className="flex items-center space-x-2">
+              <TrophyIcon className="h-5 w-5 text-champion-gold-400" />
+              <span className="text-white font-semibold">Sahara Cup 2025</span>
             </div>
-
-            {/* Tournament Status */}
-            <div className="text-center">
-              <h4 className="text-md font-semibold text-table-green-300 mb-3">Tournament Status</h4>
-              <div className="space-y-2">
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-2 h-2 bg-table-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-pro-dark-300 text-sm">Live Tournament System</span>
-                </div>
-                <div className="text-pro-dark-400 text-xs">
-                  Real-time updates • Professional scoring • Live brackets
-                </div>
-              </div>
-            </div>
-
-            {/* Developer Attribution */}
-            <div className="text-center md:text-right">
-              <h4 className="text-md font-semibold text-table-green-300 mb-3">System Development</h4>
-              <div className="space-y-1">
-                <div className="text-pro-dark-300 text-sm">
-                  <span className="font-medium">Developed by</span>
-                </div>
-                <div className="text-lg font-bold bg-gradient-to-r from-table-green-400 to-champion-gold-400 bg-clip-text text-transparent">
-                  Ritwik™
-                </div>
-                <div className="text-pro-dark-400 text-xs">
-                  Full-Stack Developer & System Architect
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="mt-6 pt-6 border-t border-table-green-800/30">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
-              <div className="text-pro-dark-400 text-xs">
-                © 2025 Sahara Cup Tournament Management System. All rights reserved.
-              </div>
-              <div className="flex items-center space-x-4 text-xs text-pro-dark-400">
-                <span>Version 1.0</span>
-                <span>•</span>
-                <span>Real-time Updates Enabled</span>
-                <span>•</span>
-                <span className="text-table-green-400 font-medium">Professional Edition</span>
-              </div>
+            <div className="text-pro-dark-300 text-sm">
+              Developed by <span className="font-semibold text-table-green-400">Ritwik</span>
             </div>
           </div>
         </div>
