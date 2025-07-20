@@ -3,8 +3,8 @@ const tournament = {
   id: 'sahara-cup-2025',
   name: 'Sahara Cup 2025',
   description: 'Annual Table Tennis Tournament',
-  startDate: '2025-06-22T09:00:00Z',
-  endDate: '2025-06-23T18:00:00Z',
+  startDate: '2025-07-22T09:00:00Z',
+  endDate: '2025-07-23T18:00:00Z',
   status: 'active',
   players: [
     { id: 'p1', name: 'Anjuman Hasan', email: 'anjuman@company.com' },
@@ -310,20 +310,20 @@ const tournament = {
       player2Score: 2,
       player1SetScores: [3, 0],
       player2SetScores: [11, 11],
-      scheduledTime: '2025-07-22T14:00:00Z',
+      scheduledTime: '2025-06-22T10:00:00Z', // Earlier completed match
       status: 'completed',
       groupId: 'g7',
       winnerId: 'p23',
       round: 1
     },
-    // Group G - Remaining matches scheduled for June 22
+    // Group G - Remaining matches scheduled for July 22
     {
       id: 'm20',
       player1Id: 'p11', // Rubeena Khatun
       player2Id: 'p23', // Vaishnavi Sindham
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-06-22T12:00:00Z', // 12:00–12:30 Tuesday
+      scheduledTime: '2025-07-22T12:00:00Z', // 12:00 PM Tuesday
       status: 'upcoming',
       groupId: 'g7',
       round: 1
@@ -334,19 +334,19 @@ const tournament = {
       player2Id: 'p18', // Sri Indu Dekkapati
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-06-22T14:30:00Z', // 2:30–3:00 Tuesday
+      scheduledTime: '2025-07-22T14:30:00Z', // 2:30 PM Tuesday
       status: 'upcoming',
       groupId: 'g7',
       round: 1
     },
-    // Group H matches (Wednesday 23 June)
+    // Group H matches (Wednesday 23 July)
     {
       id: 'm22',
       player1Id: 'p14', // Sanu Gupta
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-06-23T12:00:00Z', // 12:00–12:30 Wednesday
+      scheduledTime: '2025-07-23T12:00:00Z', // 12:00 PM Wednesday
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -357,7 +357,7 @@ const tournament = {
       player2Id: 'p14', // Sanu Gupta
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-06-23T14:30:00Z', // 2:30–3:00 Wednesday
+      scheduledTime: '2025-07-23T14:30:00Z', // 2:30 PM Wednesday
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -368,7 +368,7 @@ const tournament = {
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-06-23T15:30:00Z', // 3:30–4:00 Wednesday
+      scheduledTime: '2025-07-23T15:30:00Z', // 3:30 PM Wednesday
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -385,7 +385,7 @@ const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-06-22T12:30:00Z', // 12:30–1:00 Tuesday
+      scheduledTime: '2025-07-22T12:30:00Z', // 12:30 PM Tuesday
       player1Source: { type: 'group', value: 'Group A', position: 2 },
       player2Source: { type: 'group', value: 'Group B', position: 1 }
     },
@@ -398,7 +398,7 @@ const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-06-22T15:00:00Z', // 3:00–3:30 Tuesday
+      scheduledTime: '2025-07-22T15:00:00Z', // 3:00 PM Tuesday
       player1Source: { type: 'group', value: 'Group C', position: 2 },
       player2Source: { type: 'group', value: 'Group D', position: 1 }
     },
@@ -411,7 +411,7 @@ const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-06-22T15:30:00Z', // 3:30–4:00 Tuesday
+      scheduledTime: '2025-07-22T15:30:00Z', // 3:30 PM Tuesday
       player1Source: { type: 'group', value: 'Group B', position: 2 },
       player2Source: { type: 'group', value: 'Group A', position: 1 }
     },
@@ -424,7 +424,7 @@ const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-06-23T12:30:00Z', // 12:30–1:00 Wednesday
+      scheduledTime: '2025-07-23T12:30:00Z', // 12:30 PM Wednesday
       player1Source: { type: 'group', value: 'Group F', position: 1 },
       player2Source: { type: 'group', value: 'Group E', position: 2 }
     },
@@ -437,7 +437,7 @@ const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-06-23T15:00:00Z', // 3:00–3:30 Wednesday
+      scheduledTime: '2025-07-23T15:00:00Z', // 3:00 PM Wednesday
       player1Source: { type: 'group', value: 'Group D', position: 2 },
       player2Source: { type: 'group', value: 'Group C', position: 1 }
     },
@@ -450,7 +450,7 @@ const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-06-23T16:00:00Z', // 4:00–4:30 Wednesday
+      scheduledTime: '2025-07-23T16:00:00Z', // 4:00 PM Wednesday
       player1Source: { type: 'group', value: 'Group F', position: 2 },
       player2Source: { type: 'group', value: 'Group E', position: 1 }
     },

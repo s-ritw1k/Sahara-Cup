@@ -151,7 +151,7 @@ export default function Home() {
                       <div className="bg-blue-500/20 px-3 py-2 rounded-lg border border-blue-500/30">
                         <div className="text-xs text-blue-300 font-medium">TIME</div>
                         <div className="text-sm text-white font-semibold">
-                          {format(new Date(match.scheduledTime), 'HH:mm')}
+                          {format(new Date(match.scheduledTime), 'h:mm a')}
                         </div>
                       </div>
                     </div>

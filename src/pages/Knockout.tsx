@@ -310,10 +310,12 @@ export default function Knockout() {
                   </div>
                   <div className="text-center text-sm text-slate-400 mt-2">
                     {match.scheduledTime && new Date(match.scheduledTime).toLocaleDateString('en-US', {
+                      weekday: 'short',
                       month: 'short',
                       day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true
                     })}
                   </div>
                 </div>
@@ -403,10 +405,12 @@ export default function Knockout() {
                 </div>
                 <div className="text-center text-sm text-slate-400 mt-2">
                   {finalMatch.scheduledTime && new Date(finalMatch.scheduledTime).toLocaleDateString('en-US', {
+                    weekday: 'short',
                     month: 'short',
                     day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
                   })}
                 </div>
               </div>
