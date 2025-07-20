@@ -41,7 +41,7 @@ export default function Leaderboard() {
             <ChartBarIcon className="h-8 w-8 text-primary-500" />
             <AnimatedTrophy className="h-6 w-6" />
           </div>
-          <h1 className="text-4xl font-bold text-white">Tournament Leaderboard</h1>
+          <h1 className="text-4xl font-bold text-white">Leaderboard</h1>
         </div>
         <p className="text-dark-300 text-lg flex items-center space-x-2">
           <span>Current standings based on match results and performance</span>
