@@ -3,8 +3,8 @@ const tournament = {
   id: 'sahara-cup-2025',
   name: 'Sahara Cup 2025',
   description: 'Annual Table Tennis Tournament',
-  startDate: '2025-07-15T09:00:00Z',
-  endDate: '2025-07-28T18:00:00Z',
+  startDate: '2025-06-22T09:00:00Z',
+  endDate: '2025-06-23T18:00:00Z',
   status: 'active',
   players: [
     { id: 'p1', name: 'Anjuman Hasan', email: 'anjuman@company.com' },
@@ -316,14 +316,14 @@ const tournament = {
       winnerId: 'p23',
       round: 1
     },
-    // Group G - Remaining matches scheduled for July 22 at 2 PM
+    // Group G - Remaining matches scheduled for June 22
     {
       id: 'm20',
-      player1Id: 'p23', // Vaishnavi Sindham
-      player2Id: 'p11', // Rubeena Khatun
+      player1Id: 'p11', // Rubeena Khatun
+      player2Id: 'p23', // Vaishnavi Sindham
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-22T14:00:00Z',
+      scheduledTime: '2025-06-22T12:00:00Z', // 12:00–12:30 Tuesday
       status: 'upcoming',
       groupId: 'g7',
       round: 1
@@ -334,19 +334,19 @@ const tournament = {
       player2Id: 'p18', // Sri Indu Dekkapati
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-22T14:30:00Z',
+      scheduledTime: '2025-06-22T14:30:00Z', // 2:30–3:00 Tuesday
       status: 'upcoming',
       groupId: 'g7',
       round: 1
     },
-    // Group H matches (2-3 PM on 28/07/25)
+    // Group H matches (Wednesday 23 June)
     {
       id: 'm22',
-      player1Id: 'p7',  // Jyothi M
-      player2Id: 'p14', // Sanu Gupta
+      player1Id: 'p14', // Sanu Gupta
+      player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-28T14:00:00Z', // 2 PM
+      scheduledTime: '2025-06-23T12:00:00Z', // 12:00–12:30 Wednesday
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -354,131 +354,105 @@ const tournament = {
     {
       id: 'm23',
       player1Id: 'p7',  // Jyothi M
-      player2Id: 'p16', // Siddhi Goyal
+      player2Id: 'p14', // Sanu Gupta
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-28T14:20:00Z', // 2:20 PM
+      scheduledTime: '2025-06-23T14:30:00Z', // 2:30–3:00 Wednesday
       status: 'upcoming',
       groupId: 'g8',
       round: 1
     },
     {
       id: 'm24',
-      player1Id: 'p14', // Sanu Gupta
+      player1Id: 'p7',  // Jyothi M
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-28T14:40:00Z', // 2:40 PM
+      scheduledTime: '2025-06-23T15:30:00Z', // 3:30–4:00 Wednesday
       status: 'upcoming',
       groupId: 'g8',
       round: 1
     }
   ],
   knockoutMatches: [
-    // Round of 16 matches - Fixed structure with proper bracket arrangement
+    // Round of 16 matches - Updated schedule
     {
       id: 'k1',
       round: 'round16',
       matchNumber: 1,
-      player1Id: 'p21', // #1 of Group A (Treesa James)
-      player2Id: 'p1',  // #2 of Group B (Anjuman Hasan)
+      player1Id: 'p5',  // Durga Tammireddy
+      player2Id: 'p13', // Sanchita Chakrabarty
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-18T14:00:00Z',
-      player1Source: { type: 'group', value: 'Group A', position: 1 },
-      player2Source: { type: 'group', value: 'Group B', position: 2 }
+      scheduledTime: '2025-06-22T12:30:00Z', // 12:30–1:00 Tuesday
+      player1Source: { type: 'group', value: 'Group A', position: 2 },
+      player2Source: { type: 'group', value: 'Group B', position: 1 }
     },
     {
       id: 'k2',
       round: 'round16',
       matchNumber: 2,
-      player1Id: 'p19', // #1 of Group C (Srija Panyala)
-      player2Id: 'p12', // #2 of Group D (Sai Keerthi Tulluru)
+      player1Id: 'p3',  // Arishti Salaria
+      player2Id: 'p6',  // Induja Kala
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-18T14:30:00Z',
-      player1Source: { type: 'group', value: 'Group C', position: 1 },
-      player2Source: { type: 'group', value: 'Group D', position: 2 }
+      scheduledTime: '2025-06-22T15:00:00Z', // 3:00–3:30 Tuesday
+      player1Source: { type: 'group', value: 'Group C', position: 2 },
+      player2Source: { type: 'group', value: 'Group D', position: 1 }
     },
     {
       id: 'k3',
       round: 'round16',
       matchNumber: 3,
-      player1Id: 'p22', // #1 of Group E (Tulsi Pratyusha Dintyala)
-      player2Id: 'p2',  // #2 of Group F (Anusha Reddy Bakaram)
+      player1Id: 'p1',  // Anjuman Hasan
+      player2Id: 'p21', // Treesa James
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-18T15:00:00Z',
-      player1Source: { type: 'group', value: 'Group E', position: 1 },
-      player2Source: { type: 'group', value: 'Group F', position: 2 }
+      scheduledTime: '2025-06-22T15:30:00Z', // 3:30–4:00 Tuesday
+      player1Source: { type: 'group', value: 'Group B', position: 2 },
+      player2Source: { type: 'group', value: 'Group A', position: 1 }
     },
     {
       id: 'k4',
       round: 'round16',
       matchNumber: 4,
-      player1Id: 'p23', // #1 of Group G (Vaishnavi Sindham) - TBD but currently leading
-      player2Id: null,  // #2 of Group H - TBD
+      player1Id: 'p9',  // Manaswini Pidugu
+      player2Id: 'p20', // Tamanna Koundal
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-18T15:30:00Z',
-      player1Source: { type: 'group', value: 'Group G', position: 1 },
-      player2Source: { type: 'group', value: 'Group H', position: 2 }
+      scheduledTime: '2025-06-23T12:30:00Z', // 12:30–1:00 Wednesday
+      player1Source: { type: 'group', value: 'Group F', position: 1 },
+      player2Source: { type: 'group', value: 'Group E', position: 2 }
     },
     {
       id: 'k5',
       round: 'round16',
       matchNumber: 5,
-      player1Id: 'p5',  // #2 of Group A (Durga Tammireddy)
-      player2Id: 'p13', // #1 of Group B (Sanchita Chakrabarty)
+      player1Id: 'p12', // Sai Keerthi Tulluru
+      player2Id: 'p19', // Srija Panyala
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-18T16:00:00Z',
-      player1Source: { type: 'group', value: 'Group A', position: 2 },
-      player2Source: { type: 'group', value: 'Group B', position: 1 }
+      scheduledTime: '2025-06-23T15:00:00Z', // 3:00–3:30 Wednesday
+      player1Source: { type: 'group', value: 'Group D', position: 2 },
+      player2Source: { type: 'group', value: 'Group C', position: 1 }
     },
     {
       id: 'k6',
       round: 'round16',
       matchNumber: 6,
-      player1Id: 'p3',  // #2 of Group C (Arishti Salaria)
-      player2Id: 'p6',  // #1 of Group D (Induja Kala)
+      player1Id: 'p2',  // Anusha Reddy Bakaram
+      player2Id: 'p22', // Tulsi Pratyusha Dintyala
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-18T16:30:00Z',
-      player1Source: { type: 'group', value: 'Group C', position: 2 },
-      player2Source: { type: 'group', value: 'Group D', position: 1 }
-    },
-    {
-      id: 'k7',
-      round: 'round16',
-      matchNumber: 7,
-      player1Id: 'p20', // #2 of Group E (Tamanna Koundal)
-      player2Id: 'p9',  // #1 of Group F (Manaswini Pidugu)
-      player1Score: 0,
-      player2Score: 0,
-      status: 'upcoming',
-      scheduledTime: '2025-07-18T17:00:00Z',
-      player1Source: { type: 'group', value: 'Group E', position: 2 },
-      player2Source: { type: 'group', value: 'Group F', position: 1 }
-    },
-    {
-      id: 'k8',
-      round: 'round16',
-      matchNumber: 8,
-      player1Id: null,  // #2 of Group G - TBD
-      player2Id: null,  // #1 of Group H - TBD
-      player1Score: 0,
-      player2Score: 0,
-      status: 'upcoming',
-      scheduledTime: '2025-07-18T17:30:00Z',
-      player1Source: { type: 'group', value: 'Group G', position: 2 },
-      player2Source: { type: 'group', value: 'Group H', position: 1 }
+      scheduledTime: '2025-06-23T16:00:00Z', // 4:00–4:30 Wednesday
+      player1Source: { type: 'group', value: 'Group F', position: 2 },
+      player2Source: { type: 'group', value: 'Group E', position: 1 }
     },
     // Quarter Finals - TBD based on Round of 16 results
     {
