@@ -136,34 +136,14 @@ export default function Matches() {
               return new Date(a.scheduledTime).getTime() - new Date(b.scheduledTime).getTime();
             })
             .map((match, index) => {
-              // Determine if this is a podium match (top 3 based on match importance/timing)
-              const isGoldMatch = index === 0 && match.status === 'live'; // Current live match gets gold
-              const isSilverMatch = index === 1 && (match.status === 'live' || match.status === 'upcoming');
-              const isBronzeMatch = index === 2 && (match.status === 'live' || match.status === 'upcoming');
-              
-              const getPodiumStyling = () => {
-                if (isGoldMatch) {
-                  return "border-l-4 border-champion-gold-500 bg-gradient-to-r from-champion-gold-900/20 via-pro-dark-900 to-pro-dark-900 shadow-glow-gold hover:shadow-glow-gold-intense";
-                } else if (isSilverMatch) {
-                  return "border-l-4 border-gray-400 bg-gradient-to-r from-gray-800/20 via-pro-dark-900 to-pro-dark-900 shadow-lg hover:shadow-xl";
-                } else if (isBronzeMatch) {
-                  return "border-l-4 border-amber-600 bg-gradient-to-r from-amber-900/20 via-pro-dark-900 to-pro-dark-900 shadow-lg hover:shadow-xl";
-                }
-                return "border-l-4 border-table-green-600/30 hover:border-table-green-500";
-              };
-
               return (
                 <div 
                   key={match.id} 
-                  className={`card-hover p-6 animate-slide-up transition-all duration-500 relative overflow-hidden ${getPodiumStyling()}`}
+                  className="card-hover p-6 animate-slide-up transition-all duration-500 relative overflow-hidden border-l-4 border-table-green-600/30 hover:border-table-green-500"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
 
                   
-                  {/* Special glow effect for gold match */}
-                  {isGoldMatch && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-champion-gold-500/5 via-transparent to-champion-gold-500/5 pointer-events-none animate-pulse-slow"></div>
-                  )}
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
                   {/* Match Info */}
                   <div className="lg:col-span-2">
@@ -171,21 +151,14 @@ export default function Matches() {
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex-1 group">
-                            <h3 className={`text-lg font-semibold transition-colors duration-300 ${
-                              isGoldMatch ? 'text-champion-gold-200 group-hover:text-champion-gold-100' :
-                              isSilverMatch ? 'text-gray-200 group-hover:text-gray-100' :
-                              isBronzeMatch ? 'text-amber-200 group-hover:text-amber-100' :
-                              'text-white group-hover:text-table-green-300'
-                            }`}>
+                            <h3 className="text-lg font-semibold transition-colors duration-300 text-white group-hover:text-table-green-300">
                               {match.player1.name}
                             </h3>
                           </div>
                           <div className="mx-8 text-center relative">
                             {match.status === 'completed' || match.status === 'live' ? (
                               <div className="space-y-2">
-                                <div className={`text-3xl font-bold score-display ${
-                                  isGoldMatch ? 'drop-shadow-glow' : ''
-                                }`}>
+                                <div className="text-3xl font-bold score-display">
                                   <span className={clsx(
                                     "transition-all duration-300",
                                     match.winnerId === match.player1Id ? "text-champion-gold-400 scale-110" : "text-pro-dark-300"
@@ -218,28 +191,16 @@ export default function Matches() {
                                 )}
                               </div>
                             ) : (
-                              <div className={`text-xl font-medium animate-float-gentle ${
-                                isGoldMatch ? 'text-champion-gold-300' :
-                                isSilverMatch ? 'text-gray-300' :
-                                isBronzeMatch ? 'text-amber-300' :
-                                'text-pro-dark-500'
-                              }`}>
+                              <div className="text-xl font-medium animate-float-gentle text-pro-dark-500">
                                 vs
                               </div>
                             )}
                             {match.status === 'live' && (
-                              <div className={`absolute -top-2 -right-2 w-3 h-3 rounded-full animate-pulse-glow ${
-                                isGoldMatch ? 'bg-champion-gold-400' : 'bg-red-500'
-                              }`}></div>
+                              <div className="absolute -top-2 -right-2 w-3 h-3 rounded-full animate-pulse-glow bg-red-500"></div>
                             )}
                           </div>
                           <div className="flex-1 text-right group">
-                            <h3 className={`text-lg font-semibold transition-colors duration-300 ${
-                              isGoldMatch ? 'text-champion-gold-200 group-hover:text-champion-gold-100' :
-                              isSilverMatch ? 'text-gray-200 group-hover:text-gray-100' :
-                              isBronzeMatch ? 'text-amber-200 group-hover:text-amber-100' :
-                              'text-white group-hover:text-table-green-300'
-                            }`}>
+                            <h3 className="text-lg font-semibold transition-colors duration-300 text-white group-hover:text-table-green-300">
                               {match.player2.name}
                             </h3>
                           </div>
@@ -256,9 +217,6 @@ export default function Matches() {
                       </p>
                       <p className="text-lg font-semibold text-white">
                         {format(new Date(match.scheduledTime), 'h:mm a')}
-                      </p>
-                      <p className="text-sm text-pro-dark-400 mt-1 bg-pro-dark-800 rounded-full px-3 py-1 inline-block">
-                        Round {match.round}
                       </p>
                     </div>
                   </div>

@@ -52,7 +52,9 @@ export const tournament: Tournament = {
       player2Id: 'p8',  // Krishna Ramya
       player1Score: 2,  // Won 2 sets (11-5, 11-1)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-22T16:00:00Z',
+      player1SetScores: [11, 11],
+      player2SetScores: [5, 1],
+      scheduledTime: '2025-07-22T10:30:00Z', // 4:00 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g1',
       winnerId: 'p21',
@@ -64,7 +66,9 @@ export const tournament: Tournament = {
       player2Id: 'p8',  // Krishna Ramya
       player1Score: 2,  // Won 2 sets (11-8, 11-5)
       player2Score: 1,  // Won 1 set (7-11)
-      scheduledTime: '2025-07-22T16:20:00Z',
+      player1SetScores: [11, 7, 11],
+      player2SetScores: [8, 11, 5],
+      scheduledTime: '2025-07-22T10:50:00Z', // 4:20 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g1',
       winnerId: 'p5',
@@ -76,7 +80,9 @@ export const tournament: Tournament = {
       player2Id: 'p21', // Treesa James
       player1Score: 0,  // Won 0 sets (7-11, 8-11)
       player2Score: 2,  // Won 2 sets
-      scheduledTime: '2025-07-22T16:40:00Z',
+      player1SetScores: [7, 8],
+      player2SetScores: [11, 11],
+      scheduledTime: '2025-07-22T11:10:00Z', // 4:40 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g1',
       winnerId: 'p21',
@@ -90,7 +96,9 @@ export const tournament: Tournament = {
       player2Id: 'p15', // Shreeya Dheera Parvatham
       player1Score: 2,  // Won 2 sets (15-17, 11-8, 19-17)
       player2Score: 1,  // Won 1 set
-      scheduledTime: '2025-07-22T14:00:00Z',
+      player1SetScores: [15, 11, 19],
+      player2SetScores: [17, 8, 17],
+      scheduledTime: '2025-07-22T08:30:00Z', // 2:00 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p13',
@@ -102,7 +110,9 @@ export const tournament: Tournament = {
       player2Id: 'p1',  // Anjuman Hasan
       player1Score: 2,  // Won 2 sets (11-3, 11-4)
       player2Score: 1,  // Won 1 set (5-11)
-      scheduledTime: '2025-07-22T14:20:00Z',
+      player1SetScores: [3, 11, 11],
+      player2SetScores: [11, 5, 4],
+      scheduledTime: '2025-07-22T08:50:00Z', // 2:20 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p13',
@@ -114,7 +124,9 @@ export const tournament: Tournament = {
       player2Id: 'p15', // Shreeya Dheera Parvatham
       player1Score: 2,  // Won 2 sets (11-7, 11-8)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-22T14:40:00Z',
+      player1SetScores: [11, 11],
+      player2SetScores: [7, 8],
+      scheduledTime: '2025-07-22T09:10:00Z', // 2:40 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g2',
       winnerId: 'p1',
@@ -128,7 +140,9 @@ export const tournament: Tournament = {
       player2Id: 'p19', // Srija Panyala
       player1Score: 1,  // Won 1 set (13-11)
       player2Score: 2,  // Won 2 sets (11-13, 11-6)
-      scheduledTime: '2025-07-22T15:00:00Z',
+      player1SetScores: [13, 11, 6],
+      player2SetScores: [11, 13, 11],
+      scheduledTime: '2025-07-22T09:30:00Z', // 3:00 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g3',
       winnerId: 'p19',
@@ -140,7 +154,9 @@ export const tournament: Tournament = {
       player2Id: 'p4',  // Bhavani Parupureddy
       player1Score: 2,  // Won 2 sets (11-4, 14-12)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-22T15:20:00Z',
+      player1SetScores: [11, 14],
+      player2SetScores: [4, 12],
+      scheduledTime: '2025-07-22T09:50:00Z', // 3:20 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g3',
       winnerId: 'p3',
@@ -152,7 +168,9 @@ export const tournament: Tournament = {
       player2Id: 'p19', // Srija Panyala
       player1Score: 0,  // Won 0 sets (4-11, 8-11)
       player2Score: 2,  // Won 2 sets
-      scheduledTime: '2025-07-22T15:40:00Z',
+      player1SetScores: [4, 8],
+      player2SetScores: [11, 11],
+      scheduledTime: '2025-07-22T10:10:00Z', // 3:40 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g3',
       winnerId: 'p19',
@@ -166,7 +184,9 @@ export const tournament: Tournament = {
       player2Id: 'p12', // Sai Keerthi Tulluru
       player1Score: 2,  // Won 2 sets (11-1, 11-6)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-22T12:00:00Z',
+      player1SetScores: [11, 11],
+      player2SetScores: [1, 6],
+      scheduledTime: '2025-07-22T06:30:00Z', // 12:00 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g4',
       winnerId: 'p6',
@@ -178,7 +198,9 @@ export const tournament: Tournament = {
       player2Id: 'p10', // Prathyusha Dodda
       player1Score: 2,  // Won 2 sets (11-5, 11-7)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-22T12:20:00Z',
+      player1SetScores: [11, 11],
+      player2SetScores: [5, 7],
+      scheduledTime: '2025-07-22T06:50:00Z', // 12:20 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g4',
       winnerId: 'p12',
@@ -190,7 +212,9 @@ export const tournament: Tournament = {
       player2Id: 'p10', // Prathyusha Dodda
       player1Score: 2,  // Won 2 sets (11-5, 11-4)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-22T12:40:00Z',
+      player1SetScores: [11, 11],
+      player2SetScores: [5, 4],
+      scheduledTime: '2025-07-22T07:10:00Z', // 12:40 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g4',
       winnerId: 'p6',
@@ -200,11 +224,13 @@ export const tournament: Tournament = {
     // Group E matches (Tamanna Koundal, Tulsi Pratyusha Dintyala, Yadavalli Dedeepya Sneha) - 12:30-1:30 PM July 23
     {
       id: 'm13',
-      player1Id: 'p20', // Tamanna Koundal
-      player2Id: 'p22', // Tulsi Pratyusha Dintyala
-      player1Score: 0,  // Won 0 sets (5-11, 8-11)
-      player2Score: 2,  // Won 2 sets
-      scheduledTime: '2025-07-23T12:30:00Z',
+      player1Id: 'p22', // Tulsi Pratyusha Dintyala
+      player2Id: 'p24', // Yadavalli Dedeepya Sneha
+      player1Score: 2,  // Won 2 sets (11-6, 11-8)
+      player2Score: 0,  // Won 0 sets
+      player1SetScores: [11, 11],
+      player2SetScores: [6, 8],
+      scheduledTime: '2025-07-23T07:00:00Z', // 12:30 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g5',
       winnerId: 'p22',
@@ -213,25 +239,29 @@ export const tournament: Tournament = {
     {
       id: 'm14',
       player1Id: 'p20', // Tamanna Koundal
-      player2Id: 'p24', // Yadavalli Dedeepya Sneha
-      player1Score: 2,  // Won 2 sets (11-0, 11-9)
-      player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-23T12:50:00Z',
+      player2Id: 'p22', // Tulsi Pratyusha Dintyala
+      player1Score: 0,  // Won 0 sets (5-11, 8-11)
+      player2Score: 2,  // Won 2 sets
+      player1SetScores: [5, 8],
+      player2SetScores: [11, 11],
+      scheduledTime: '2025-07-23T07:20:00Z', // 12:50 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g5',
-      winnerId: 'p20',
+      winnerId: 'p22',
       round: 1
     },
     {
       id: 'm15',
-      player1Id: 'p22', // Tulsi Pratyusha Dintyala
+      player1Id: 'p20', // Tamanna Koundal
       player2Id: 'p24', // Yadavalli Dedeepya Sneha
-      player1Score: 2,  // Won 2 sets (11-6, 11-8)
+      player1Score: 2,  // Won 2 sets (11-0, 11-9)
       player2Score: 0,  // Won 0 sets
-      scheduledTime: '2025-07-23T13:10:00Z',
+      player1SetScores: [11, 11],
+      player2SetScores: [0, 9],
+      scheduledTime: '2025-07-23T07:40:00Z', // 1:10 PM IST (UTC+5:30)
       status: 'completed',
       groupId: 'g5',
-      winnerId: 'p22',
+      winnerId: 'p20',
       round: 1
     },
 
@@ -241,44 +271,53 @@ export const tournament: Tournament = {
       player1Id: 'p2',  // Anusha Reddy Bakaram
       player2Id: 'p9',  // Manaswini Pidugu
       player1Score: 0,
-      player2Score: 0,
-      scheduledTime: '2025-07-23T15:00:00Z',
-      status: 'upcoming',
+      player2Score: 2,
+      player1SetScores: [3, 1],
+      player2SetScores: [11, 11],
+      scheduledTime: '2025-07-16T09:30:00Z', // 3:00 PM IST (UTC+5:30)
+      status: 'completed',
       groupId: 'g6',
+      winnerId: 'p9',
       round: 1
     },
     {
       id: 'm17',
       player1Id: 'p2',  // Anusha Reddy Bakaram
-      player2Id: 'p17', // Sneha Sai Pola
-      player1Score: 0,
+      player2Id: 'p17', // Sneha Sai Pola (Note: CSV shows "Sai Sneha Pola")
+      player1Score: 2,
       player2Score: 0,
-      scheduledTime: '2025-07-23T15:20:00Z',
-      status: 'upcoming',
+      player1SetScores: [11, 11],
+      player2SetScores: [1, 5],
+      scheduledTime: '2025-07-16T10:00:00Z', // 3:20 PM IST (UTC+5:30)
+      status: 'completed',
       groupId: 'g6',
+      winnerId: 'p2',
       round: 1
     },
     {
       id: 'm18',
-      player1Id: 'p9',  // Manaswini Pidugu
-      player2Id: 'p17', // Sneha Sai Pola
+      player1Id: 'p17', // Sneha Sai Pola (Note: CSV shows "Sai Sneha Pola")
+      player2Id: 'p9',  // Manaswini Pidugu
       player1Score: 0,
-      player2Score: 0,
-      scheduledTime: '2025-07-23T15:40:00Z',
-      status: 'upcoming',
+      player2Score: 2,
+      player1SetScores: [4, 4],
+      player2SetScores: [11, 11],
+      scheduledTime: '2025-07-16T10:00:00Z', // 3:40 PM IST (UTC+5:30)
+      status: 'completed',
       groupId: 'g6',
+      winnerId: 'p9',
       round: 1
     },
 
-    // Group G matches (Rubeena Khatun, Sri Indu Dekkapati, Vaishnavi Sindham) - July 23
+    // Group G matches (Rubeena Khatun, Sri Indu Dekkapati, Vaishnavi Sindham) - July 22
     {
       id: 'm19',
       player1Id: 'p11', // Rubeena Khatun
       player2Id: 'p18', // Sri Indu Dekkapati
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-23T16:00:00Z',
-      status: 'live',
+      scheduledTime: '2025-07-22T09:00:00Z', // 2:00 PM IST (UTC+5:30)
+      status: 'upcoming',
       groupId: 'g7',
       round: 1
     },
@@ -288,20 +327,23 @@ export const tournament: Tournament = {
       player2Id: 'p23', // Vaishnavi Sindham
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-22T12:00:00Z', // 12:00 PM Tuesday
+      scheduledTime: '2025-07-22T06:30:00Z', // 2:20 PM IST (UTC+5:30)
       status: 'upcoming',
       groupId: 'g7',
       round: 1
     },
     {
       id: 'm21',
-      player1Id: 'p11', // Rubeena Khatun
-      player2Id: 'p18', // Sri Indu Dekkapati
-      player1Score: 0,
-      player2Score: 0,
-      scheduledTime: '2025-07-22T14:30:00Z', // 2:30 PM Tuesday
-      status: 'upcoming',
+      player1Id: 'p18', // Sri Indu Dekkapati
+      player2Id: 'p23', // Vaishnavi Sindham
+      player1Score: 0,  // Won 0 sets (3-11, 0-11)
+      player2Score: 2,  // Won 2 sets
+      player1SetScores: [3, 0],
+      player2SetScores: [11, 11],
+      scheduledTime: '2025-07-22T10:00:00Z', // 2:40 PM IST (UTC+5:30)
+      status: 'completed',
       groupId: 'g7',
+      winnerId: 'p23',
       round: 1
     },
 
@@ -312,7 +354,7 @@ export const tournament: Tournament = {
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-23T12:00:00Z', // 12:00 PM Wednesday
+      scheduledTime: '2025-07-23T06:30:00Z', // 12:00 PM IST (UTC+5:30)
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -323,7 +365,7 @@ export const tournament: Tournament = {
       player2Id: 'p14', // Sanu Gupta
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-23T14:30:00Z', // 2:30 PM Wednesday
+      scheduledTime: '2025-07-23T09:00:00Z', // 12:20 PM IST (UTC+5:30)
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -334,7 +376,7 @@ export const tournament: Tournament = {
       player2Id: 'p16', // Siddhi Goyal
       player1Score: 0,
       player2Score: 0,
-      scheduledTime: '2025-07-23T15:30:00Z', // 3:30 PM Wednesday
+      scheduledTime: '2025-07-23T10:00:00Z', // 12:40 PM IST (UTC+5:30)
       status: 'upcoming',
       groupId: 'g8',
       round: 1
@@ -342,106 +384,205 @@ export const tournament: Tournament = {
   ],
   // Initialize knockout matches structure
   knockoutMatches: [
-    // Round of 16 matches
+    // Round of 16 matches - Updated schedule
     {
-      id: 'ko1',
+      id: 'k1',
       round: 'round16' as const,
       matchNumber: 1,
-      player1Id: undefined, // Will be filled from Group A winner
-      player2Id: undefined, // Will be filled from Group B runner-up
+      player1Id: 'p13', // Sanchita Chakrabarty (#1 Group B)
+      player2Id: 'p5',  // Durga Tammireddy (#2 Group A)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'group', value: 'g1' }, // Group A winner
-      player2Source: { type: 'group', value: 'g2' }, // Group B runner-up
+      scheduledTime: '2025-07-22T07:00:00Z', // 12:30 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group B', position: 1 },
+      player2Source: { type: 'group', value: 'Group A', position: 2 }
     },
     {
-      id: 'ko2',
+      id: 'k2',
       round: 'round16' as const,
       matchNumber: 2,
-      player1Id: undefined, // Will be filled from Group C winner
-      player2Id: undefined, // Will be filled from Group D runner-up
+      player1Id: 'p6',  // Induja Kala (#1 Group D)
+      player2Id: 'p3',  // Arishti Salaria (#2 Group C)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'group', value: 'g3' }, // Group C winner
-      player2Source: { type: 'group', value: 'g4' }, // Group D runner-up
+      scheduledTime: '2025-07-22T09:30:00Z', // 3:00 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group D', position: 1 },
+      player2Source: { type: 'group', value: 'Group C', position: 2 }
     },
     {
-      id: 'ko3',
+      id: 'k3',
       round: 'round16' as const,
       matchNumber: 3,
-      player1Id: undefined, // Will be filled from Group E winner
-      player2Id: undefined, // Will be filled from Group F runner-up
+      player1Id: 'p21', // Treesa James (#1 Group A)
+      player2Id: 'p1',  // Anjuman Hasan (#2 Group B)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'group', value: 'g5' }, // Group E winner
-      player2Source: { type: 'group', value: 'g6' }, // Group F runner-up
+      scheduledTime: '2025-07-22T10:00:00Z', // 3:30 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group A', position: 1 },
+      player2Source: { type: 'group', value: 'Group B', position: 2 }
     },
     {
-      id: 'ko4',
+      id: 'k4',
       round: 'round16' as const,
       matchNumber: 4,
-      player1Id: undefined, // Will be filled from Group G winner
-      player2Id: undefined, // Will be filled from Group H runner-up
+      player1Id: 'p9',  // Manaswini Pidugu (#1 Group F)
+      player2Id: 'p20', // Tamanna Koundal (#2 Group E)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'group', value: 'g7' }, // Group G winner
-      player2Source: { type: 'group', value: 'g8' }, // Group H runner-up
+      scheduledTime: '2025-07-23T07:00:00Z', // 12:30 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group F', position: 1 },
+      player2Source: { type: 'group', value: 'Group E', position: 2 }
     },
-    // Quarter Finals
     {
-      id: 'ko5',
+      id: 'k5',
+      round: 'round16' as const,
+      matchNumber: 5,
+      player1Id: 'p19', // Srija Panyala (#1 Group C)
+      player2Id: 'p12', // Sai Keerthi Tulluru (#2 Group D)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-23T09:30:00Z', // 3:00 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group C', position: 1 },
+      player2Source: { type: 'group', value: 'Group D', position: 2 }
+    },
+    {
+      id: 'k6',
+      round: 'round16' as const,
+      matchNumber: 6,
+      player1Id: 'p22', // Tulsi Pratyusha Dintyala (#1 Group E)
+      player2Id: 'p2',  // Anusha Reddy Bakaram (#2 Group F)
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-23T10:30:00Z', // 4:00 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group E', position: 1 },
+      player2Source: { type: 'group', value: 'Group F', position: 2 }
+    },
+    {
+      id: 'k7',
+      round: 'round16' as const,
+      matchNumber: 7,
+      player1Id: undefined, // TBD
+      player2Id: undefined, // TBD
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-23T11:00:00Z', // 4:30 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group G', position: 1 },
+      player2Source: { type: 'group', value: 'Group H', position: 2 }
+    },
+    {
+      id: 'k8',
+      round: 'round16' as const,
+      matchNumber: 8,
+      player1Id: undefined, // TBD
+      player2Id: undefined, // TBD
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-23T11:30:00Z', // 5:00 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group H', position: 2 },
+      player2Source: { type: 'group', value: 'Group G', position: 1 }
+    },
+    // Quarter Finals - TBD based on Round of 16 results
+    {
+      id: 'k9',
       round: 'quarterfinal' as const,
       matchNumber: 1,
-      player1Id: undefined, // Winner of ko1
-      player2Id: undefined, // Winner of ko2
+      player1Id: undefined,
+      player2Id: undefined,
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'match', value: 'ko1' },
-      player2Source: { type: 'match', value: 'ko2' },
+      scheduledTime: '2025-07-24T07:00:00Z', // 12:30 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of Match 1' },
+      player2Source: { type: 'match', value: 'Winner of Match 2' }
     },
     {
-      id: 'ko6',
+      id: 'k10',
       round: 'quarterfinal' as const,
       matchNumber: 2,
-      player1Id: undefined, // Winner of ko3
-      player2Id: undefined, // Winner of ko4
+      player1Id: undefined,
+      player2Id: undefined,
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'match', value: 'ko3' },
-      player2Source: { type: 'match', value: 'ko4' },
+      scheduledTime: '2025-07-24T07:30:00Z', // 1:00 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of Match 3' },
+      player2Source: { type: 'match', value: 'Winner of Match 4' }
+    },
+    {
+      id: 'k11',
+      round: 'quarterfinal' as const,
+      matchNumber: 3,
+      player1Id: undefined,
+      player2Id: undefined,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-24T08:00:00Z', // 1:30 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of Match 5' },
+      player2Source: { type: 'match', value: 'Winner of Match 6' }
+    },
+    {
+      id: 'k12',
+      round: 'quarterfinal' as const,
+      matchNumber: 4,
+      player1Id: undefined,
+      player2Id: undefined,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-24T08:30:00Z', // 2:00 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of Match 7' },
+      player2Source: { type: 'match', value: 'Winner of Match 8' }
     },
     // Semi Finals
     {
-      id: 'ko7',
+      id: 'k13',
       round: 'semifinal' as const,
       matchNumber: 1,
-      player1Id: undefined, // Winner of ko5
-      player2Id: undefined, // Winner of ko6
+      player1Id: undefined,
+      player2Id: undefined,
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'match', value: 'ko5' },
-      player2Source: { type: 'match', value: 'ko6' },
+      scheduledTime: '2025-07-25T07:00:00Z', // 12:30 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of QF1' },
+      player2Source: { type: 'match', value: 'Winner of QF2' }
+    },
+    {
+      id: 'k14',
+      round: 'semifinal' as const,
+      matchNumber: 2,
+      player1Id: undefined,
+      player2Id: undefined,
+      player1Score: 0,
+      player2Score: 0,
+      status: 'upcoming' as const,
+      scheduledTime: '2025-07-25T07:30:00Z', // 1:00 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of QF3' },
+      player2Source: { type: 'match', value: 'Winner of QF4' }
     },
     // Final
     {
-      id: 'ko8',
+      id: 'k15',
       round: 'final' as const,
       matchNumber: 1,
-      player1Id: undefined, // Winner of ko7 
-      player2Id: undefined, // There should be another semifinal, but for now we'll handle this in the UI
+      player1Id: undefined,
+      player2Id: undefined,
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming' as const,
-      player1Source: { type: 'match', value: 'ko7' },
-      player2Source: { type: 'match', value: 'ko7' }, // This represents both semifinal winners
-    },
+      scheduledTime: '2025-07-25T08:00:00Z', // 1:30 PM IST (UTC+5:30)
+      player1Source: { type: 'match', value: 'Winner of SF1' },
+      player2Source: { type: 'match', value: 'Winner of SF2' }
+    }
   ],
 };
 

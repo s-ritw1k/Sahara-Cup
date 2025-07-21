@@ -10,6 +10,8 @@ export interface Match {
   player2Id: string;
   player1Score: number;
   player2Score: number;
+  player1SetScores?: number[]; // Individual set scores like [11, 8, 11] for 3 sets
+  player2SetScores?: number[]; // Individual set scores like [4, 11, 6] for 3 sets
   scheduledTime: string;
   status: 'upcoming' | 'live' | 'completed';
   groupId: string;
@@ -26,12 +28,14 @@ export interface KnockoutMatch {
   player2Id?: string; // Can be TBD initially
   player1Score: number;
   player2Score: number;
+  player1SetScores?: number[]; // Individual set scores
+  player2SetScores?: number[]; // Individual set scores
   status: 'upcoming' | 'live' | 'completed';
   winnerId?: string;
   scheduledTime?: string;
   // References to previous matches that feed into this match
-  player1Source?: { type: 'group' | 'match', value: string }; // e.g., { type: 'group', value: 'g1' } or { type: 'match', value: 'm1' }
-  player2Source?: { type: 'group' | 'match', value: string };
+  player1Source?: { type: 'group' | 'match', value: string, position?: number }; // e.g., { type: 'group', value: 'g1', position: 1 } or { type: 'match', value: 'm1' }
+  player2Source?: { type: 'group' | 'match', value: string, position?: number };
 }
 
 export interface Group {

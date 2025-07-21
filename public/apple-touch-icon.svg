@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#2a2a2a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </radialGradient>
+    <style>
+      .ball {
+        animation: bounce 1.2s ease-in-out infinite;
+        transform-origin: 90px 45px;
+      }
+      @keyframes bounce {
+        0% { transform: translateY(0px) scale(1); }
+        25% { transform: translateY(-20px) scale(1.1); }
+        50% { transform: translateY(-40px) scale(1.2); }
+        75% { transform: translateY(-20px) scale(1.1); }
+        100% { transform: translateY(0px) scale(1); }
+      }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="180" height="180" fill="url(#bg)" rx="20"/>
+  
+  <!-- Racket Handle -->
+  <rect fill="#8B4513" x="75" y="110" width="30" height="60" rx="15"/>
+  <rect fill="#654321" x="80" y="110" width="10" height="60"/>
+  <rect fill="#A0522D" x="85" y="110" width="10" height="60"/>
+  
+  <!-- Racket Paddle -->
+  <ellipse fill="#FF6B35" stroke="#333" stroke-width="3" cx="90" cy="90" rx="50" ry="35"/>
+  <ellipse fill="#FF8C42" cx="90" cy="90" rx="40" ry="28"/>
+  
+  <!-- Paddle Grid Pattern -->
+  <g stroke="#333" stroke-width="1.5" opacity="0.6">
+    <line x1="50" y1="70" x2="130" y2="70"/>
+    <line x1="50" y1="85" x2="130" y2="85"/>
+    <line x1="50" y1="100" x2="130" y2="100"/>
+    <line x1="50" y1="115" x2="130" y2="115"/>
+    <line x1="65" y1="60" x2="65" y2="120"/>
+    <line x1="80" y1="60" x2="80" y2="120"/>
+    <line x1="95" y1="60" x2="95" y2="120"/>
+    <line x1="110" y1="60" x2="110" y2="120"/>
+  </g>
+  
+  <!-- Brand Text -->
+  <text x="90" y="35" text-anchor="middle" fill="#FF6B35" font-family="Arial, sans-serif" font-size="16" font-weight="bold">SAHARA</text>
+  
+  <!-- Animated Ball -->
+  <g class="ball">
+    <ellipse cx="90" cy="140" rx="12" ry="4" fill="#000" opacity="0.3"/>
+    <circle fill="#FF4500" cx="90" cy="45" r="15"/>
+    <circle fill="#FF6B35" cx="90" cy="45" r="12"/>
+    <circle fill="#FFB347" opacity="0.7" cx="95" cy="40" r="6"/>
+    <circle fill="#FFF" opacity="0.8" cx="98" cy="38" r="3"/>
+  </g>
+</svg>
