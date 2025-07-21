@@ -255,7 +255,7 @@ export default function Matches() {
                         {format(new Date(match.scheduledTime), 'MMM dd, yyyy')}
                       </p>
                       <p className="text-lg font-semibold text-white">
-                        {format(new Date(match.scheduledTime), 'HH:mm')}
+                        {format(new Date(match.scheduledTime), 'h:mm a')}
                       </p>
                       <p className="text-sm text-pro-dark-400 mt-1 bg-pro-dark-800 rounded-full px-3 py-1 inline-block">
                         Round {match.round}
