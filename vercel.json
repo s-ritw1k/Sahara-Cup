@@ -6,6 +6,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/matches/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -15,12 +19,28 @@
   ],
   "routes": [
     {
-      "src": "/api/test",
-      "dest": "/api/test.js"
+      "src": "/api/tournament",
+      "dest": "/api/tournament.js"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
+      "src": "/api/matches/upcoming",
+      "dest": "/api/matches/upcoming.js"
+    },
+    {
+      "src": "/api/matches/live",
+      "dest": "/api/matches/live.js"
+    },
+    {
+      "src": "/api/matches",
+      "dest": "/api/matches.js"
+    },
+    {
+      "src": "/api/knockout",
+      "dest": "/api/knockout.js"
+    },
+    {
+      "src": "/api/standings",
+      "dest": "/api/standings.js"
     },
     {
       "src": "/assets/(.*)",
@@ -29,6 +49,10 @@
     {
       "src": "/vite.svg",
       "dest": "/vite.svg"
+    },
+    {
+      "src": "/favicon.svg",
+      "dest": "/favicon.svg"
     },
     {
       "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf))",
