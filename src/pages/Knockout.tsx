@@ -92,9 +92,9 @@ export default function Knockout() {
   }
 
   const liveMatch = getCurrentLiveMatch();
-  const round16Matches = knockoutMatches.filter(m => m.round === 'round16');
-  const quarterfinalMatches = knockoutMatches.filter(m => m.round === 'quarterfinal');
-  const semifinalMatches = knockoutMatches.filter(m => m.round === 'semifinal');
+  const round16Matches = knockoutMatches.filter(m => m.round === 'round16').sort((a, b) => a.matchNumber - b.matchNumber);
+  const quarterfinalMatches = knockoutMatches.filter(m => m.round === 'quarterfinal').sort((a, b) => a.matchNumber - b.matchNumber);
+  const semifinalMatches = knockoutMatches.filter(m => m.round === 'semifinal').sort((a, b) => a.matchNumber - b.matchNumber);
   const finalMatch = knockoutMatches.find(m => m.round === 'final');
   return (
     <div className="min-h-screen p-6 bg-slate-900">
@@ -129,7 +129,7 @@ export default function Knockout() {
             ROUND OF 16
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {round16Matches.map((match, index) => (
+            {round16Matches.map((match) => (
               <div key={match.id} className={`bg-slate-800 border rounded-lg p-4 ${
                 match.status === 'live' ? 'border-red-500 border-2' : 
                 match.status === 'completed' ? 'border-green-500' : 'border-slate-600'
@@ -138,7 +138,7 @@ export default function Knockout() {
                   match.status === 'live' ? 'text-red-400' : 
                   match.status === 'completed' ? 'text-green-400' : 'text-slate-400'
                 }`}>
-                  MATCH {index + 1} {match.status === 'live' ? '(LIVE)' : ''}
+                  MATCH {match.matchNumber} {match.status === 'live' ? '(LIVE)' : ''}
                 </div>
                 <div className="space-y-2">
                   <div className={`p-2 rounded text-sm ${
@@ -205,7 +205,7 @@ export default function Knockout() {
             QUARTER FINALS
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {quarterfinalMatches.map((match, index) => (
+            {quarterfinalMatches.map((match) => (
               <div key={match.id} className={`bg-slate-800 border rounded-lg p-4 ${
                 match.status === 'live' ? 'border-red-500 border-2' : 
                 match.status === 'completed' ? 'border-orange-500' : 'border-slate-600'
@@ -213,7 +213,7 @@ export default function Knockout() {
                 <div className={`text-center text-sm font-semibold mb-2 ${
                   match.status === 'live' ? 'text-red-400' : 'text-orange-400'
                 }`}>
-                  QUARTER FINAL {index + 1} {match.status === 'live' ? '(LIVE)' : ''}
+                  QUARTER FINAL {match.matchNumber} {match.status === 'live' ? '(LIVE)' : ''}
                 </div>
                 <div className="space-y-2">
                   <div className={`p-2 rounded text-sm ${
@@ -222,7 +222,7 @@ export default function Knockout() {
                   }`}>
                     <div className="font-semibold">{getPlayerName(match.player1Id)}</div>
                     <div className="text-xs text-slate-500">
-                      {match.player1Id ? 'Qualified' : `Winner of Match ${(index * 2) + 1}`}
+                      {match.player1Id ? 'Qualified' : `Winner of Match ${(match.matchNumber - 1) * 2 + 1}`}
                     </div>
                     {match.status !== 'upcoming' && (
                       <div className="text-lg font-bold">{match.player1Score}</div>
@@ -235,7 +235,7 @@ export default function Knockout() {
                   }`}>
                     <div className="font-semibold">{getPlayerName(match.player2Id)}</div>
                     <div className="text-xs text-slate-500">
-                      {match.player2Id ? 'Qualified' : `Winner of Match ${(index * 2) + 2}`}
+                      {match.player2Id ? 'Qualified' : `Winner of Match ${(match.matchNumber - 1) * 2 + 2}`}
                     </div>
                     {match.status !== 'upcoming' && (
                       <div className="text-lg font-bold">{match.player2Score}</div>
