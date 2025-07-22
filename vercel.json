@@ -10,6 +10,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/standings/group/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -21,6 +25,14 @@
     {
       "src": "/api/tournament",
       "dest": "/api/tournament.js"
+    },
+    {
+      "src": "/api/groups",
+      "dest": "/api/groups.js"
+    },
+    {
+      "src": "/api/standings/group/([^/]+)",
+      "dest": "/api/standings/group/[groupId].js?groupId=$1"
     },
     {
       "src": "/api/matches/upcoming",
