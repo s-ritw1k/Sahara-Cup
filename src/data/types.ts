@@ -66,5 +66,5 @@ export interface StandingsEntry {
   points: number;
   setsWon: number;
   setsLost: number;
-  setRatio: number;
+  setDifference: number;
 }

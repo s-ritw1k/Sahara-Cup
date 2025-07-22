@@ -80,14 +80,14 @@ function calculateGroupStandings(groupId: string): StandingsEntry[] {
       points: wins * 2, // 2 points per win
       setsWon,
       setsLost,
-      setRatio: setsLost === 0 ? setsWon : setsWon / setsLost
+      setDifference: setsWon - setsLost
     };
   });
 
-  // Sort by points, then by set ratio
+  // Sort by points, then by set difference
   return standings.sort((a, b) => {
     if (a.points !== b.points) return b.points - a.points;
-    return b.setRatio - a.setRatio;
+    return b.setDifference - a.setDifference;
   });
 }
 
@@ -99,7 +99,7 @@ function calculateOverallStandings(): StandingsEntry[] {
   
   return allStandings.sort((a, b) => {
     if (a.points !== b.points) return b.points - a.points;
-    return b.setRatio - a.setRatio;
+    return b.setDifference - a.setDifference;
   });
 }
 
