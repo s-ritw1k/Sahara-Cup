@@ -350,33 +350,42 @@ export const tournament = {
       id: 'm22',
       player1Id: 'p14', // Sanu Gupta
       player2Id: 'p16', // Siddhi Goyal
-      player1Score: 0,
-      player2Score: 0,
+      player1Score: 0,  // Won 0 sets (0-11, 1-11)
+      player2Score: 2,  // Won 2 sets
+      player1SetScores: [0, 1],
+      player2SetScores: [11, 11],
       scheduledTime: '2025-07-23T06:30:00Z', // 12:00 PM IST (UTC+5:30)
-      status: 'upcoming',
+      status: 'completed',
       groupId: 'g8',
+      winnerId: 'p16',
       round: 1
     },
     {
       id: 'm23',
       player1Id: 'p7',  // Jyothi M
       player2Id: 'p14', // Sanu Gupta
-      player1Score: 0,
-      player2Score: 0,
+      player1Score: 2,  // Won 2 sets (11-1, 11-4)
+      player2Score: 0,  // Won 0 sets
+      player1SetScores: [11, 11],
+      player2SetScores: [1, 4],
       scheduledTime: '2025-07-23T09:00:00Z', // 12:20 PM IST (UTC+5:30)
-      status: 'upcoming',
+      status: 'completed',
       groupId: 'g8',
+      winnerId: 'p7',
       round: 1
     },
     {
       id: 'm24',
       player1Id: 'p7',  // Jyothi M
       player2Id: 'p16', // Siddhi Goyal
-      player1Score: 0,
-      player2Score: 0,
+      player1Score: 2,  // Won 2 sets (11-3, 11-7)
+      player2Score: 0,  // Won 0 sets
+      player1SetScores: [11, 11],
+      player2SetScores: [3, 7],
       scheduledTime: '2025-07-23T10:00:00Z', // 12:40 PM IST (UTC+5:30)
-      status: 'upcoming',
+      status: 'completed',
       groupId: 'g8',
+      winnerId: 'p7',
       round: 1
     },
   ],
@@ -400,27 +409,27 @@ export const tournament = {
       id: 'k2',
       round: 'round16',
       matchNumber: 2,
-      player1Id: 'p19', // Srija Panyala (#1 Group C)
-      player2Id: 'p12', // Sai Keerthi Tulluru (#2 Group D)
+      player1Id: 'p12', // Sai Keerthi Tulluru (#2 Group D)
+      player2Id: 'p19', // Srija Panyala (#1 Group C)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-22T09:30:00Z', // 3:00 PM IST (UTC+5:30)
-      player1Source: { type: 'group', value: 'Group C', position: 1 },
-      player2Source: { type: 'group', value: 'Group D', position: 2 }
+      scheduledTime: '2025-07-23T09:30:00Z', // 3:00 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group D', position: 2 },
+      player2Source: { type: 'group', value: 'Group C', position: 1 }
     },
     {
       id: 'k3',
       round: 'round16',
       matchNumber: 3,
-      player1Id: 'p22', // Tulsi Pratyusha Dintyala (#1 Group E)
-      player2Id: 'p2',  // Anusha Reddy Bakaram (#2 Group F)
+      player1Id: 'p2',  // Anusha Reddy Bakaram (#2 Group F)
+      player2Id: 'p22', // Tulsi Pratyusha Dintyala (#1 Group E)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-22T10:00:00Z', // 3:30 PM IST (UTC+5:30)
-      player1Source: { type: 'group', value: 'Group E', position: 1 },
-      player2Source: { type: 'group', value: 'Group F', position: 2 }
+      scheduledTime: '2025-07-23T10:30:00Z', // 4:00 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group F', position: 2 },
+      player2Source: { type: 'group', value: 'Group E', position: 1 }
     },
     {
       id: 'k4',
@@ -444,7 +453,7 @@ export const tournament = {
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-23T09:30:00Z', // 3:00 PM IST (UTC+5:30)
+      scheduledTime: '2025-07-23T09:00:00Z', // 2:30 PM IST (UTC+5:30)
       player1Source: { type: 'group', value: 'Group A', position: 2 },
       player2Source: { type: 'group', value: 'Group B', position: 1 }
     },
@@ -465,14 +474,14 @@ export const tournament = {
       id: 'k7',
       round: 'round16',
       matchNumber: 7,
-      player1Id: 'p20', // Tamanna Koundal (#2 Group E)
-      player2Id: 'p9',  // Manaswini Pidugu (#1 Group F)
+      player1Id: 'p9',  // Manaswini Pidugu (#1 Group F)
+      player2Id: 'p20', // Tamanna Koundal (#2 Group E)
       player1Score: 0,
       player2Score: 0,
       status: 'upcoming',
-      scheduledTime: '2025-07-23T11:00:00Z', // 4:30 PM IST (UTC+5:30)
-      player1Source: { type: 'group', value: 'Group E', position: 2 },
-      player2Source: { type: 'group', value: 'Group F', position: 1 }
+      scheduledTime: '2025-07-23T07:00:00Z', // 12:30 PM IST (UTC+5:30)
+      player1Source: { type: 'group', value: 'Group F', position: 1 },
+      player2Source: { type: 'group', value: 'Group E', position: 2 }
     },
     {
       id: 'k8',
