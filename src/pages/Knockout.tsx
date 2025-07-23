@@ -145,53 +145,40 @@ export default function Knockout() {
                     match.status === 'completed' && match.winnerId === match.player1Id ? 
                     'bg-green-700 text-white' : 'bg-slate-700 text-white'
                   }`}>
-                    <div className="font-semibold">{getPlayerName(match.player1Id)}</div>
-                    <div className="text-xs text-slate-400">
-                      {match.player1Source?.type === 'group' ? 
-                        `#${match.player1Source.position} ${match.player1Source.value}` : 
-                        match.player1Source?.value || 'Qualified'
-                      }
-                    </div>
-                    {match.status !== 'upcoming' && (
-                      <div className="space-y-1">
-                        <div className="text-lg font-bold">{match.player1Score}</div>
-                        {/* Individual Set Scores */}
-                        {match.player1SetScores && match.player2SetScores && (
-                          <div className="text-xs text-slate-400 space-y-0.5">
-                            {match.player1SetScores.map((p1Score, setIndex) => (
-                              <div key={setIndex} className="flex items-center justify-center">
-                                <span className={`${p1Score > match.player2SetScores![setIndex] ? 'text-green-400 font-semibold' : 'text-slate-500'}`}>
-                                  {p1Score}
-                                </span>
-                                <span className="text-slate-600 mx-1">-</span>
-                                <span className={`${match.player2SetScores![setIndex] > p1Score ? 'text-green-400 font-semibold' : 'text-slate-500'}`}>
-                                  {match.player2SetScores![setIndex]}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="font-semibold">{getPlayerName(match.player1Id)}</div>
+                        <div className="text-xs text-slate-400">
+                          {match.player1Source?.type === 'group' ? 
+                            `#${match.player1Source.position} ${match.player1Source.value}` : 
+                            match.player1Source?.value || 'Qualified'
+                          }
+                        </div>
                       </div>
-                    )}
+                      {match.status !== 'upcoming' && (
+                        <div className="text-lg font-bold">{match.player1Score}</div>
+                      )}
+                    </div>
                   </div>
                   <div className="text-center text-xs text-slate-500">VS</div>
                   <div className={`p-2 rounded text-sm ${
                     match.status === 'completed' && match.winnerId === match.player2Id ? 
                     'bg-green-700 text-white' : 'bg-slate-700 text-white'
                   }`}>
-                    <div className="font-semibold">{getPlayerName(match.player2Id)}</div>
-                    <div className="text-xs text-slate-400">
-                      {match.player2Source?.type === 'group' ? 
-                        `#${match.player2Source.position} ${match.player2Source.value}` : 
-                        match.player2Source?.value || 'Qualified'
-                      }
-                    </div>
-                    {match.status !== 'upcoming' && (
-                      <div className="space-y-1">
-                        <div className="text-lg font-bold">{match.player2Score}</div>
-                        {/* Player 2 set scores are shown above in player 1 section for consistency */}
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="font-semibold">{getPlayerName(match.player2Id)}</div>
+                        <div className="text-xs text-slate-400">
+                          {match.player2Source?.type === 'group' ? 
+                            `#${match.player2Source.position} ${match.player2Source.value}` : 
+                            match.player2Source?.value || 'Qualified'
+                          }
+                        </div>
                       </div>
-                    )}
+                      {match.status !== 'upcoming' && (
+                        <div className="text-lg font-bold">{match.player2Score}</div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -218,7 +205,7 @@ export default function Knockout() {
                 <div className="space-y-2">
                   <div className={`p-2 rounded text-sm ${
                     match.status === 'completed' && match.winnerId === match.player1Id ? 
-                    'bg-orange-700 text-white' : 'bg-slate-700 text-slate-400'
+                    'bg-green-700 text-white' : 'bg-slate-700 text-slate-400'
                   }`}>
                     <div className="font-semibold">{getPlayerName(match.player1Id)}</div>
                     <div className="text-xs text-slate-500">
@@ -231,7 +218,7 @@ export default function Knockout() {
                   <div className="text-center text-xs text-slate-500">VS</div>
                   <div className={`p-2 rounded text-sm ${
                     match.status === 'completed' && match.winnerId === match.player2Id ? 
-                    'bg-orange-700 text-white' : 'bg-slate-700 text-slate-400'
+                    'bg-green-700 text-white' : 'bg-slate-700 text-slate-400'
                   }`}>
                     <div className="font-semibold">{getPlayerName(match.player2Id)}</div>
                     <div className="text-xs text-slate-500">
