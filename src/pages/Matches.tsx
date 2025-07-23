@@ -133,7 +133,16 @@ export default function Matches() {
                 return aPriority - bPriority;
               }
               
-              return new Date(a.scheduledTime).getTime() - new Date(b.scheduledTime).getTime();
+              // For completed matches: newest first (descending order)
+              // For upcoming/live matches: earliest first (ascending order)
+              const timeA = new Date(a.scheduledTime).getTime();
+              const timeB = new Date(b.scheduledTime).getTime();
+              
+              if (a.status === 'completed' && b.status === 'completed') {
+                return timeB - timeA; // Descending order for completed
+              } else {
+                return timeA - timeB; // Ascending order for upcoming/live
+              }
             })
             .map((match, index) => {
               return (

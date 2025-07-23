@@ -123,16 +123,18 @@ export function useMatchesWithPlayers(): {
   const { tournament } = useTournament();
   const { matches, loading: matchesLoading, error } = useMatches();
 
-  const matchesWithPlayers = matches.map(match => {
-    const player1 = tournament?.players.find(p => p.id === match.player1Id);
-    const player2 = tournament?.players.find(p => p.id === match.player2Id);
-    
-    return {
-      ...match,
-      player1: player1 || { id: match.player1Id, name: 'Unknown' },
-      player2: player2 || { id: match.player2Id, name: 'Unknown' },
-    };
-  });
+  const matchesWithPlayers = matches
+    .filter(match => match.player1Id && match.player2Id) // Only filter out matches where BOTH players are undefined
+    .map(match => {
+      const player1 = tournament?.players.find(p => p.id === match.player1Id);
+      const player2 = tournament?.players.find(p => p.id === match.player2Id);
+      
+      return {
+        ...match,
+        player1: player1 || { id: match.player1Id, name: 'Unknown' },
+        player2: player2 || { id: match.player2Id, name: 'Unknown' },
+      };
+    });
 
   return { 
     matches: matchesWithPlayers, 

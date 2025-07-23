@@ -205,19 +205,52 @@ app.get('/api/tournament', (req, res) => {
 });
 
 app.get('/api/matches', (req, res) => {
-  res.json(tournamentData.matches);
+  const { status, type } = req.query as { status?: string; type?: string };
+  
+  // Combine group matches and knockout matches
+  let allMatches = [...tournamentData.matches, ...(tournamentData.knockoutMatches || [])];
+  
+  // Filter by status if provided (upcoming, live, completed)
+  if (status) {
+    allMatches = allMatches.filter(match => match.status === status);
+  }
+  
+  // Handle knockout matches only
+  if (type === 'knockout') {
+    let knockoutMatches = tournamentData.knockoutMatches || [];
+    if (status) {
+      knockoutMatches = knockoutMatches.filter(match => match.status === status);
+    }
+    res.json(knockoutMatches);
+    return;
+  }
+  
+  // Handle group matches only
+  if (type === 'group') {
+    let groupMatches = tournamentData.matches;
+    if (status) {
+      groupMatches = groupMatches.filter(match => match.status === status);
+    }
+    res.json(groupMatches);
+    return;
+  }
+  
+  // Return all matches by default
+  res.json(allMatches);
 });
 
 app.get('/api/matches/upcoming', (req, res) => {
-  const upcomingMatches = tournamentData.matches
-    .filter(m => m.status === 'upcoming')
-    .sort((a, b) => new Date(a.scheduledTime).getTime() - new Date(b.scheduledTime).getTime());
+  const allMatches = [...tournamentData.matches, ...(tournamentData.knockoutMatches || [])];
+  const upcomingMatches = allMatches
+    .filter(m => m.status === 'upcoming' && m.scheduledTime)
+    .sort((a, b) => new Date(a.scheduledTime!).getTime() - new Date(b.scheduledTime!).getTime());
   
   res.json(upcomingMatches);
 });
 
 app.get('/api/matches/live', (req, res) => {
-  const liveMatches = tournamentData.matches.filter(m => m.status === 'live');
+  const allMatches = [...tournamentData.matches, ...(tournamentData.knockoutMatches || [])];
+  const liveMatches = allMatches.filter(m => m.status === 'live');
   res.json(liveMatches);
 });
 

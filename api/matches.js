@@ -14,20 +14,36 @@ export default function handler(req, res) {
   if (req.method === 'GET') {
     const { status, type } = req.query;
     
-    let matches = tournament.matches;
+    // Combine group matches and knockout matches
+    let allMatches = [...tournament.matches, ...tournament.knockoutMatches];
     
     // Filter by status if provided (upcoming, live, completed)
     if (status) {
-      matches = matches.filter(match => match.status === status);
+      allMatches = allMatches.filter(match => match.status === status);
     }
     
-    // Handle knockout matches
+    // Handle knockout matches only
     if (type === 'knockout') {
-      res.status(200).json(tournament.knockoutMatches);
+      let knockoutMatches = tournament.knockoutMatches;
+      if (status) {
+        knockoutMatches = knockoutMatches.filter(match => match.status === status);
+      }
+      res.status(200).json(knockoutMatches);
       return;
     }
     
-    res.status(200).json(matches);
+    // Handle group matches only
+    if (type === 'group') {
+      let groupMatches = tournament.matches;
+      if (status) {
+        groupMatches = groupMatches.filter(match => match.status === status);
+      }
+      res.status(200).json(groupMatches);
+      return;
+    }
+    
+    // Return all matches by default
+    res.status(200).json(allMatches);
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }
