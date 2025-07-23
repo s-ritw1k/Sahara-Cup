@@ -6,23 +6,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "api/matches/*.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "api/standings/group/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/admin/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/admin/matches/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/admin/matches/*/start.js",
       "use": "@vercel/node"
     },
     {
@@ -47,24 +31,28 @@
       "dest": "/api/standings/group/[groupId].js?groupId=$1"
     },
     {
-      "src": "/api/admin/update-statuses",
-      "dest": "/api/admin/update-statuses.js"
+      "src": "/api/admin\\?action=update-statuses",
+      "dest": "/api/admin.js?action=update-statuses"
     },
     {
-      "src": "/api/admin/matches/([^/]+)/start",
-      "dest": "/api/admin/matches/[matchId]/start.js?matchId=$1"
+      "src": "/api/admin\\?action=update-match&matchId=([^&]+)",
+      "dest": "/api/admin.js?action=update-match&matchId=$1"
     },
     {
-      "src": "/api/admin/matches/([^/]+)",
-      "dest": "/api/admin/matches/[matchId].js?matchId=$1"
+      "src": "/api/admin\\?action=start-match&matchId=([^&]+)",
+      "dest": "/api/admin.js?action=start-match&matchId=$1"
     },
     {
-      "src": "/api/matches/upcoming",
-      "dest": "/api/matches/upcoming.js"
+      "src": "/api/matches\\?status=upcoming",
+      "dest": "/api/matches.js?status=upcoming"
     },
     {
-      "src": "/api/matches/live",
-      "dest": "/api/matches/live.js"
+      "src": "/api/matches\\?status=live",
+      "dest": "/api/matches.js?status=live"
+    },
+    {
+      "src": "/api/matches\\?type=knockout",
+      "dest": "/api/matches.js?type=knockout"
     },
     {
       "src": "/api/matches",
@@ -72,7 +60,7 @@
     },
     {
       "src": "/api/knockout",
-      "dest": "/api/knockout.js"
+      "dest": "/api/matches.js?type=knockout"
     },
     {
       "src": "/api/standings",
