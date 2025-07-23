@@ -134,7 +134,17 @@ export default function Home() {
                       </div>
                       <div className="text-center">
                         <span className="text-sm text-table-green-400 font-medium bg-table-green-900/30 px-3 py-1 rounded-full">
-                          Group {String.fromCharCode(65 + parseInt(match.groupId.replace('g', '')) - 1)}
+                          {match.groupId 
+                            ? `Group ${String.fromCharCode(65 + parseInt(match.groupId.replace('g', '')) - 1)}`
+                            : (() => {
+                                const knockoutMatch = match as any;
+                                if (knockoutMatch.round === 'round16') return 'Round of 16';
+                                if (knockoutMatch.round === 'quarterfinal') return 'Quarter Final';
+                                if (knockoutMatch.round === 'semifinal') return 'Semi Final';
+                                if (knockoutMatch.round === 'final') return 'Final';
+                                return 'Knockout';
+                              })()
+                          }
                         </span>
                       </div>
                     </div>

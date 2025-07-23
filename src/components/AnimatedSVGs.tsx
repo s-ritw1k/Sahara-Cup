@@ -184,7 +184,7 @@ export const AnimatedTable: React.FC<{ className?: string }> = ({ className = "w
 
 // Bouncing Ball Animation
 export const BouncingBall: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
-  <div className={`${className} inline-block`}>
+  <span className={`${className} inline-block`}>
     <svg viewBox="0 0 100 100" className="w-full h-full">
       <circle 
         cx="50" 
@@ -203,7 +203,7 @@ export const BouncingBall: React.FC<{ className?: string }> = ({ className = "w-
         className="animate-ball-spin-custom"
       />
     </svg>
-  </div>
+  </span>
 );
 
 // Trophy with Animation
