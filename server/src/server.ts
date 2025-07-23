@@ -5,7 +5,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import bcrypt from 'bcryptjs';
 import { tournament, defaultAdmin } from './data/tournament-data.js';
-import { Match, StandingsEntry, KnockoutMatch } from './types';
+import { Match, StandingsEntry, KnockoutMatch, Group, Player, Tournament } from './types';
 
 dotenv.config();
 
@@ -37,17 +37,17 @@ app.use(cors({
 app.use(express.json());
 
 // In-memory data store (in production, use a real database)
-let tournamentData = { ...tournament };
+let tournamentData: Tournament = { ...tournament } as Tournament;
 
 // Calculate standings for a group
 function calculateGroupStandings(groupId: string): StandingsEntry[] {
-  const group = tournamentData.groups.find(g => g.id === groupId);
+  const group: Group | undefined = tournamentData.groups.find((g: Group) => g.id === groupId);
   if (!group) return [];
 
-  const standings: StandingsEntry[] = group.playerIds.map(playerId => {
-    const player = tournamentData.players.find(p => p.id === playerId)!;
-    const playerMatches = tournamentData.matches.filter(
-      m => (m.player1Id === playerId || m.player2Id === playerId) && 
+  const standings: StandingsEntry[] = group.playerIds.map((playerId: string) => {
+    const player: Player | undefined = tournamentData.players.find((p: Player) => p.id === playerId)!;
+    const playerMatches: Match[] = tournamentData.matches.filter(
+      (m: Match) => (m.player1Id === playerId || m.player2Id === playerId) && 
            m.groupId === groupId && 
            m.status === 'completed'
     );
@@ -57,7 +57,7 @@ function calculateGroupStandings(groupId: string): StandingsEntry[] {
     let setsWon = 0;
     let setsLost = 0;
 
-    playerMatches.forEach(match => {
+    playerMatches.forEach((match: Match) => {
       if (match.player1Id === playerId) {
         setsWon += match.player1Score;
         setsLost += match.player2Score;
@@ -85,7 +85,7 @@ function calculateGroupStandings(groupId: string): StandingsEntry[] {
   });
 
   // Sort by points, then by set difference
-  return standings.sort((a, b) => {
+  return standings.sort((a: StandingsEntry, b: StandingsEntry) => {
     if (a.points !== b.points) return b.points - a.points;
     return b.setDifference - a.setDifference;
   });
@@ -93,11 +93,11 @@ function calculateGroupStandings(groupId: string): StandingsEntry[] {
 
 // Calculate overall standings
 function calculateOverallStandings(): StandingsEntry[] {
-  const allStandings = tournamentData.groups.flatMap(group => 
+  const allStandings: StandingsEntry[] = tournamentData.groups.flatMap((group: Group) => 
     calculateGroupStandings(group.id)
   );
   
-  return allStandings.sort((a, b) => {
+  return allStandings.sort((a: StandingsEntry, b: StandingsEntry) => {
     if (a.points !== b.points) return b.points - a.points;
     return b.setDifference - a.setDifference;
   });
@@ -132,7 +132,7 @@ function authenticateAPI(req: AuthenticatedRequest, res: Response, next: NextFun
 function getQualifiedPlayersFromGroups(): { [groupId: string]: { winner: string, runnerUp: string } } {
   const qualifiedPlayers: { [groupId: string]: { winner: string, runnerUp: string } } = {};
   
-  tournamentData.groups.forEach(group => {
+  tournamentData.groups.forEach((group: Group) => {
     const standings = calculateGroupStandings(group.id);
     if (standings.length >= 2) {
       qualifiedPlayers[group.id] = {
@@ -152,7 +152,7 @@ function updateKnockoutBracket() {
   const qualifiedPlayers = getQualifiedPlayersFromGroups();
   
   // Update knockout matches with qualified players
-  tournamentData.knockoutMatches.forEach(koMatch => {
+  tournamentData.knockoutMatches?.forEach((koMatch: KnockoutMatch) => {
     // Update player1
     if (koMatch.player1Source && !koMatch.player1Id) {
       if (koMatch.player1Source.type === 'group') {
@@ -165,7 +165,7 @@ function updateKnockoutBracket() {
         }
       } else if (koMatch.player1Source.type === 'match') {
         // Find the completed source match
-        const sourceMatch = tournamentData.knockoutMatches?.find(m => m.id === koMatch.player1Source!.value);
+        const sourceMatch: KnockoutMatch | undefined = tournamentData.knockoutMatches?.find((m: KnockoutMatch) => m.id === koMatch.player1Source!.value);
         if (sourceMatch && sourceMatch.status === 'completed' && sourceMatch.winnerId) {
           koMatch.player1Id = sourceMatch.winnerId;
         }
@@ -184,7 +184,7 @@ function updateKnockoutBracket() {
         }
       } else if (koMatch.player2Source.type === 'match') {
         // Find the completed source match
-        const sourceMatch = tournamentData.knockoutMatches?.find(m => m.id === koMatch.player2Source!.value);
+        const sourceMatch: KnockoutMatch | undefined = tournamentData.knockoutMatches?.find((m: KnockoutMatch) => m.id === koMatch.player2Source!.value);
         if (sourceMatch && sourceMatch.status === 'completed' && sourceMatch.winnerId) {
           koMatch.player2Id = sourceMatch.winnerId;
         }
@@ -200,7 +200,7 @@ app.get('/api/tournament', (req, res) => {
   res.json({
     ...tournamentData,
     // Don't send sensitive admin data
-    players: tournamentData.players.map(p => ({ ...p, email: undefined }))
+    players: tournamentData.players.map((p: Player) => ({ ...p, email: undefined }))
   });
 });
 
@@ -217,9 +217,9 @@ app.get('/api/matches', (req, res) => {
   
   // Handle knockout matches only
   if (type === 'knockout') {
-    let knockoutMatches = tournamentData.knockoutMatches || [];
+    let knockoutMatches: KnockoutMatch[] = tournamentData.knockoutMatches || [];
     if (status) {
-      knockoutMatches = knockoutMatches.filter(match => match.status === status);
+      knockoutMatches = knockoutMatches.filter((match: KnockoutMatch) => match.status === status);
     }
     res.json(knockoutMatches);
     return;
@@ -227,9 +227,9 @@ app.get('/api/matches', (req, res) => {
   
   // Handle group matches only
   if (type === 'group') {
-    let groupMatches = tournamentData.matches;
+    let groupMatches: Match[] = tournamentData.matches;
     if (status) {
-      groupMatches = groupMatches.filter(match => match.status === status);
+      groupMatches = groupMatches.filter((match: Match) => match.status === status);
     }
     res.json(groupMatches);
     return;
@@ -289,7 +289,7 @@ app.put('/api/admin/matches/:matchId', authenticateAPI, (req: AuthenticatedReque
   const { matchId } = req.params;
   const { player1Score, player2Score, status } = req.body;
 
-  const matchIndex = tournamentData.matches.findIndex(m => m.id === matchId);
+  const matchIndex: number = tournamentData.matches.findIndex((m: Match) => m.id === matchId);
   if (matchIndex === -1) {
     return res.status(404).json({ message: 'Match not found' });
   }
@@ -326,7 +326,7 @@ app.put('/api/admin/matches/:matchId', authenticateAPI, (req: AuthenticatedReque
 app.post('/api/admin/matches/:matchId/start', authenticateAPI, (req: AuthenticatedRequest, res: Response) => {
   const { matchId } = req.params;
   
-  const matchIndex = tournamentData.matches.findIndex(m => m.id === matchId);
+  const matchIndex: number = tournamentData.matches.findIndex((m: Match) => m.id === matchId);
   if (matchIndex === -1) {
     return res.status(404).json({ message: 'Match not found' });
   }
@@ -347,7 +347,7 @@ app.put('/api/admin/knockout/:matchId', authenticateAPI, (req: AuthenticatedRequ
     return res.status(404).json({ message: 'Knockout matches not initialized' });
   }
 
-  const matchIndex = tournamentData.knockoutMatches.findIndex(m => m.id === matchId);
+  const matchIndex: number = tournamentData.knockoutMatches.findIndex((m: KnockoutMatch) => m.id === matchId);
   if (matchIndex === -1) {
     return res.status(404).json({ message: 'Knockout match not found' });
   }
@@ -384,7 +384,7 @@ app.post('/api/admin/knockout/:matchId/start', authenticateAPI, (req: Authentica
     return res.status(404).json({ message: 'Knockout matches not initialized' });
   }
 
-  const matchIndex = tournamentData.knockoutMatches.findIndex(m => m.id === matchId);
+  const matchIndex: number = tournamentData.knockoutMatches.findIndex((m: KnockoutMatch) => m.id === matchId);
   if (matchIndex === -1) {
     return res.status(404).json({ message: 'Knockout match not found' });
   }
@@ -405,7 +405,7 @@ app.put('/api/admin/knockout/:matchId/players', authenticateAPI, (req: Authentic
     return res.status(404).json({ message: 'Knockout matches not initialized' });
   }
 
-  const matchIndex = tournamentData.knockoutMatches.findIndex(m => m.id === matchId);
+  const matchIndex: number = tournamentData.knockoutMatches.findIndex((m: KnockoutMatch) => m.id === matchId);
   if (matchIndex === -1) {
     return res.status(404).json({ message: 'Knockout match not found' });
   }
@@ -413,10 +413,10 @@ app.put('/api/admin/knockout/:matchId/players', authenticateAPI, (req: Authentic
   const match = tournamentData.knockoutMatches[matchIndex];
   
   // Validate players exist
-  if (player1Id && !tournamentData.players.find(p => p.id === player1Id)) {
+  if (player1Id && !tournamentData.players.find((p: Player) => p.id === player1Id)) {
     return res.status(400).json({ message: 'Player 1 not found' });
   }
-  if (player2Id && !tournamentData.players.find(p => p.id === player2Id)) {
+  if (player2Id && !tournamentData.players.find((p: Player) => p.id === player2Id)) {
     return res.status(400).json({ message: 'Player 2 not found' });
   }
 
