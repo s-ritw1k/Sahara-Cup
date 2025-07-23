@@ -93,9 +93,62 @@ function calculateGroupStandings(groupId: string): StandingsEntry[] {
 
 // Calculate overall standings
 function calculateOverallStandings(): StandingsEntry[] {
-  const allStandings: StandingsEntry[] = tournamentData.groups.flatMap((group: Group) => 
+  // Get group stage standings
+  const groupStandings: StandingsEntry[] = tournamentData.groups.flatMap((group: Group) => 
     calculateGroupStandings(group.id)
   );
+
+  // Create a map of player stats from group stage
+  const playerStatsMap = new Map<string, StandingsEntry>();
+  groupStandings.forEach(standing => {
+    playerStatsMap.set(standing.playerId, { ...standing });
+  });
+
+  // Add knockout stage results
+  if (tournamentData.knockoutMatches) {
+    tournamentData.knockoutMatches
+      .filter((match: KnockoutMatch) => match.status === 'completed')
+      .forEach((match: KnockoutMatch) => {
+        // Update player1 stats
+        if (match.player1Id) {
+          const player1Stats = playerStatsMap.get(match.player1Id);
+          if (player1Stats) {
+            player1Stats.matchesPlayed += 1;
+            player1Stats.setsWon += match.player1Score;
+            player1Stats.setsLost += match.player2Score;
+            player1Stats.setDifference = player1Stats.setsWon - player1Stats.setsLost;
+            
+            if (match.winnerId === match.player1Id) {
+              player1Stats.wins += 1;
+              player1Stats.points += 2; // 2 points per win
+            } else {
+              player1Stats.losses += 1;
+            }
+          }
+        }
+
+        // Update player2 stats
+        if (match.player2Id) {
+          const player2Stats = playerStatsMap.get(match.player2Id);
+          if (player2Stats) {
+            player2Stats.matchesPlayed += 1;
+            player2Stats.setsWon += match.player2Score;
+            player2Stats.setsLost += match.player1Score;
+            player2Stats.setDifference = player2Stats.setsWon - player2Stats.setsLost;
+            
+            if (match.winnerId === match.player2Id) {
+              player2Stats.wins += 1;
+              player2Stats.points += 2; // 2 points per win
+            } else {
+              player2Stats.losses += 1;
+            }
+          }
+        }
+      });
+  }
+
+  // Convert map back to array and sort
+  const allStandings = Array.from(playerStatsMap.values());
   
   return allStandings.sort((a: StandingsEntry, b: StandingsEntry) => {
     if (a.points !== b.points) return b.points - a.points;

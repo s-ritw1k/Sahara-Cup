@@ -5,17 +5,27 @@ function calculateOverallStandings() {
   
   // Create standings entry for each player
   tournament.players.forEach(player => {
-    const playerMatches = tournament.matches.filter(match => 
+    // Get group stage matches
+    const groupMatches = tournament.matches.filter(match => 
       (match.player1Id === player.id || match.player2Id === player.id) && 
       match.status === 'completed'
     );
+    
+    // Get knockout stage matches
+    const knockoutMatches = tournament.knockoutMatches.filter(match => 
+      (match.player1Id === player.id || match.player2Id === player.id) && 
+      match.status === 'completed'
+    );
+    
+    // Combine all matches
+    const allMatches = [...groupMatches, ...knockoutMatches];
     
     let wins = 0;
     let losses = 0;
     let setsWon = 0;
     let setsLost = 0;
     
-    playerMatches.forEach(match => {
+    allMatches.forEach(match => {
       if (match.player1Id === player.id) {
         setsWon += match.player1Score;
         setsLost += match.player2Score;
@@ -35,7 +45,7 @@ function calculateOverallStandings() {
     standings.push({
       playerId: player.id,
       playerName: player.name,
-      matchesPlayed: playerMatches.length,
+      matchesPlayed: allMatches.length,
       wins,
       losses,
       points,
