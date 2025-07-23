@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaultAdmin = exports.tournament = void 0;
-exports.tournament = {
+export const tournament = {
     id: 'sahara-cup-2025',
     name: 'Sahara Cup 2025',
     description: 'Annual Table Tennis Tournament',
@@ -591,10 +588,11 @@ exports.tournament = {
             player1Source: { type: 'match', value: 'Winner of SF1' },
             player2Source: { type: 'match', value: 'Winner of SF2' }
         }
-    ],
+    ]
 };
+
 // Default admin user (password: admin123)
-exports.defaultAdmin = {
+export const defaultAdmin = {
     id: 'admin1',
     username: 'admin',
     password: '$2a$10$rQzXZo.gOGNVUYyiVRvPE.eJVx3V/wJWD4y8QR4U4F0.F6qFsGz1K', // bcrypt hash of 'admin123'

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import bcrypt from 'bcryptjs';
-import { tournament, defaultAdmin } from './data/sampleData';
+import { tournament, defaultAdmin } from './data/tournament-data.js';
 import { Match, StandingsEntry, KnockoutMatch } from './types';
 
 dotenv.config();
