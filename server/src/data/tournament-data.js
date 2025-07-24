@@ -412,7 +412,7 @@ export const tournament = {
             player1Score: 0,
             player2Score: 0,
             status: 'upcoming',
-            scheduledTime: '2025-07-23T09:30:00Z', // 3:00 PM IST (UTC+5:30)
+            scheduledTime: '2025-07-24T09:00:00Z', // 3:00 PM IST (UTC+5:30)
             player1Source: { type: 'group', value: 'Group D', position: 2 },
             player2Source: { type: 'group', value: 'Group C', position: 1 }
         },
