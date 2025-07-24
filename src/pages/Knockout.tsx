@@ -4,12 +4,25 @@ import { tournamentApi } from '../services/api';
 import { socketService } from '../services/socket';
 import type { KnockoutMatch, Player } from '../types';
 import { AnimatedPingPongBall, AnimatedPaddle, AnimatedTrophy, BouncingBall, PingPongSpinner } from '../components/AnimatedSVGs';
+import { MatchDetailsModal } from '../components/MatchDetailsModal';
 
 export default function Knockout() {
   const [knockoutMatches, setKnockoutMatches] = useState<KnockoutMatch[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedMatch, setSelectedMatch] = useState<KnockoutMatch | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openMatchDetails = (match: KnockoutMatch) => {
+    setSelectedMatch(match);
+    setIsModalOpen(true);
+  };
+
+  const closeMatchDetails = () => {
+    setSelectedMatch(null);
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,10 +143,14 @@ export default function Knockout() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {round16Matches.map((match) => (
-              <div key={match.id} className={`bg-slate-800 border rounded-lg p-4 ${
-                match.status === 'live' ? 'border-red-500 border-2' : 
-                match.status === 'completed' ? 'border-green-500' : 'border-slate-600'
-              }`}>
+              <div 
+                key={match.id} 
+                className={`bg-slate-800 border rounded-lg p-4 cursor-pointer transition-all hover:transform hover:scale-105 hover:shadow-lg ${
+                  match.status === 'live' ? 'border-red-500 border-2' : 
+                  match.status === 'completed' ? 'border-green-500' : 'border-slate-600'
+                }`}
+                onClick={() => openMatchDetails(match)}
+              >
                 <div className={`text-center text-sm font-semibold mb-2 ${
                   match.status === 'live' ? 'text-red-400' : 
                   match.status === 'completed' ? 'text-green-400' : 'text-slate-400'
@@ -193,10 +210,14 @@ export default function Knockout() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {quarterfinalMatches.map((match) => (
-              <div key={match.id} className={`bg-slate-800 border rounded-lg p-4 ${
-                match.status === 'live' ? 'border-red-500 border-2' : 
-                match.status === 'completed' ? 'border-orange-500' : 'border-slate-600'
-              }`}>
+              <div 
+                key={match.id} 
+                className={`bg-slate-800 border rounded-lg p-4 cursor-pointer transition-all hover:transform hover:scale-105 hover:shadow-lg ${
+                  match.status === 'live' ? 'border-red-500 border-2' : 
+                  match.status === 'completed' ? 'border-orange-500' : 'border-slate-600'
+                }`}
+                onClick={() => openMatchDetails(match)}
+              >
                 <div className={`text-center text-sm font-semibold mb-2 ${
                   match.status === 'live' ? 'text-red-400' : 'text-orange-400'
                 }`}>
@@ -242,10 +263,14 @@ export default function Knockout() {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {semifinalMatches.map((match) => (
-                <div key={match.id} className={`bg-slate-800 border rounded-lg p-6 ${
-                  match.status === 'live' ? 'border-red-500 border-2' : 
-                  match.status === 'completed' ? 'border-blue-500' : 'border-slate-600'
-                }`}>
+                <div 
+                  key={match.id} 
+                  className={`bg-slate-800 border rounded-lg p-6 cursor-pointer transition-all hover:transform hover:scale-105 hover:shadow-lg ${
+                    match.status === 'live' ? 'border-red-500 border-2' : 
+                    match.status === 'completed' ? 'border-blue-500' : 'border-slate-600'
+                  }`}
+                  onClick={() => openMatchDetails(match)}
+                >
                   <div className={`text-center text-lg font-semibold mb-6 ${
                     match.status === 'live' ? 'text-red-400' : 'text-blue-400'
                   }`}>
@@ -318,10 +343,13 @@ export default function Knockout() {
               CHAMPIONSHIP FINAL
             </div>
             <div className="max-w-lg mx-auto">
-              <div className={`bg-slate-800 border rounded-lg p-6 ${
-                finalMatch.status === 'live' ? 'border-red-500 border-2' : 
-                finalMatch.status === 'completed' ? 'border-yellow-500 border-2' : 'border-yellow-500'
-              }`}>
+              <div 
+                className={`bg-slate-800 border rounded-lg p-6 cursor-pointer transition-all hover:transform hover:scale-105 hover:shadow-lg ${
+                  finalMatch.status === 'live' ? 'border-red-500 border-2' : 
+                  finalMatch.status === 'completed' ? 'border-yellow-500 border-2' : 'border-yellow-500'
+                }`}
+                onClick={() => openMatchDetails(finalMatch)}
+              >
                 <div className="text-center mb-6">
                   <div className="flex items-center justify-center mb-2">
                     <TrophyIcon className="h-8 w-8 text-yellow-400 mr-2" />
@@ -406,6 +434,16 @@ export default function Knockout() {
         )}
 
       </div>
+
+      {/* Match Details Modal */}
+      {selectedMatch && (
+        <MatchDetailsModal
+          match={selectedMatch}
+          players={players}
+          isOpen={isModalOpen}
+          onClose={closeMatchDetails}
+        />
+      )}
     </div>
   );
 }

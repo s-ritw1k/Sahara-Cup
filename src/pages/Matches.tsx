@@ -4,12 +4,48 @@ import { format } from 'date-fns';
 import { ClockIcon, FireIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
+import type { KnockoutMatch, Player } from '../types';
+import { MatchDetailsModal } from '../components/MatchDetailsModal';
 
 type MatchFilter = 'all' | 'live' | 'upcoming' | 'completed';
 
 export default function Matches() {
   const { matches, loading, error } = useMatchesWithPlayers();
   const [filter, setFilter] = useState<MatchFilter>('all');
+  const [selectedMatch, setSelectedMatch] = useState<KnockoutMatch | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openMatchDetails = (match: any) => {
+    // Check if this is a knockout match (has round property)
+    if ('round' in match) {
+      setSelectedMatch(match as KnockoutMatch);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeMatchDetails = () => {
+    setSelectedMatch(null);
+    setIsModalOpen(false);
+  };
+
+  // Helper to extract players for the modal
+  const extractPlayers = (): Player[] => {
+    const playerSet = new Set<string>();
+    const players: Player[] = [];
+    
+    matches.forEach(match => {
+      if (match.player1 && !playerSet.has(match.player1.id)) {
+        playerSet.add(match.player1.id);
+        players.push(match.player1);
+      }
+      if (match.player2 && !playerSet.has(match.player2.id)) {
+        playerSet.add(match.player2.id);
+        players.push(match.player2);
+      }
+    });
+    
+    return players;
+  };
 
   const filteredMatches = matches.filter(match => {
     if (filter === 'all') return true;
@@ -145,12 +181,22 @@ export default function Matches() {
               }
             })
             .map((match, index) => {
+              const isKnockoutMatch = 'round' in match;
               return (
                 <div 
                   key={match.id} 
-                  className="card-hover p-6 animate-slide-up transition-all duration-500 relative overflow-hidden border-l-4 border-table-green-600/30 hover:border-table-green-500"
+                  className={`card-hover p-6 animate-slide-up transition-all duration-500 relative overflow-hidden border-l-4 border-table-green-600/30 hover:border-table-green-500 ${
+                    isKnockoutMatch ? 'cursor-pointer' : ''
+                  }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
+                  onClick={isKnockoutMatch ? () => openMatchDetails(match) : undefined}
                 >
+                  {/* Knockout Match Indicator */}
+                  {isKnockoutMatch && (
+                    <div className="absolute top-2 right-2 bg-yellow-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      🏆 KNOCKOUT - Click for details
+                    </div>
+                  )}
 
                   
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-center">
@@ -298,6 +344,16 @@ export default function Matches() {
           <p className="text-dark-400">Progress</p>
         </div>
       </div>
+
+      {/* Match Details Modal */}
+      {selectedMatch && (
+        <MatchDetailsModal
+          match={selectedMatch}
+          players={extractPlayers()}
+          isOpen={isModalOpen}
+          onClose={closeMatchDetails}
+        />
+      )}
     </div>
   );
 }
