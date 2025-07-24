@@ -6,4 +6,3 @@ export declare const defaultAdmin: {
     password: string;
     name: string;
 };
-//# sourceMappingURL=tournament-data.d.ts.map
