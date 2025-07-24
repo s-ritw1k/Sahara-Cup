@@ -305,11 +305,14 @@ export const tournament = {
             id: 'm19',
             player1Id: 'p11', // Rubeena Khatun
             player2Id: 'p18', // Sri Indu Dekkapati
-            player1Score: 0,
+            player1Score: 2,
             player2Score: 0,
+            player1SetScores: [11, 11],
+            player2SetScores: [0, 1],
             scheduledTime: '2025-07-25T10:00:00Z', // 25/07/25
-            status: 'upcoming',
+            status: 'completed',
             groupId: 'g7',
+            winnerId: 'p11',
             round: 1
         },
         {
@@ -420,11 +423,14 @@ export const tournament = {
             player1Id: 'p2', // Anusha Reddy Bakaram (#2 Group F)
             player2Id: 'p22', // Tulsi Pratyusha Dintyala (#1 Group E)
             player1Score: 0,
-            player2Score: 0,
-            status: 'upcoming',
+            player2Score: 2,
+            player1SetScores: [5, 3],
+            player2SetScores: [11, 11],
+            status: 'completed',
             scheduledTime: '2025-07-23T10:30:00Z', // 4:00 PM IST (UTC+5:30)
             player1Source: { type: 'group', value: 'Group F', position: 2 },
-            player2Source: { type: 'group', value: 'Group E', position: 1 }
+            player2Source: { type: 'group', value: 'Group E', position: 1 },
+            winnerId: 'p22'
         },
         {
             id: 'k4',
@@ -486,7 +492,7 @@ export const tournament = {
             round: 'round16',
             matchNumber: 8,
             player1Id: undefined, // Group G #2 (TBD)
-            player2Id: undefined, // Group H #1 (TBD)
+            player2Id: 'p7',      // Jyothi M (#1 Group H)
             player1Score: 0,
             player2Score: 0,
             status: 'upcoming',
