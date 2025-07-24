@@ -3,7 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import bcrypt from 'bcryptjs';
+import fs from 'fs';
+import path from 'path';
 import { tournament, defaultAdmin } from './data/tournament-data.js';
 import { Match, StandingsEntry, KnockoutMatch, Group, Player, Tournament } from './types';
 
@@ -38,6 +39,28 @@ app.use(express.json());
 
 // In-memory data store (in production, use a real database)
 let tournamentData: Tournament = { ...tournament } as Tournament;
+
+// Function to save tournament data to file
+async function saveTournamentDataToFile() {
+  try {
+    const dataFilePath = path.join(process.cwd(), 'src', 'data', 'tournament-data.js');
+    
+    // Create the export string with proper formatting
+    const dataContent = `export const tournament = ${JSON.stringify(tournamentData, null, 4)};
+
+                        export const defaultAdmin = {
+                            id: 'admin1',
+                            username: 'admin',
+                            password: '$2a$10$rQzXZo.gOGNVUYyiVRvPE.eJVx3V/wJWD4y8QR4U4F0.F6qFsGz1K', // bcrypt hash of 'admin123'
+                            name: 'Tournament Admin'
+                        };`;
+
+    await fs.promises.writeFile(dataFilePath, dataContent, 'utf8');
+    console.log('Tournament data saved to file successfully');
+  } catch (error) {
+    console.error('Error saving tournament data to file:', error);
+  }
+}
 
 // Calculate standings for a group
 function calculateGroupStandings(groupId: string): StandingsEntry[] {
@@ -340,7 +363,7 @@ app.get('/api/knockout/qualified-players', (req, res) => {
 // Update match scores and status (with username/password in request body)
 app.put('/api/admin/matches/:matchId', authenticateAPI, (req: AuthenticatedRequest, res: Response) => {
   const { matchId } = req.params;
-  const { player1Score, player2Score, status, scheduledTime } = req.body;
+  const { player1Score, player2Score, status, scheduledTime, player1SetScores, player2SetScores } = req.body;
 
   const matchIndex: number = tournamentData.matches.findIndex((m: Match) => m.id === matchId);
   if (matchIndex === -1) {
@@ -354,6 +377,8 @@ app.put('/api/admin/matches/:matchId', authenticateAPI, (req: AuthenticatedReque
   if (player2Score !== undefined) match.player2Score = parseInt(player2Score) || 0;
   if (status !== undefined) match.status = status;
   if (scheduledTime !== undefined) match.scheduledTime = scheduledTime;
+  if (player1SetScores !== undefined) match.player1SetScores = player1SetScores;
+  if (player2SetScores !== undefined) match.player2SetScores = player2SetScores;
 
   // Determine winner if match is completed
   if (status === 'completed') {
@@ -363,6 +388,9 @@ app.put('/api/admin/matches/:matchId', authenticateAPI, (req: AuthenticatedReque
   }
 
   tournamentData.matches[matchIndex] = match;
+
+  // Save data to file after update
+  saveTournamentDataToFile();
 
   // Emit update to all connected clients
   io.emit('matchUpdated', match);
@@ -388,6 +416,9 @@ app.post('/api/admin/matches/:matchId/start', authenticateAPI, (req: Authenticat
   tournamentData.matches[matchIndex].status = 'live';
   const match = tournamentData.matches[matchIndex];
 
+  // Save data to file after update
+  saveTournamentDataToFile();
+
   io.emit('matchUpdated', match);
   res.json(match);
 });
@@ -395,7 +426,7 @@ app.post('/api/admin/matches/:matchId/start', authenticateAPI, (req: Authenticat
 // Knockout match management endpoints
 app.put('/api/admin/knockout/:matchId', authenticateAPI, (req: AuthenticatedRequest, res: Response) => {
   const { matchId } = req.params;
-  const { player1Score, player2Score, status, scheduledTime } = req.body;
+  const { player1Score, player2Score, status, scheduledTime, player1SetScores, player2SetScores } = req.body;
 
   if (!tournamentData.knockoutMatches) {
     return res.status(404).json({ message: 'Knockout matches not initialized' });
@@ -413,6 +444,8 @@ app.put('/api/admin/knockout/:matchId', authenticateAPI, (req: AuthenticatedRequ
   if (player2Score !== undefined) match.player2Score = parseInt(player2Score) || 0;
   if (status !== undefined) match.status = status;
   if (scheduledTime !== undefined) match.scheduledTime = scheduledTime;
+  if (player1SetScores !== undefined) match.player1SetScores = player1SetScores;
+  if (player2SetScores !== undefined) match.player2SetScores = player2SetScores;
 
   // Determine winner if match is completed
   if (status === 'completed') {
@@ -424,6 +457,9 @@ app.put('/api/admin/knockout/:matchId', authenticateAPI, (req: AuthenticatedRequ
   }
 
   tournamentData.knockoutMatches[matchIndex] = match;
+
+  // Save data to file after update
+  saveTournamentDataToFile();
 
   // Emit update to all connected clients
   io.emit('knockoutMatchUpdated', match);
@@ -446,6 +482,9 @@ app.post('/api/admin/knockout/:matchId/start', authenticateAPI, (req: Authentica
 
   tournamentData.knockoutMatches[matchIndex].status = 'live';
   const match = tournamentData.knockoutMatches[matchIndex];
+
+  // Save data to file after update
+  saveTournamentDataToFile();
 
   io.emit('knockoutMatchUpdated', match);
   res.json(match);
@@ -479,6 +518,9 @@ app.put('/api/admin/knockout/:matchId/players', authenticateAPI, (req: Authentic
   match.player2Id = player2Id;
   
   tournamentData.knockoutMatches[matchIndex] = match;
+
+  // Save data to file after update
+  saveTournamentDataToFile();
 
   // Emit update to all connected clients
   io.emit('knockoutMatchUpdated', match);
