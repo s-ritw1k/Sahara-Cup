@@ -230,7 +230,7 @@ export default function Knockout() {
                   }`}>
                     <div className="font-semibold">{getPlayerName(match.player1Id)}</div>
                     <div className="text-xs text-slate-500">
-                      {match.player1Id ? 'Qualified' : `Winner of Match ${(match.matchNumber - 1) * 2 + 1}`}
+                      {match.player1Source?.value || 'TBD'}
                     </div>
                     {match.status !== 'upcoming' && (
                       <div className="text-lg font-bold">{match.player1Score}</div>
@@ -243,7 +243,7 @@ export default function Knockout() {
                   }`}>
                     <div className="font-semibold">{getPlayerName(match.player2Id)}</div>
                     <div className="text-xs text-slate-500">
-                      {match.player2Id ? 'Qualified' : `Winner of Match ${(match.matchNumber - 1) * 2 + 2}`}
+                      {match.player2Source?.value || 'TBD'}
                     </div>
                     {match.status !== 'upcoming' && (
                       <div className="text-lg font-bold">{match.player2Score}</div>
