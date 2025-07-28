@@ -570,11 +570,20 @@ export const tournament = {
             "id": "m20",
             "player1Id": "p11",
             "player2Id": "p23",
-            "player1Score": 0,
+            "player1Score": 2,
             "player2Score": 0,
-            "scheduledTime": "2025-07-28T10:30:00Z",
-            "status": "upcoming",
+            "scheduledTime": "2025-07-24T10:30:00Z",
+            "status": "completed",
             "groupId": "g7",
+            "player1SetScores": [
+                11,
+                11
+            ],
+            "player2SetScores": [
+                2,
+                7
+            ],
+            "winnerId": "p11",
             "round": 1
         },
         {
@@ -755,11 +764,12 @@ export const tournament = {
             "id": "k4",
             "round": "round16",
             "matchNumber": 4,
+            "player1Id": "p11",
             "player2Id": "p16",
-            "player1Score": 0,
+            "player1Score": 2,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-23T07:00:00Z",
+            "scheduledTime": "2025-07-28T07:00:00Z",
             "player1Source": {
                 "type": "group",
                 "value": "Group G",
@@ -769,7 +779,16 @@ export const tournament = {
                 "type": "group",
                 "value": "Group H",
                 "position": 2
-            }
+            },
+            // "player1SetScores": [
+            //     11,
+            //     11
+            // ],
+            // "player2SetScores": [
+            //     2,
+            //     7
+            // ],
+            // "winnerId": "p11"
         },
         {
             "id": "k5",
@@ -780,7 +799,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-28T09:00:00Z",
+            "scheduledTime": "2025-07-29T09:00:00Z",
             "player1Source": {
                 "type": "group",
                 "value": "Group A",
@@ -831,7 +850,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-28T09:00:00Z",
+            "scheduledTime": "2025-07-28T07:30:00Z",
             "player1Source": {
                 "type": "group",
                 "value": "Group F",
@@ -857,10 +876,11 @@ export const tournament = {
             "id": "k8",
             "round": "round16",
             "matchNumber": 8,
+            "player1Id": "p23",
             "player2Id": "p7",
             "player1Score": 0,
-            "player2Score": 0,
-            "status": "upcoming",
+            "player2Score": 2,
+            "status": "completed",
             "scheduledTime": "2025-07-23T11:30:00Z",
             "player1Source": {
                 "type": "group",
@@ -871,16 +891,27 @@ export const tournament = {
                 "type": "group",
                 "value": "Group H",
                 "position": 1
-            }
+            },
+            "player1SetScores": [
+                4,
+                9
+            ],
+            "player2SetScores": [
+                11,
+                11
+            ],
+            "winnerId": "p7"
         },
         {
             "id": "k9",
             "round": "quarterfinal",
             "matchNumber": 1,
+            "player1Id": "p21",
+            "player2Id": "p19",
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-24T07:00:00Z",
+            "scheduledTime": "2025-07-30T07:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 1"
@@ -894,10 +925,12 @@ export const tournament = {
             "id": "k10",
             "round": "quarterfinal",
             "matchNumber": 2,
+            "player1Id": "p22",
+            "player2Id": "p11",
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-24T07:30:00Z",
+            "scheduledTime": "2025-07-28T10:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 3"
@@ -911,10 +944,11 @@ export const tournament = {
             "id": "k11",
             "round": "quarterfinal",
             "matchNumber": 3,
+            "player2Id": "p6",
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-24T08:00:00Z",
+            "scheduledTime": "2025-07-30T08:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 5"
@@ -928,10 +962,11 @@ export const tournament = {
             "id": "k12",
             "round": "quarterfinal",
             "matchNumber": 4,
+            "player2Id": "p7",
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-24T08:30:00Z",
+            "scheduledTime": "2025-07-30T08:30:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 7"
@@ -948,7 +983,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-25T07:00:00Z",
+            "scheduledTime": "2025-07-30T07:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of QF1"
@@ -965,7 +1000,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-25T07:30:00Z",
+            "scheduledTime": "2025-07-30T07:30:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of QF3"
@@ -982,7 +1017,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-25T08:00:00Z",
+            "scheduledTime": "2025-07-30T08:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of SF1"
@@ -995,9 +1030,9 @@ export const tournament = {
     ]
 };
 
-                        export const defaultAdmin = {
-                            id: 'admin1',
-                            username: 'admin',
-                            password: '$2a$10$rQzXZo.gOGNVUYyiVRvPE.eJVx3V/wJWD4y8QR4U4F0.F6qFsGz1K', // bcrypt hash of 'admin123'
-                            name: 'Tournament Admin'
-                        };
+export const defaultAdmin = {
+    id: 'admin1',
+    username: 'admin',
+    password: '$2a$10$rQzXZo.gOGNVUYyiVRvPE.eJVx3V/wJWD4y8QR4U4F0.F6qFsGz1K', // bcrypt hash of 'admin123'
+    name: 'Tournament Admin'
+};
