@@ -64,13 +64,17 @@ export default async function handler(req, res) {
 
   const { matchId } = req.query;
   
-  const matchIndex = tournament.matches.findIndex(m => m.id === matchId);
-  if (matchIndex === -1) {
-    return res.status(404).json({ message: 'Match not found' });
+  if (!tournament.knockoutMatches) {
+    return res.status(404).json({ message: 'Knockout matches not initialized' });
   }
 
-  tournament.matches[matchIndex].status = 'live';
-  const match = tournament.matches[matchIndex];
+  const matchIndex = tournament.knockoutMatches.findIndex(m => m.id === matchId);
+  if (matchIndex === -1) {
+    return res.status(404).json({ message: 'Knockout match not found' });
+  }
+
+  tournament.knockoutMatches[matchIndex].status = 'live';
+  const match = tournament.knockoutMatches[matchIndex];
 
   // Save data to file after update
   await saveTournamentDataToFile(tournament);

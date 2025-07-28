@@ -44,7 +44,7 @@ function authenticateAPI(req, res) {
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'PUT, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  if (req.method !== 'POST') {
+  if (req.method !== 'PUT') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
@@ -63,14 +63,31 @@ export default async function handler(req, res) {
   }
 
   const { matchId } = req.query;
-  
-  const matchIndex = tournament.matches.findIndex(m => m.id === matchId);
-  if (matchIndex === -1) {
-    return res.status(404).json({ message: 'Match not found' });
+  const { player1Id, player2Id } = req.body;
+
+  if (!tournament.knockoutMatches) {
+    return res.status(404).json({ message: 'Knockout matches not initialized' });
   }
 
-  tournament.matches[matchIndex].status = 'live';
-  const match = tournament.matches[matchIndex];
+  const matchIndex = tournament.knockoutMatches.findIndex(m => m.id === matchId);
+  if (matchIndex === -1) {
+    return res.status(404).json({ message: 'Knockout match not found' });
+  }
+
+  const match = tournament.knockoutMatches[matchIndex];
+  
+  // Validate players exist
+  if (player1Id && !tournament.players.find(p => p.id === player1Id)) {
+    return res.status(400).json({ message: 'Player 1 not found' });
+  }
+  if (player2Id && !tournament.players.find(p => p.id === player2Id)) {
+    return res.status(400).json({ message: 'Player 2 not found' });
+  }
+
+  match.player1Id = player1Id;
+  match.player2Id = player2Id;
+  
+  tournament.knockoutMatches[matchIndex] = match;
 
   // Save data to file after update
   await saveTournamentDataToFile(tournament);

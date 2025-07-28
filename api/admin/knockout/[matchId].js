@@ -67,7 +67,7 @@ function updateKnockoutBracket(tournamentData) {
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -86,12 +86,16 @@ export default async function handler(req, res) {
 
     const { player1Score, player2Score, status, scheduledTime, player1SetScores, player2SetScores } = req.body;
 
-    const matchIndex = tournament.matches.findIndex(m => m.id === matchId);
-    if (matchIndex === -1) {
-      return res.status(404).json({ message: 'Match not found' });
+    if (!tournament.knockoutMatches) {
+      return res.status(404).json({ message: 'Knockout matches not initialized' });
     }
 
-    const match = tournament.matches[matchIndex];
+    const matchIndex = tournament.knockoutMatches.findIndex(m => m.id === matchId);
+    if (matchIndex === -1) {
+      return res.status(404).json({ message: 'Knockout match not found' });
+    }
+
+    const match = tournament.knockoutMatches[matchIndex];
     
     // Update match data
     if (player1Score !== undefined) match.player1Score = parseInt(player1Score) || 0;
@@ -104,26 +108,27 @@ export default async function handler(req, res) {
     // Determine winner if match is completed
     if (status === 'completed') {
       match.winnerId = match.player1Score > match.player2Score ? match.player1Id : match.player2Id;
+      // Update the bracket to propagate winner to next round
+      updateKnockoutBracket(tournament);
     } else {
       match.winnerId = undefined;
     }
 
-    tournament.matches[matchIndex] = match;
+    tournament.knockoutMatches[matchIndex] = match;
 
     // Save data to file after update
     await saveTournamentDataToFile(tournament);
 
-    // Update knockout bracket when group matches complete
-    if (status === 'completed') {
-      updateKnockoutBracket(tournament);
-    }
-
     res.status(200).json(match);
   } else if (req.method === 'GET') {
-    // Get specific match
-    const match = tournament.matches.find(m => m.id === matchId);
+    // Get specific knockout match
+    if (!tournament.knockoutMatches) {
+      return res.status(404).json({ message: 'Knockout matches not initialized' });
+    }
+
+    const match = tournament.knockoutMatches.find(m => m.id === matchId);
     if (!match) {
-      return res.status(404).json({ message: 'Match not found' });
+      return res.status(404).json({ message: 'Knockout match not found' });
     }
 
     res.status(200).json(match);

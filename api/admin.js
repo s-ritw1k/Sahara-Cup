@@ -161,8 +161,94 @@ export default function handler(req, res) {
       }
       break;
 
+    case 'update-knockout':
+      if (req.method === 'PUT' && matchId) {
+        try {
+          const { username, password, player1Score, player2Score, status, scheduledTime, player1SetScores, player2SetScores } = req.body;
+
+          // Authenticate
+          if (!authenticate(username, password)) {
+            return res.status(401).json({ message: 'Unauthorized' });
+          }
+
+          if (!tournament.knockoutMatches) {
+            return res.status(404).json({ message: 'Knockout matches not initialized' });
+          }
+
+          const matchIndex = tournament.knockoutMatches.findIndex(m => m.id === matchId);
+          if (matchIndex === -1) {
+            return res.status(404).json({ message: 'Knockout match not found' });
+          }
+
+          const match = tournament.knockoutMatches[matchIndex];
+          
+          // Update match data
+          if (player1Score !== undefined) match.player1Score = parseInt(player1Score) || 0;
+          if (player2Score !== undefined) match.player2Score = parseInt(player2Score) || 0;
+          if (status !== undefined) match.status = status;
+          if (scheduledTime !== undefined) match.scheduledTime = scheduledTime;
+          if (player1SetScores !== undefined) match.player1SetScores = player1SetScores;
+          if (player2SetScores !== undefined) match.player2SetScores = player2SetScores;
+
+          // Determine winner if match is completed
+          if (status === 'completed') {
+            match.winnerId = match.player1Score > match.player2Score ? match.player1Id : match.player2Id;
+          } else {
+            match.winnerId = undefined;
+          }
+
+          tournament.knockoutMatches[matchIndex] = match;
+
+          res.json({
+            success: true,
+            match: match,
+            message: 'Knockout match updated successfully'
+          });
+        } catch (error) {
+          console.error('Error updating knockout match:', error);
+          res.status(500).json({ message: 'Internal server error' });
+        }
+        return;
+      }
+      break;
+
+    case 'start-knockout':
+      if (req.method === 'POST' && matchId) {
+        try {
+          const { username, password } = req.body;
+
+          if (!authenticate(username, password)) {
+            return res.status(401).json({ message: 'Unauthorized' });
+          }
+
+          if (!tournament.knockoutMatches) {
+            return res.status(404).json({ message: 'Knockout matches not initialized' });
+          }
+
+          const matchIndex = tournament.knockoutMatches.findIndex(m => m.id === matchId);
+          if (matchIndex === -1) {
+            return res.status(404).json({ message: 'Knockout match not found' });
+          }
+
+          const match = tournament.knockoutMatches[matchIndex];
+          match.status = 'live';
+          tournament.knockoutMatches[matchIndex] = match;
+
+          res.json({
+            success: true,
+            match: match,
+            message: 'Knockout match started successfully'
+          });
+        } catch (error) {
+          console.error('Error starting knockout match:', error);
+          res.status(500).json({ message: 'Internal server error' });
+        }
+        return;
+      }
+      break;
+
     default:
-      res.status(400).json({ message: 'Invalid action. Use: update-statuses, update-match, or start-match' });
+      res.status(400).json({ message: 'Invalid action. Use: update-statuses, update-match, start-match, update-knockout, or start-knockout' });
       return;
   }
 
