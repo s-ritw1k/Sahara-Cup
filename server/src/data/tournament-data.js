@@ -927,9 +927,19 @@ export const tournament = {
             "player1Id": "p22",
             "player2Id": "p11",
             "player1Score": 0,
-            "player2Score": 0,
-            "status": "live",
+            "player2Score": 3,
+            "status": "completed",
             "scheduledTime": "2025-07-28T09:30:00Z",
+            "player1SetScores": [
+                1,
+                7, 
+                8
+            ],
+            "player2SetScores": [
+                11,
+                11,
+                11
+            ],
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 3"
@@ -937,7 +947,8 @@ export const tournament = {
             "player2Source": {
                 "type": "match",
                 "value": "Winner of Match 4"
-            }
+            },
+            "winnerId": "p11"
         },
         {
             "id": "k11",
