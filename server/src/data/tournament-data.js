@@ -926,7 +926,7 @@ export const tournament = {
             "round": "quarterfinal",
             "matchNumber": 2,
             "player1Id": "p22",
-            "player2Id": "p11",
+            // "player2Id": "p11",
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
