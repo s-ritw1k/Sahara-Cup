@@ -928,7 +928,7 @@ export const tournament = {
             "player2Id": "p11",
             "player1Score": 0,
             "player2Score": 0,
-            "status": "upcoming",
+            "status": "live",
             "scheduledTime": "2025-07-28T09:30:00Z",
             "player1Source": {
                 "type": "match",
@@ -943,7 +943,6 @@ export const tournament = {
             "id": "k11",
             "round": "quarterfinal",
             "matchNumber": 3,
-            // "player1Id": "p6",
             "player2Id": "p6",
             "player1Score": 0,
             "player2Score": 0,
@@ -1031,9 +1030,9 @@ export const tournament = {
     ]
 };
 
-export const defaultAdmin = {
-    id: 'admin1',
-    username: 'admin',
-    password: '$2a$10$rQzXZo.gOGNVUYyiVRvPE.eJVx3V/wJWD4y8QR4U4F0.F6qFsGz1K', // bcrypt hash of 'admin123'
-    name: 'Tournament Admin'
-};
+                        export const defaultAdmin = {
+                            id: 'admin1',
+                            username: 'admin',
+                            password: '$2a$10$rQzXZo.gOGNVUYyiVRvPE.eJVx3V/wJWD4y8QR4U4F0.F6qFsGz1K', // bcrypt hash of 'admin123'
+                            name: 'Tournament Admin'
+                        };
