@@ -34,11 +34,11 @@ export default function Matches() {
     const players: Player[] = [];
     
     matches.forEach(match => {
-      if (match.player1 && !playerSet.has(match.player1.id)) {
+      if (!playerSet.has(match.player1.id)) {
         playerSet.add(match.player1.id);
         players.push(match.player1);
       }
-      if (match.player2 && !playerSet.has(match.player2.id)) {
+      if (!playerSet.has(match.player2.id)) {
         playerSet.add(match.player2.id);
         players.push(match.player2);
       }

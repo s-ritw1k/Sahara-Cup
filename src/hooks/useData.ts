@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { tournamentApi } from '../services/api';
-import { socketService } from '../services/socket';
+import { SupabaseAPI } from '../services/supabase-api';
 import type { Tournament, Match, StandingsEntry, MatchWithPlayers } from '../types';
 
 export function useTournament() {
@@ -24,15 +24,13 @@ export function useTournament() {
 
     fetchTournament();
 
-    // Listen for real-time updates
-    const handleTournamentData = (data: Tournament) => {
+    // Setup Supabase real-time subscriptions for tournament data
+    const subscription = SupabaseAPI.subscribeToTournament((data) => {
       setTournament(data);
-    };
-
-    socketService.on('tournamentData', handleTournamentData);
+    });
 
     return () => {
-      socketService.off('tournamentData', handleTournamentData);
+      subscription?.unsubscribe();
     };
   }, []);
 
@@ -60,17 +58,13 @@ export function useMatches() {
 
     fetchMatches();
 
-    // Listen for real-time match updates
-    const handleMatchUpdate = (updatedMatch: Match) => {
-      setMatches(prev => prev.map(match => 
-        match.id === updatedMatch.id ? updatedMatch : match
-      ));
-    };
-
-    socketService.on('matchUpdated', handleMatchUpdate);
+    // Setup Supabase real-time subscriptions for matches
+    const subscription = SupabaseAPI.subscribeToMatches((updatedMatches) => {
+      setMatches(updatedMatches);
+    });
 
     return () => {
-      socketService.off('matchUpdated', handleMatchUpdate);
+      subscription?.unsubscribe();
     };
   }, []);
 
@@ -98,17 +92,11 @@ export function useStandings() {
 
     fetchStandings();
 
-    // Listen for real-time standings updates
-    const handleStandingsUpdate = (updatedStandings: StandingsEntry[]) => {
-      setStandings(updatedStandings);
-    };
-
-    socketService.on('standingsUpdated', handleStandingsUpdate);
-    socketService.on('standingsUpdate', handleStandingsUpdate);
+    // Note: Standings are calculated in real-time from match data
+    // No need for separate subscription as they update when matches change
 
     return () => {
-      socketService.off('standingsUpdated', handleStandingsUpdate);
-      socketService.off('standingsUpdate', handleStandingsUpdate);
+      // No cleanup needed for calculated standings
     };
   }, []);
 
@@ -124,17 +112,18 @@ export function useMatchesWithPlayers(): {
   const { matches, loading: matchesLoading, error } = useMatches();
 
   const matchesWithPlayers = matches
-    .filter(match => match.player1Id && match.player2Id) // Only filter out matches where BOTH players are undefined
     .map(match => {
-      const player1 = tournament?.players.find(p => p.id === match.player1Id);
-      const player2 = tournament?.players.find(p => p.id === match.player2Id);
+      // Find players, handling undefined player IDs for TBD knockout matches
+      const player1 = match.player1Id ? tournament?.players.find(p => p.id === match.player1Id) : null;
+      const player2 = match.player2Id ? tournament?.players.find(p => p.id === match.player2Id) : null;
       
       return {
         ...match,
-        player1: player1 || { id: match.player1Id, name: 'Unknown' },
-        player2: player2 || { id: match.player2Id, name: 'Unknown' },
+        player1: player1 || (match.player1Id ? { id: match.player1Id, name: 'Unknown' } : null),
+        player2: player2 || (match.player2Id ? { id: match.player2Id, name: 'Unknown' } : null),
       };
-    });
+    })
+    .filter((match): match is MatchWithPlayers => match.player1 !== null && match.player2 !== null); // Type guard filter
 
   return { 
     matches: matchesWithPlayers, 

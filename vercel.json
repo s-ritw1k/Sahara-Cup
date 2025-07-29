@@ -2,14 +2,6 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "api/standings/group/*.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -19,75 +11,11 @@
   ],
   "routes": [
     {
-      "src": "/api/tournament",
-      "dest": "/api/tournament.js"
-    },
-    {
-      "src": "/api/groups",
-      "dest": "/api/groups.js"
-    },
-    {
-      "src": "/api/standings/group/([^/]+)",
-      "dest": "/api/standings/group/[groupId].js?groupId=$1"
-    },
-    {
-      "src": "/api/admin\\?action=update-statuses",
-      "dest": "/api/admin.js?action=update-statuses"
-    },
-    {
-      "src": "/api/admin\\?action=update-match&matchId=([^&]+)",
-      "dest": "/api/admin.js?action=update-match&matchId=$1"
-    },
-    {
-      "src": "/api/admin\\?action=start-match&matchId=([^&]+)",
-      "dest": "/api/admin.js?action=start-match&matchId=$1"
-    },
-    {
-      "src": "/api/matches\\?status=upcoming",
-      "dest": "/api/matches.js?status=upcoming"
-    },
-    {
-      "src": "/api/matches\\?status=live",
-      "dest": "/api/matches.js?status=live"
-    },
-    {
-      "src": "/api/matches\\?type=knockout",
-      "dest": "/api/matches.js?type=knockout"
-    },
-    {
-      "src": "/api/matches",
-      "dest": "/api/matches.js"
-    },
-    {
-      "src": "/api/knockout",
-      "dest": "/api/matches.js?type=knockout"
-    },
-    {
-      "src": "/api/standings",
-      "dest": "/api/standings.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/vite.svg",
-      "dest": "/vite.svg"
-    },
-    {
-      "src": "/favicon.svg",
-      "dest": "/favicon.svg"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|webp|woff|woff2|ttf))",
-      "dest": "/$1"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }

@@ -6,17 +6,21 @@ export interface Player {
 
 export interface Match {
   id: string;
-  player1Id: string;
-  player2Id: string;
+  player1Id?: string; // Can be undefined for knockout matches that are TBD
+  player2Id?: string; // Can be undefined for knockout matches that are TBD
   player1Score: number;
   player2Score: number;
   player1SetScores?: number[]; // Individual set scores like [11, 8, 11] for 3 sets
   player2SetScores?: number[]; // Individual set scores like [4, 11, 6] for 3 sets
   scheduledTime: string;
   status: 'upcoming' | 'live' | 'completed';
-  groupId: string;
+  groupId?: string; // Empty for knockout matches
   winnerId?: string;
-  round: number;
+  round: number | string; // number for group rounds, string for knockout rounds
+  // Knockout-specific optional properties
+  matchNumber?: number;
+  player1Source?: { type: 'group' | 'match', value: string, position?: number };
+  player2Source?: { type: 'group' | 'match', value: string, position?: number };
 }
 
 // New knockout match interface
@@ -70,6 +74,6 @@ export interface StandingsEntry {
 }
 
 export interface MatchWithPlayers extends Match {
-  player1: Player;
-  player2: Player;
+  player1: Player; // Always present after filtering
+  player2: Player; // Always present after filtering
 }
