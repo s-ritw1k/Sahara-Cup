@@ -67,36 +67,82 @@ export default function Home() {
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {liveMatches.map((match) => (
-                  <div key={match.id} className="card-hover p-4">
-                    <div className="flex items-center justify-between">
+                  <div key={match.id} className="card-hover p-6 border-l-4 border-red-500">
+                    <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium text-white">
-                            {match.player1.name}
-                          </span>
-                          <span className="text-2xl font-bold text-primary-400 mx-4">
-                            {match.player1Score}
-                          </span>
+                        {/* Match Header */}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="text-center flex-1">
+                            <h3 className="font-semibold text-white text-lg mb-1">
+                              {match.player1.name}
+                            </h3>
+                            <div className="text-3xl font-bold text-primary-400 mb-2">
+                              {match.player1Score}
+                            </div>
+                            {/* Individual Set Scores for Player 1 */}
+                            {match.player1SetScores && match.player1SetScores.length > 0 && (
+                              <div className="flex justify-center space-x-2">
+                                {match.player1SetScores.map((score, index) => (
+                                  <span 
+                                    key={index} 
+                                    className={`px-2 py-1 rounded text-sm font-medium ${
+                                      score > (match.player2SetScores?.[index] || 0) 
+                                        ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                                        : 'bg-dark-700 text-dark-400 border border-dark-600'
+                                    }`}
+                                  >
+                                    {score}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="mx-6 text-center">
+                            <div className="text-xl font-bold text-red-400 mb-2">VS</div>
+                            <span className="status-live text-sm">
+                              <PlayIcon className="h-3 w-3 mr-1" />
+                              LIVE
+                            </span>
+                          </div>
+                          
+                          <div className="text-center flex-1">
+                            <h3 className="font-semibold text-white text-lg mb-1">
+                              {match.player2.name}
+                            </h3>
+                            <div className="text-3xl font-bold text-primary-400 mb-2">
+                              {match.player2Score}
+                            </div>
+                            {/* Individual Set Scores for Player 2 */}
+                            {match.player2SetScores && match.player2SetScores.length > 0 && (
+                              <div className="flex justify-center space-x-2">
+                                {match.player2SetScores.map((score, index) => (
+                                  <span 
+                                    key={index} 
+                                    className={`px-2 py-1 rounded text-sm font-medium ${
+                                      score > (match.player1SetScores?.[index] || 0) 
+                                        ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                                        : 'bg-dark-700 text-dark-400 border border-dark-600'
+                                    }`}
+                                  >
+                                    {score}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        <div className="flex items-center justify-between mt-2">
-                          <span className="font-medium text-white">
-                            {match.player2.name}
-                          </span>
-                          <span className="text-2xl font-bold text-primary-400 mx-4">
-                            {match.player2Score}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="ml-4 text-right">
-                        <span className="status-live">
-                          <PlayIcon className="h-3 w-3 mr-1" />
-                          LIVE
-                        </span>
-                        <p className="text-sm text-dark-400 mt-1">
-                          {match.player1.name} vs {match.player2.name}
-                        </p>
+                        
+                        {/* Match Details */}
+                        {(match.player1SetScores && match.player1SetScores.length > 0) && (
+                          <div className="text-center pt-3 border-t border-dark-700">
+                            <p className="text-sm text-dark-400">
+                              Set Scores • Match in Progress
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
