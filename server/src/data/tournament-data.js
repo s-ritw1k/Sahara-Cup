@@ -799,7 +799,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-29T09:00:00Z",
+            "scheduledTime": "2025-07-29T06:30:00Z",
             "player1Source": {
                 "type": "group",
                 "value": "Group A",
@@ -910,7 +910,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-30T07:00:00Z",
+            "scheduledTime": "2025-07-30T08:30:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 1"
@@ -958,7 +958,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-30T08:00:00Z",
+            "scheduledTime": "2025-07-30T09:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 5"
@@ -977,7 +977,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-30T08:30:00Z",
+            "scheduledTime": "2025-07-30T09:30:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of Match 7"
@@ -994,7 +994,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-30T07:00:00Z",
+            "scheduledTime": "2025-07-30T010:00:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of QF1"
@@ -1011,7 +1011,7 @@ export const tournament = {
             "player1Score": 0,
             "player2Score": 0,
             "status": "upcoming",
-            "scheduledTime": "2025-07-30T07:30:00Z",
+            "scheduledTime": "2025-07-30T010:30:00Z",
             "player1Source": {
                 "type": "match",
                 "value": "Winner of QF3"
