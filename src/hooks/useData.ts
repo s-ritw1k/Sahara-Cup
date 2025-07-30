@@ -131,3 +131,79 @@ export function useMatchesWithPlayers(): {
     error 
   };
 }
+
+export function useKnockoutMatches() {
+  const [knockoutMatches, setKnockoutMatches] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchKnockoutMatches = async () => {
+      try {
+        const data = await SupabaseAPI.getKnockoutMatches();
+        setKnockoutMatches(data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load knockout matches');
+        console.error('Knockout matches fetch error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchKnockoutMatches();
+
+    // Setup Supabase real-time subscriptions for knockout matches
+    const subscription = SupabaseAPI.subscribeToKnockoutMatches((payload) => {
+      if (payload.eventType === 'INSERT') {
+        setKnockoutMatches(prev => [...prev, payload.new]);
+      } else if (payload.eventType === 'UPDATE') {
+        setKnockoutMatches(prev => prev.map(match => 
+          match.id === payload.new.id ? payload.new : match
+        ));
+      } else if (payload.eventType === 'DELETE') {
+        setKnockoutMatches(prev => prev.filter(match => match.id !== payload.old.id));
+      }
+    });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, []);
+
+  return { knockoutMatches, loading, error };
+}
+
+export function useKnockoutMatchesWithPlayers() {
+  const { tournament } = useTournament();
+  const { knockoutMatches, loading: knockoutLoading, error } = useKnockoutMatches();
+
+  const knockoutMatchesWithPlayers = knockoutMatches.map(match => {
+    const player1 = match.player1_id ? tournament?.players.find(p => p.id === match.player1_id) : null;
+    const player2 = match.player2_id ? tournament?.players.find(p => p.id === match.player2_id) : null;
+    
+    return {
+      ...match,
+      id: match.id,
+      round: match.round,
+      matchNumber: match.match_number,
+      player1Id: match.player1_id,
+      player2Id: match.player2_id,
+      player1Score: match.player1_score,
+      player2Score: match.player2_score,
+      player1SetScores: match.player1_set_scores,
+      player2SetScores: match.player2_set_scores,
+      status: match.status,
+      scheduledTime: match.scheduled_time,
+      winnerId: match.winner_id,
+      player1: player1 || (match.player1_id ? { id: match.player1_id, name: 'TBD' } : { id: '', name: 'TBD' }),
+      player2: player2 || (match.player2_id ? { id: match.player2_id, name: 'TBD' } : { id: '', name: 'TBD' }),
+    };
+  });
+
+  return { 
+    knockoutMatches: knockoutMatchesWithPlayers, 
+    loading: knockoutLoading || !tournament, 
+    error 
+  };
+}

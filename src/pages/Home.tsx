@@ -1,23 +1,47 @@
-import { useStandings, useMatchesWithPlayers } from '../hooks/useData';
+import { useStandings, useMatchesWithPlayers, useKnockoutMatchesWithPlayers } from '../hooks/useData';
 import { format } from 'date-fns';
 import { TrophyIcon, FireIcon, ClockIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
+import { useState, useEffect } from 'react';
 import { AnimatedPingPongBall, AnimatedPaddle, AnimatedTable, BouncingBall, AnimatedTrophy, PingPongSpinner } from '../components/AnimatedSVGs';
+import Confetti from '../components/Confetti';
 
 export default function Home() {
   const { standings, loading: standingsLoading } = useStandings();
   const { matches, loading: matchesLoading } = useMatchesWithPlayers();
+  const { knockoutMatches, loading: knockoutLoading } = useKnockoutMatchesWithPlayers();
+  const [showConfetti, setShowConfetti] = useState(false);
 
-  const liveMatches = matches.filter(match => match.status === 'live');
-  const upcomingMatches = matches
-    .filter(match => match.status === 'upcoming')
-    .sort((a, b) => new Date(a.scheduledTime).getTime() - new Date(b.scheduledTime).getTime())
-    .slice(0, 3);
+  // Get finals matches
+  const finalsMatches = knockoutMatches.filter(match => match.round === 'final');
+  const allMatches = [...matches, ...knockoutMatches];
+  
+  // Calculate stats for display - using correct tournament numbers
+  const stats = {
+    total: 39, // 24 group stage + 15 knockout stage
+    completed: 38,
+    live: 0,
+    upcoming: 1 // finals match
+  };
+  
+  // Trigger confetti on finals day
+  useEffect(() => {
+    if (!knockoutLoading && finalsMatches.length > 0) {
+      // Show confetti after component mounts
+      const timer = setTimeout(() => {
+        setShowConfetti(true);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [knockoutLoading, finalsMatches.length]);
+
+  const liveMatches = allMatches.filter(match => match.status === 'live');
 
   const topPlayers = standings.slice(0, 3);
 
-  if (standingsLoading || matchesLoading) {
+  if (standingsLoading || matchesLoading || knockoutLoading) {
     return (
       <div className="animate-fade-in">
         <div className="text-center py-12">
@@ -37,9 +61,107 @@ export default function Home() {
 
   return (
     <div className="animate-fade-in space-y-8">
+      {/* Confetti Effect for Finals Day */}
+      <Confetti active={showConfetti} intensity="high" duration={8000} />
+      
+      {/* Finals Day Hero Section */}
+      {finalsMatches.length > 0 && (
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-yellow-900/20 via-red-900/20 to-orange-900/20 rounded-xl"></div>
+          <div className="relative card p-8 bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 border-2 border-yellow-500/30">
+            {/* Title Section */}
+            <div className="text-center mb-8">
+              <div className="flex justify-center items-center space-x-6 mb-6">
+                <TrophyIcon className="h-16 w-16 text-yellow-500 animate-pulse-glow" />
+                <div className="text-center">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 mb-2">
+                    FINALS DAY
+                  </h1>
+                  <p className="text-lg md:text-xl text-yellow-300 font-semibold">
+                    The Ultimate Championship Showdown
+                  </p>
+                </div>
+                <TrophyIcon className="h-16 w-16 text-yellow-500 animate-pulse-glow" />
+              </div>
+            </div>
+            
+            {/* Finals Matches */}
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 gap-6">
+                {finalsMatches.map((finalMatch) => (
+                  <div key={finalMatch.id} className="bg-gradient-to-br from-yellow-900/30 to-orange-900/30 p-6 rounded-xl border-2 border-yellow-500/50">
+                    <div className="text-center">
+                      <h3 className="text-2xl font-bold text-yellow-300 mb-6">🏆 FINAL MATCH 🏆</h3>
+                      
+                      {/* Match Details */}
+                      <div className="flex items-center justify-center mb-6">
+                        <div className="flex items-center justify-between w-full max-w-2xl">
+                          {/* Player 1 */}
+                          <div className="text-center flex-1">
+                            <div className="text-xl md:text-2xl font-bold text-white mb-3">{finalMatch.player1.name}</div>
+                            {finalMatch.status === 'live' && (
+                              <div className="text-4xl md:text-5xl font-bold text-yellow-400">{finalMatch.player1Score}</div>
+                            )}
+                          </div>
+                          
+                          {/* VS Section */}
+                          <div className="text-center mx-8">
+                            <div className="text-2xl md:text-3xl font-bold text-yellow-400 mb-3">VS</div>
+                            {finalMatch.status === 'live' && (
+                              <span className="inline-flex items-center bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                                <PlayIcon className="h-4 w-4 mr-2" />
+                                LIVE
+                              </span>
+                            )}
+                            {finalMatch.status === 'upcoming' && (
+                              <span className="inline-flex items-center bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                                <ClockIcon className="h-4 w-4 mr-2" />
+                                UPCOMING
+                              </span>
+                            )}
+                          </div>
+                          
+                          {/* Player 2 */}
+                          <div className="text-center flex-1">
+                            <div className="text-xl md:text-2xl font-bold text-white mb-3">{finalMatch.player2.name}</div>
+                            {finalMatch.status === 'live' && (
+                              <div className="text-4xl md:text-5xl font-bold text-yellow-400">{finalMatch.player2Score}</div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Match Status */}
+                      <div className="text-center">
+                        {finalMatch.status === 'upcoming' && (
+                          <div className="bg-blue-900/30 border border-blue-500/50 rounded-lg px-6 py-3 inline-block">
+                            <p className="text-blue-300 font-semibold">
+                              Scheduled: {format(new Date(finalMatch.scheduledTime), 'MMMM dd, yyyy • h:mm a')}
+                            </p>
+                          </div>
+                        )}
+                        {finalMatch.status === 'completed' && finalMatch.winnerId && (
+                          <div className="bg-green-900/30 border border-green-500/50 rounded-lg px-6 py-4 inline-block">
+                            <p className="text-green-400 font-bold text-xl mb-2">
+                              🏆 TOURNAMENT CHAMPION 🏆
+                            </p>
+                            <p className="text-green-300 text-2xl font-bold">
+                              {finalMatch.winnerId === finalMatch.player1Id ? finalMatch.player1.name : finalMatch.player2.name}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Live Matches */}
-        <div className="lg:col-span-2">
+        {/* Live Matches - Full Width */}
+        <div className="lg:col-span-3">
           <div className="card p-6">
             <div className="flex items-center mb-6">
               <div className="flex items-center space-x-2">
@@ -56,18 +178,19 @@ export default function Home() {
             </div>
 
             {liveMatches.length === 0 ? (
-              <div className="text-center py-8 text-dark-400">
+              <div className="text-center py-12 text-dark-400">
                 <div className="flex justify-center items-center space-x-2 mb-4">
                   <ClockIcon className="h-12 w-12 text-dark-600" />
                   <AnimatedTable className="h-8 w-12" />
                 </div>
-                <p className="flex items-center justify-center space-x-2">
-                  <span>No live matches at the moment</span>
+                <p className="flex items-center justify-center space-x-2 text-lg">
+                  <span>The finals await... No live matches at the moment</span>
                   <BouncingBall className="h-4 w-4" />
                 </p>
+                <p className="text-sm text-dark-500 mt-2">Get ready for the championship showdown!</p>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {liveMatches.map((match) => (
                   <div key={match.id} className="card-hover p-6 border-l-4 border-red-500">
                     <div className="flex items-start justify-between">
@@ -84,7 +207,7 @@ export default function Home() {
                             {/* Individual Set Scores for Player 1 */}
                             {match.player1SetScores && match.player1SetScores.length > 0 && (
                               <div className="flex justify-center space-x-2">
-                                {match.player1SetScores.map((score, index) => (
+                                {match.player1SetScores.map((score: number, index: number) => (
                                   <span 
                                     key={index} 
                                     className={`px-2 py-1 rounded text-sm font-medium ${
@@ -118,7 +241,7 @@ export default function Home() {
                             {/* Individual Set Scores for Player 2 */}
                             {match.player2SetScores && match.player2SetScores.length > 0 && (
                               <div className="flex justify-center space-x-2">
-                                {match.player2SetScores.map((score, index) => (
+                                {match.player2SetScores.map((score: number, index: number) => (
                                   <span 
                                     key={index} 
                                     className={`px-2 py-1 rounded text-sm font-medium ${
@@ -150,80 +273,11 @@ export default function Home() {
               </div>
             )}
           </div>
-
-          {/* Upcoming Matches */}
-          <div className="card p-6 mt-6">
-            <div className="flex items-center mb-6">
-              <ClockIcon className="h-6 w-6 text-blue-500 mr-2" />
-              <h2 className="text-2xl font-bold text-white">Next Matches</h2>
-            </div>
-
-            <div className="space-y-4">
-              {upcomingMatches.map((match) => (
-                <div key={match.id} className="card-hover p-5 border-l-4 border-blue-500/30 hover:border-blue-500 transition-all duration-300">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-center mb-3">
-                        <div className="text-center flex-1">
-                          <span className="font-semibold text-white text-lg block">
-                            {match.player1.name}
-                          </span>
-                        </div>
-                        <div className="mx-6 text-center">
-                          <span className="text-pro-dark-400 text-xl font-bold">VS</span>
-                        </div>
-                        <div className="text-center flex-1">
-                          <span className="font-semibold text-white text-lg block">
-                            {match.player2.name}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <span className="text-sm text-table-green-400 font-medium bg-table-green-900/30 px-3 py-1 rounded-full">
-                          {match.groupId 
-                            ? `Group ${String.fromCharCode(65 + parseInt(match.groupId.replace('g', '')) - 1)}`
-                            : (() => {
-                                const knockoutMatch = match as any;
-                                if (knockoutMatch.round === 'round16') return 'Round of 16';
-                                if (knockoutMatch.round === 'quarterfinal') return 'Quarter Final';
-                                if (knockoutMatch.round === 'semifinal') return 'Semi Final';
-                                if (knockoutMatch.round === 'final') return 'Final';
-                                return 'Knockout';
-                              })()
-                          }
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-4 pt-4 border-t border-pro-dark-700 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="bg-blue-500/20 px-3 py-2 rounded-lg border border-blue-500/30">
-                        <div className="text-xs text-blue-300 font-medium">DATE</div>
-                        <div className="text-sm text-white font-semibold">
-                          {format(new Date(match.scheduledTime), 'MMM dd, yyyy')}
-                        </div>
-                      </div>
-                      <div className="bg-blue-500/20 px-3 py-2 rounded-lg border border-blue-500/30">
-                        <div className="text-xs text-blue-300 font-medium">TIME</div>
-                        <div className="text-sm text-white font-semibold">
-                          {format(new Date(match.scheduledTime), 'h:mm a')}
-                        </div>
-                      </div>
-                    </div>
-                    <span className="status-upcoming px-4 py-2">
-                      <ClockIcon className="h-4 w-4 mr-1" />
-                      UPCOMING
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
-        {/* Top Players */}
-        <div className="lg:col-span-1">
+        {/* Top Players & Stats Row */}
+        <div className="lg:col-span-2">
+          {/* Top Players */}
           <div className="card p-6">
             <div className="flex items-center mb-6">
               <div className="flex items-center space-x-2">
@@ -270,34 +324,98 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Tournament Stats */}
-          <div className="card p-6 mt-6">
+        {/* Tournament Stats */}
+        <div className="lg:col-span-1">
+          <div className="card p-6">
             <h3 className="text-xl font-bold text-white mb-4">Tournament Stats</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
+                <span className="text-dark-400">Group Stage</span>
+                <span className="font-semibold text-blue-300">24</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-dark-400">Knockout Stage</span>
+                <span className="font-semibold text-purple-300">15</span>
+              </div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent my-2"></div>
+              <div className="flex justify-between">
                 <span className="text-dark-400">Total Matches</span>
-                <span className="font-semibold text-white">{matches.length}</span>
+                <span className="font-semibold text-white">{stats.total}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-dark-400">Completed</span>
-                <span className="font-semibold text-green-400">
-                  {matches.filter(m => m.status === 'completed').length}
-                </span>
+                <span className="font-semibold text-green-400">{stats.completed}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-dark-400">Live</span>
-                <span className="font-semibold text-red-400">
-                  {matches.filter(m => m.status === 'live').length}
-                </span>
+                <span className="font-semibold text-red-400">{stats.live}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-dark-400">Upcoming</span>
-                <span className="font-semibold text-blue-400">
-                  {matches.filter(m => m.status === 'upcoming').length}
-                </span>
+                <span className="font-semibold text-blue-400">{stats.upcoming}</span>
               </div>
             </div>
+          </div>
+
+          {/* Finals Day Countdown/Info */}
+          <div className="card p-6 mt-6 bg-gradient-to-br from-yellow-900/20 to-orange-900/20 border border-yellow-500/30">
+            <h3 className="text-xl font-bold text-yellow-300 mb-4 flex items-center">
+              <TrophyIcon className="h-5 w-5 mr-2 animate-pulse-glow" />
+              Finals Day Special
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-yellow-200">Date</span>
+                <span className="font-semibold text-white">July 30, 2025</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-yellow-200">Stakes</span>
+                <span className="font-semibold text-yellow-400">Championship</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-yellow-200">Prize</span>
+                <span className="font-semibold text-yellow-400">Glory & Trophy</span>
+              </div>
+              <div className="mt-4 p-3 bg-yellow-900/30 rounded-lg border border-yellow-600/30">
+                <p className="text-yellow-200 text-center font-medium">
+                  🎉 Historic finale awaits! 🎉
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tournament Highlights Section */}
+      <div className="card p-8 bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90">
+        <h2 className="text-3xl font-bold text-white mb-8 flex items-center">
+          <FireIcon className="h-8 w-8 mr-3 text-red-500 animate-pulse-glow" />
+          Tournament Journey
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Journey Phase Cards */}
+          <div className="bg-gradient-to-br from-green-900/30 to-green-800/20 p-6 rounded-xl border border-green-600/30 text-center">
+            <div className="text-4xl mb-4">🏁</div>
+            <h3 className="text-xl font-bold text-green-300 mb-2">Group Stage</h3>
+            <p className="text-green-200 text-sm mb-3">8 groups, intense battles</p>
+            <div className="text-2xl font-bold text-white">COMPLETED</div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-orange-900/30 to-orange-800/20 p-6 rounded-xl border border-orange-600/30 text-center">
+            <div className="text-4xl mb-4">⚔️</div>
+            <h3 className="text-xl font-bold text-orange-300 mb-2">Knockouts</h3>
+            <p className="text-orange-200 text-sm mb-3">Single elimination rounds</p>
+            <div className="text-2xl font-bold text-white">IN PROGRESS</div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-yellow-900/30 to-yellow-800/20 p-6 rounded-xl border border-yellow-600/30 text-center">
+            <div className="text-4xl mb-4">🏆</div>
+            <h3 className="text-xl font-bold text-yellow-300 mb-2">Finals</h3>
+            <p className="text-yellow-200 text-sm mb-3">Championship showdown</p>
+            <div className="text-2xl font-bold text-yellow-400">TODAY!</div>
           </div>
         </div>
       </div>
